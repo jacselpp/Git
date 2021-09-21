@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "86254844206",
+    "project_id": "detooo-recargas",
+    "storage_bucket": "detooo-recargas.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:86254844206:android:f12503d0d478ac485522bf",
+        "android_client_info": {
+          "package_name": "com.detooo.recargas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "86254844206-76urgc6rechqms8na0u8vhubqn71m2s0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzp12B9x1FyTr3SVHA6BKUbogWUnn5XvE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "86254844206-76urgc6rechqms8na0u8vhubqn71m2s0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
