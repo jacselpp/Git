@@ -1,3 +1,4 @@
+import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/services/shared_preference.dart';
 import 'package:get_it/get_it.dart';
 

@@ -4,6 +4,7 @@ import 'package:detooo_recargas/app/app_locator.dart';
 import 'package:detooo_recargas/app/app_routes.dart';
 import 'package:detooo_recargas/services/shared_preference.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lottie/lottie.dart';
 
 class SplashView extends StatefulWidget {
@@ -13,33 +14,31 @@ class SplashView extends StatefulWidget {
   _SplashViewState createState() => _SplashViewState();
 }
 
-class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
-  late final AnimationController _controller;
+class _SplashViewState extends State<SplashView> {
   @override
   void initState() {
     super.initState();
-    _controller = AnimationController(vsync: this);
     showSplash();
+  }
+
+  @override
+  void dispose() {
+    // _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: LottieBuilder.asset(
-        'assets/animations/Animacion_Carga.json',
-        width: 250,
-        height: 250,
-        controller: _controller,
-        onLoaded: (composition) {
-          _controller
-            ..duration = composition.duration
-            ..repeat();
-        },
+      child: Stack(
+        children: [
+          _buildBackground(),
+        ],
       ),
     );
   }
 
-  void showSplash() => Timer(const Duration(milliseconds: 5000), navigate);
+  void showSplash() => Timer(const Duration(milliseconds: 50000), navigate);
 
   void navigate() {
     final sharedPreference = locator<SharedPreference>();
@@ -53,5 +52,12 @@ class _SplashViewState extends State<SplashView> with TickerProviderStateMixin {
           ? Navigator.of(context).pushReplacementNamed(Routes.LOGIN)
           : Navigator.of(context).pushReplacementNamed(Routes.HOME);
     }
+  }
+
+  Widget _buildBackground() {
+    return SvgPicture.asset(
+      'assets/images/1_Imagen_Recargas.svg',
+      fit: BoxFit.fitHeight,
+    );
   }
 }
