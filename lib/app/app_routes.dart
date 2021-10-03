@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:flutter/material.dart';
 
 import 'package:detooo_recargas/ui/views/auth/login_view.dart';

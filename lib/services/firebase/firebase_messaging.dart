@@ -1,17 +1,20 @@
+// ignore_for_file: avoid_print
+
 import 'dart:async';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 
 class PushNotificationService {
   static FirebaseMessaging messaging = FirebaseMessaging.instance;
   static String? token;
-  static StreamController<String> _messageStream =
-      new StreamController.broadcast();
+  static final StreamController<String> _messageStream =
+      StreamController.broadcast();
   static Stream<String> get messagesStream => _messageStream.stream;
 
   static Future _backgroundHandler(RemoteMessage message) async {
     // print( 'onBackground Handler ${ message.messageId }');
-    print(message.data);
+    if (kDebugMode) print(message.data);
     _messageStream.add(message.data['product'] ?? 'No data');
   }
 

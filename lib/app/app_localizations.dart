@@ -49,7 +49,8 @@ class AppLocalizations {
   String read(String key) => _localizedStrings[key] ?? key;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -59,7 +60,7 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
 
   @override
   Future<AppLocalizations> load(Locale locale) async {
-    AppLocalizations localizations = new AppLocalizations(locale);
+    AppLocalizations localizations = AppLocalizations(locale);
     await localizations.load();
     return localizations;
   }

@@ -29,7 +29,7 @@ class _RegisterViewState extends State<RegisterView> {
 
   void _handleVisiblePassword2() {
     setState(() {
-      _visiblePassword1 = !_visiblePassword1;
+      _visiblePassword2 = !_visiblePassword2;
     });
   }
 

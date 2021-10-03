@@ -1,8 +1,10 @@
+// ignore_for_file: camel_case_extensions
+
 import 'dart:ui';
 
 extension extString on String {
   toColor() {
-    var hexColor = this.replaceAll("#", "");
+    var hexColor = replaceAll("#", "");
     if (hexColor.length == 6) {
       hexColor = "FF$hexColor";
     }
@@ -28,7 +30,7 @@ extension extString on String {
     return phoneRegExp.hasMatch(this);
   }
 
-  bool get isNumeric => !this.isEmpty && num.tryParse(this) != null;
+  bool get isNumeric => !isEmpty && num.tryParse(this) != null;
 
   // bool get isValidName {
   //   final nameRegExp = new RegExp(r"^\s*([A-Za-z]{1,}([\.,] |[-']| ))+[A-Za-z]+\.?\s*$");

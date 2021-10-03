@@ -12,3 +12,4 @@ export './layouts/auth_layout.dart';
 //Widgets
 export './widgets/text_button.dart';
 export './widgets/text_form_field.dart';
+export './widgets/dialogs.dart';
