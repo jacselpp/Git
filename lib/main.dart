@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:detooo_recargas/app/app_localizations.dart';
+import 'package:detooo_recargas/app/app_providers.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -39,34 +40,36 @@ class MyApp extends StatelessWidget {
         WidgetsBinding.instance!.window.platformBrightness == Brightness.dark;
     final initTheme =
         isPlatformDark ? AppTheme().darkTheme : AppTheme().lightTheme;
-    return ThemeProvider(
-      initTheme: initTheme,
-      builder: (_, myTheme) => MaterialApp(
-        title: 'Detooo Recargas',
-        debugShowCheckedModeBanner: false,
-        // Routes
-        initialRoute: Routes.LOGIN,
-        onGenerateRoute: Routes.appRoutes,
-        // THEMES
-        theme: myTheme,
+    return AppProvider(
+      child: ThemeProvider(
+        initTheme: initTheme,
+        builder: (_, myTheme) => MaterialApp(
+          title: 'Detooo Recargas',
+          debugShowCheckedModeBanner: false,
+          // Routes
+          initialRoute: Routes.LOGIN,
+          onGenerateRoute: Routes.appRoutes,
+          // THEMES
+          theme: myTheme,
 
-        // LANGUAGE
-        supportedLocales: const [Locale('en', ''), Locale('es', '')],
-        localizationsDelegates: const [
-          AppLocalizations.delegate,
-          GlobalMaterialLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-        ],
+          // LANGUAGE
+          supportedLocales: const [Locale('en', ''), Locale('es', '')],
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+          ],
 
-        localeResolutionCallback: (locale, supportedLocales) {
-          for (var supportedLocale in supportedLocales) {
-            if (supportedLocale.languageCode == locale!.languageCode) {
-              return supportedLocale;
+          localeResolutionCallback: (locale, supportedLocales) {
+            for (var supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale!.languageCode) {
+                return supportedLocale;
+              }
             }
-          }
-          return supportedLocales.first;
-        },
+            return supportedLocales.first;
+          },
+        ),
       ),
     );
   }

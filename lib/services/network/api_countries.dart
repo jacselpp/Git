@@ -7,11 +7,11 @@ import 'package:retrofit/retrofit.dart';
 part 'api_countries.g.dart';
 
 @RestApi(baseUrl: API_COUNTRIES)
-abstract class ApiZTStreaming {
-  factory ApiZTStreaming(Dio dio, {String baseUrl}) = _ApiZTStreaming;
+abstract class APICountries {
+  factory APICountries(Dio dio, {String baseUrl}) = _APICountries;
 
-  static ApiZTStreaming common() => ApiZTStreaming(dioCommon());
+  static APICountries common() => APICountries(dioCommon());
 
   @GET("")
-  Future<List<Country>> userRead();
+  Future<List<Country>> countriesRead();
 }

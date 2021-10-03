@@ -1,7 +1,10 @@
 import 'package:detooo_recargas/app/app_localizations.dart';
+import 'package:detooo_recargas/services/providers/countries_provider.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
+import 'package:detooo_recargas/utils/search/country_search_delegate.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({Key? key}) : super(key: key);
@@ -100,7 +103,9 @@ class _RegisterViewState extends State<RegisterView> {
             hintText: locale.read('country_hint'),
             onChanged: (a) {},
             readOnly: true,
-            onTap: () {},
+            onTap: () {
+              _showSearch(context);
+            },
             controller: _countryController,
           ),
           const SizedBox(
@@ -203,5 +208,14 @@ class _RegisterViewState extends State<RegisterView> {
         ],
       ),
     );
+  }
+
+  void _showSearch(BuildContext context) async {
+    await context.read<CountriesProvider>().fetchAllCountries().then((value) {
+      showSearch(
+        context: context,
+        delegate: CountrySearch(),
+      );
+    });
   }
 }

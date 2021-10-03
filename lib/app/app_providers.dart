@@ -1,3 +1,4 @@
+import 'package:detooo_recargas/services/providers/countries_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -10,7 +11,11 @@ class AppProvider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: const [],
+      providers: [
+        ChangeNotifierProvider<CountriesProvider>(
+          create: (context) => CountriesProvider(),
+        ),
+      ],
       child: DismissKeyboard(child: child),
     );
   }

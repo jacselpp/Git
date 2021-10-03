@@ -6,8 +6,8 @@ part of 'api_countries.dart';
 // RetrofitGenerator
 // **************************************************************************
 
-class _ApiZTStreaming implements ApiZTStreaming {
-  _ApiZTStreaming(this._dio, {this.baseUrl}) {
+class _APICountries implements APICountries {
+  _APICountries(this._dio, {this.baseUrl}) {
     baseUrl ??=
         'https://restcountries.com/v2/all?fields=name,alpha2Code,alpha3Code,callingCodes,flag';
   }
@@ -17,7 +17,7 @@ class _ApiZTStreaming implements ApiZTStreaming {
   String? baseUrl;
 
   @override
-  Future<List<Country>> userRead() async {
+  Future<List<Country>> countriesRead() async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
