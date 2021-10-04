@@ -1,8 +1,7 @@
-import 'dart:io';
+import 'package:flutter/material.dart';
 
 import 'package:detooo_recargas/models/auth/countries_model.dart';
 import 'package:detooo_recargas/services/network/api_countries.dart';
-import 'package:flutter/cupertino.dart';
 
 class CountriesProvider extends ChangeNotifier {
   List<Country> _allCountryList = const [];

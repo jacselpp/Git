@@ -1,6 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
+import 'package:detooo_recargas/models/auth/municipios_model.dart';
+import 'package:detooo_recargas/models/auth/provincias_model.dart';
 import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/network/dio_instances.dart';
 import 'package:detooo_recargas/utils/constant.dart';
@@ -27,4 +29,10 @@ abstract class APIUsers {
 
   @PUT("profile")
   Future<User> updateProfile(@Body() User user);
+
+  @GET("municipios")
+  Future<List<Municipios>> fetchMunicipios();
+
+  @GET("provincias")
+  Future<List<Provincias>> fetchProvincias();
 }
