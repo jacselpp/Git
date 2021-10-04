@@ -50,6 +50,7 @@ class LoggingInterceptor extends Interceptor {
 class AuthInterceptor extends Interceptor {
   @override
   Future onRequest(options, handler) async {
+    print(options.path);
     // String? _userKey = await SharedPreference.readUserKey;
     // if (_userKey != null) {
     //   options.headers.addAll(
