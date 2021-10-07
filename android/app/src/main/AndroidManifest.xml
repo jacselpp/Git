@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.detooo.recargas">
    <application
-        android:label="detooo_recargas"
-        android:icon="@mipmap/ic_launcher">
+        android:label="Detooo Recargas"
+        android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
