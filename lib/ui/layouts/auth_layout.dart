@@ -1,6 +1,7 @@
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AuthLayout extends StatelessWidget {
   final Widget child;
@@ -31,7 +32,12 @@ class AuthLayout extends StatelessWidget {
   ) =>
       SliverAppBar(
         backgroundColor: Theme.of(context).backgroundColor,
-        expandedHeight: isPortrait ? 280.0 : 0.0,
+        expandedHeight: isPortrait
+            ? ScreenHelper.screenHeightPercentage(
+                context,
+                percentage: .35,
+              )
+            : 0.0,
         floating: false,
         pinned: false,
         flexibleSpace: FlexibleSpaceBar(
@@ -40,7 +46,11 @@ class AuthLayout extends StatelessWidget {
               Positioned(
                 child: Align(
                   alignment: Alignment.bottomCenter,
-                  child: Container(),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: SvgPicture.asset(
+                        'assets/images/1_Identidad_Recargas_v.svg'),
+                  ),
                 ),
               ),
             ],

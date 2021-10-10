@@ -12,6 +12,7 @@ class Provincias {
     this.slug,
   });
 
+  @JsonKey(name: "_id")
   String? id;
   String? nombre;
   String? slug;

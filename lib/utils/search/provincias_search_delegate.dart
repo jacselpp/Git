@@ -130,6 +130,7 @@ class ProvinciasSearch extends SearchDelegate<Provincias> {
                   trailing: const Icon(Icons.keyboard_arrow_right_rounded),
                   onTap: () => {
                     provincias = list[i],
+                    context.read<ProvinciasProvider>().setProvincia(list[i]),
                     close(context, provincias),
                   },
                 ),

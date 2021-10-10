@@ -6,65 +6,93 @@ import 'package:flutter/material.dart';
 
 import 'package:detooo_recargas/app/app_localizations.dart';
 
+import '../app_ui.dart';
+
 //! SNACKBARS
-enum TypeMessage { ERROR, INFO }
+enum TypeMessage { ERROR, INFO, LOADING }
 
 void showMessage(BuildContext context, String message, TypeMessage type) {
   SnackBar snack;
   switch (type) {
     case TypeMessage.ERROR:
-      snack = messageSnack(message, Colors.red, Icons.error);
+      snack = messageSnack(
+        message,
+        Colors.red,
+        const Icon(
+          Icons.error,
+          color: Colors.white,
+        ),
+        2,
+      );
       break;
     case TypeMessage.INFO:
-      snack = messageSnack(message, Colors.green, Icons.info);
+      snack = messageSnack(
+        message,
+        Colors.green,
+        const Icon(
+          Icons.info,
+          color: Colors.white,
+        ),
+        2,
+      );
+      break;
+    case TypeMessage.LOADING:
+      snack = messageSnack(
+        message,
+        primaryColor,
+        Container(
+          padding: const EdgeInsets.all(4.0),
+          child: const CircularProgressIndicator(
+            strokeWidth: 4.0,
+          ),
+        ),
+        10,
+      );
       break;
     default:
-      snack = messageSnack(message, Colors.green, Icons.info);
+      snack = messageSnack(
+        message,
+        Colors.green,
+        const Icon(
+          Icons.info,
+          color: Colors.white,
+        ),
+        2,
+      );
   }
   ScaffoldMessenger.of(context)
     ..clearSnackBars()
     ..showSnackBar(snack);
 }
 
-void showLoading(BuildContext context) {
-  SnackBar snack = loadingSnack(Colors.black, null);
-  ScaffoldMessenger.of(context)
-    ..clearSnackBars()
-    ..showSnackBar(snack);
-}
-
-SnackBar messageSnack(String text, Color color, IconData? icon) {
+SnackBar messageSnack(String text, Color color, Widget icon, int duration) {
   return SnackBar(
-    backgroundColor: color,
-    content: Row(
-      children: [
-        Container(
-          margin: const EdgeInsets.only(right: 6.00),
-          child: Icon(icon ?? Icons.info, color: Colors.white),
+    duration: Duration(seconds: duration),
+    backgroundColor: Colors.transparent,
+    padding: const EdgeInsets.symmetric(horizontal: 1.0),
+    content: Card(
+      elevation: 5.0,
+      margin: const EdgeInsets.all(0.0),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10.0),
+          topRight: Radius.circular(10.0),
         ),
-        Text(text, style: const TextStyle(color: Colors.white)),
-      ],
-    ),
-  );
-}
-
-SnackBar loadingSnack(Color color, IconData? icon) {
-  return SnackBar(
-    backgroundColor: color,
-    content: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: const [
-        SizedBox(
-          width: 25.0,
-          height: 25.0,
-          child: CircularProgressIndicator(
-            color: Colors.white,
-          ),
+      ),
+      color: color,
+      child: Padding(
+        padding: const EdgeInsets.all(4.0),
+        child: Row(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(right: 6.00),
+              child: icon,
+            ),
+            Text(text, style: const TextStyle(color: Colors.white)),
+          ],
         ),
-      ],
+      ),
     ),
-    duration: const Duration(minutes: 1),
   );
 }
 

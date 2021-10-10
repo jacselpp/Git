@@ -13,7 +13,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       municipios: (json['municipios'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      avatar: json['avatar'] as String?,
+      avatar: json['avatar'] as String? ?? '',
       role: (json['role'] as List<dynamic>?)?.map((e) => e as String).toList(),
       saldo: json['saldo'] as int?,
       isActive: json['isActive'] as bool?,
@@ -34,8 +34,8 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       stripeCustomerId: json['stripeCustomerId'] as String?,
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
-      password: json['password'] as String?,
       accessToken: json['access_token'] as String?,
+      acceptTerms: json['acceptTerms'] as bool? ?? true,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -56,6 +56,48 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'stripeCustomerId': instance.stripeCustomerId,
       'createdAt': instance.createdAt,
       'updatedAt': instance.updatedAt,
-      'password': instance.password,
       'access_token': instance.accessToken,
+      'acceptTerms': instance.acceptTerms,
+    };
+
+UserRegister _$UserRegisterFromJson(Map<String, dynamic> json) => UserRegister(
+      country: json['country'] == null
+          ? null
+          : Country.fromJson(json['country'] as Map<String, dynamic>),
+      fullname: json['fullname'] as String?,
+      email: json['email'] as String?,
+      movil: json['movil'] as String?,
+      phone: json['phone'] as String?,
+      provincia: json['provincia'] as String?,
+      municipios: (json['municipios'] as List<dynamic>?)
+          ?.map((e) => e as String)
+          .toList(),
+      password: json['password'] as String?,
+      confirmPassword: json['confirmPassword'] as String?,
+      acceptTerms: json['acceptTerms'] as bool? ?? true,
+    )..id = json['_id'] as String?;
+
+Map<String, dynamic> _$UserRegisterToJson(UserRegister instance) =>
+    <String, dynamic>{
+      'country': instance.country,
+      'municipios': instance.municipios,
+      '_id': instance.id,
+      'fullname': instance.fullname,
+      'email': instance.email,
+      'movil': instance.movil,
+      'phone': instance.phone,
+      'provincia': instance.provincia,
+      'password': instance.password,
+      'confirmPassword': instance.confirmPassword,
+      'acceptTerms': instance.acceptTerms,
+    };
+
+UserLogin _$UserLoginFromJson(Map<String, dynamic> json) => UserLogin(
+      username: json['username'] as String?,
+      password: json['password'] as String?,
+    );
+
+Map<String, dynamic> _$UserLoginToJson(UserLogin instance) => <String, dynamic>{
+      'username': instance.username,
+      'password': instance.password,
     };

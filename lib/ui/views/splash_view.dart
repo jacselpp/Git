@@ -6,6 +6,8 @@ import 'package:detooo_recargas/services/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../screen_helper.dart';
+
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
 
@@ -31,32 +33,31 @@ class _SplashViewState extends State<SplashView> {
     return Center(
       child: Stack(
         children: [
-          _buildBackground(),
+          _buildBackground(context),
         ],
       ),
     );
   }
 
-  void showSplash() => Timer(const Duration(milliseconds: 50000), navigate);
+  void showSplash() => Timer(const Duration(milliseconds: 500), navigate);
 
   void navigate() {
-    final sharedPreference = locator<SharedPreference>();
-    String? token = sharedPreference.readToken;
-    bool? notFirstTime = sharedPreference.getIsNotFirstTime;
+    String? token = SharedPreference.readUserKey;
 
-    if (notFirstTime == null || notFirstTime == false) {
-      Navigator.of(context).pushReplacementNamed(Routes.LOGIN);
-    } else {
-      (token == null || token.isEmpty)
-          ? Navigator.of(context).pushReplacementNamed(Routes.LOGIN)
-          : Navigator.of(context).pushReplacementNamed(Routes.HOME);
-    }
+    // if (notFirstTime == null || notFirstTime == false) {
+    //   Navigator.of(context).pushReplacementNamed(Routes.LOGIN);
+    // } else {
+    (token == null || token.isEmpty)
+        ? Navigator.of(context).pushReplacementNamed(Routes.LOGIN)
+        : Navigator.of(context).pushReplacementNamed(Routes.HOME);
+    // }
   }
 
-  Widget _buildBackground() {
+  Widget _buildBackground(BuildContext context) {
     return SvgPicture.asset(
       'assets/images/1_Imagen_Recargas.svg',
-      fit: BoxFit.fitHeight,
+      fit:
+          ScreenHelper.isPortrait(context) ? BoxFit.fitHeight : BoxFit.fitWidth,
     );
   }
 }

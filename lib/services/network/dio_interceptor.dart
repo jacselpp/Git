@@ -6,6 +6,8 @@ import 'package:dio/dio.dart';
 import 'package:detooo_recargas/utils/handle_errors.dart';
 import 'package:detooo_recargas/utils/log_utils.dart';
 
+import '../shared_preference.dart';
+
 class LoggingInterceptor extends Interceptor {
   @override
   Future onRequest(options, handler) async {
@@ -50,13 +52,15 @@ class LoggingInterceptor extends Interceptor {
 class AuthInterceptor extends Interceptor {
   @override
   Future onRequest(options, handler) async {
-    print(options.path);
-    // String? _userKey = await SharedPreference.readUserKey;
-    // if (_userKey != null) {
-    //   options.headers.addAll(
-    //     {'Authorization': 'Token $_userKey'},
-    //   );
-    // }
+    options.headers.addAll({'APPOrigin': 'https://recargas.detooo.com/'});
+
+    String? _userKey = SharedPreference.readUserKey;
+    if (_userKey != null) {
+      options.headers.addAll(
+        {'Authorization': 'Token $_userKey'},
+      );
+    }
+
     return handler.next(options);
   }
 

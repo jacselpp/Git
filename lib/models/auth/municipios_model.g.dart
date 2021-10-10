@@ -8,7 +8,7 @@ part of 'municipios_model.dart';
 
 Municipios _$MunicipiosFromJson(Map<String, dynamic> json) => Municipios(
       shopDelivery: json['shopDelivery'] as bool?,
-      id: json['id'] as String?,
+      id: json['_id'] as String?,
       nombre: json['nombre'] as String?,
       provincia: json['provincia'] as String?,
     );
@@ -16,7 +16,7 @@ Municipios _$MunicipiosFromJson(Map<String, dynamic> json) => Municipios(
 Map<String, dynamic> _$MunicipiosToJson(Municipios instance) =>
     <String, dynamic>{
       'shopDelivery': instance.shopDelivery,
-      'id': instance.id,
+      '_id': instance.id,
       'nombre': instance.nombre,
       'provincia': instance.provincia,
     };

@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 
 class ProvinciasProvider extends ChangeNotifier {
   List<Provincias> _allProvinciasList = const [];
-  Provincias _provinciaSelected = Provincias();
+  Provincias? _provinciaSelected;
 
-  Provincias get municipiosSelected => _provinciaSelected;
+  Provincias? get provinciaSelected => _provinciaSelected;
 
-  void setMunicipios(Provincias provincia) {
+  void setProvincia(Provincias provincia) {
     _provinciaSelected = provincia;
     notifyListeners();
   }

@@ -1,6 +1,12 @@
+import 'dart:html';
+
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/app/app_routes.dart';
+import 'package:detooo_recargas/models/auth/user_model.dart';
+import 'package:detooo_recargas/services/network/api_users.dart';
+import 'package:detooo_recargas/services/shared_preference.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
+import 'package:detooo_recargas/utils/handle_errors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -101,7 +107,9 @@ class _LoginViewState extends State<LoginView> {
                 child: CustomTextButton(
                   color: primaryColor,
                   label: locale.read('login'),
-                  onPressed: () {},
+                  onPressed: () {
+                    _handleLogin(context);
+                  },
                 ),
               )
             ],
@@ -132,5 +140,20 @@ class _LoginViewState extends State<LoginView> {
         ],
       ),
     );
+  }
+
+  void _handleLogin(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+    if (!_formKey.currentState!.validate()) return;
+    showMessage(context, locale.read('loading'), TypeMessage.LOADING);
+    UserLogin userLogin = UserLogin(
+      username: _usernameController.text,
+      password: _passwordController.text,
+    );
+
+    APIUsers.common().login(userLogin).then((value) {
+      SharedPreference.saveUserKey(value.accessToken!);
+      Navigator.of(context).pushReplacementNamed(Routes.HOME);
+    }).catchError((e) => HandleError.logError(context, e));
   }
 }
