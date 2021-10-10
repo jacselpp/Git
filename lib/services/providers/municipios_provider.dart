@@ -3,8 +3,9 @@ import 'package:detooo_recargas/services/network/api_users.dart';
 import 'package:flutter/material.dart';
 
 class MunicipiosProvider extends ChangeNotifier {
-  List<Municipios> _allMunicipiosList = const [];
-  List<Municipios> _municipiosSelected = const [];
+  List<Municipios> _allMunicipiosList = [];
+  List<Municipios> _allMunicipiosListProvince = [];
+  List<Municipios> _municipiosSelected = [];
 
   List<Municipios> get municipiosSelected => _municipiosSelected;
 
@@ -22,8 +23,8 @@ class MunicipiosProvider extends ChangeNotifier {
 
   List<Municipios> get allMunicipios => _allMunicipiosList;
 
-  void setAllMunicipios(List<Municipios> countries) {
-    _allMunicipiosList = countries;
+  void setAllMunicipios(List<Municipios> municipios) {
+    _allMunicipiosList = municipios;
     notifyListeners();
   }
 
@@ -45,5 +46,33 @@ class MunicipiosProvider extends ChangeNotifier {
               value.nombre!.toLowerCase().startsWith(query.toLowerCase()),
         )
         .toList();
+  }
+
+  Future<List<Municipios>> municipiosFrom(String provincia) async {
+    if (_allMunicipiosListProvince.isEmpty) {
+      List<Municipios> municipios =
+          await APIUsers.common().fetchMunicipiosProvincia(provincia);
+      setAllMunicipiosProvince(municipios);
+      return municipios;
+    } else {
+      return _allMunicipiosListProvince;
+    }
+  }
+
+  void setAllMunicipiosProvince(List<Municipios> municipios) {
+    _allMunicipiosListProvince = municipios;
+    notifyListeners();
+  }
+
+  bool selectedMunicipios(String id) =>
+      _municipiosSelected.any((element) => element.id == id);
+
+  void setMunicipiosSelected(Municipios municipio) {
+    if (!_municipiosSelected.any((element) => element.id == municipio.id)) {
+      _municipiosSelected.add(municipio);
+    } else {
+      _municipiosSelected.remove(municipio);
+    }
+    notifyListeners();
   }
 }

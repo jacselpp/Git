@@ -24,7 +24,7 @@ Future<void> main() async {
   _enablePlatformOverrideForDesktop();
   setupLocator();
 
-  await SharedPreference().initialize();
+  await SharedPreference.initialize();
 
   if (!kIsWeb) await PushNotificationService.initializeApp();
 
@@ -47,7 +47,7 @@ class MyApp extends StatelessWidget {
           title: 'Detooo Recargas',
           debugShowCheckedModeBanner: false,
           // Routes
-          initialRoute: Routes.LOGIN,
+          initialRoute: Routes.SPLASH,
           onGenerateRoute: Routes.appRoutes,
           // THEMES
           theme: myTheme,

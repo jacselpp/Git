@@ -49,6 +49,7 @@
             "args": [
                 "--web-port=80",
                 "-v",
+                "--dart-define=FLUTTER_WEB_CANVASKIT_URL=http://localhost/canvaskit-wasm@0.28.1/bin/"
             ]
         },
     ]

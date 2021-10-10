@@ -20,8 +20,8 @@ extension extString on String {
   }
 
   bool get isValidPhone {
-    final phoneRegExp = RegExp(r"^([\+])([0-9]{1,3}[0-9]{8,12})$");
-    // final phoneRegExp = RegExp(r"^([0-9]{8,12})$");
+    // final phoneRegExp = RegExp(r"^([\+])([0-9]{1,3}[0-9]{8,12})$");
+    final phoneRegExp = RegExp(r"^([0-9]{8,8})$");
     return phoneRegExp.hasMatch(this);
   }
 

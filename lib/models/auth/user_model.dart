@@ -9,7 +9,7 @@ class User {
   User({
     this.country,
     this.municipios,
-    this.avatar,
+    this.avatar = '',
     this.role,
     this.saldo,
     this.isActive,
@@ -24,13 +24,13 @@ class User {
     this.stripeCustomerId,
     this.createdAt,
     this.updatedAt,
-    this.password,
     this.accessToken,
+    this.acceptTerms = true,
   });
 
   Country? country;
   List<String>? municipios;
-  String? avatar;
+  String? avatar = '';
   List<String>? role;
   int? saldo;
   bool? isActive;
@@ -46,10 +46,59 @@ class User {
   String? stripeCustomerId;
   String? createdAt;
   String? updatedAt;
-  String? password;
   @JsonKey(name: "access_token")
   String? accessToken;
+  bool? acceptTerms = true;
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);
+}
+
+@JsonSerializable()
+class UserRegister {
+  UserRegister({
+    this.country,
+    this.fullname,
+    this.email,
+    this.movil,
+    this.phone,
+    this.provincia,
+    this.municipios,
+    this.password,
+    this.confirmPassword,
+    this.acceptTerms = true,
+  });
+
+  Country? country;
+  List<String>? municipios;
+  @JsonKey(name: "_id")
+  String? id;
+  String? fullname;
+  String? email;
+  String? movil;
+  String? phone;
+  String? provincia;
+  String? password;
+  String? confirmPassword;
+  bool? acceptTerms = true;
+
+  factory UserRegister.fromJson(Map<String, dynamic> json) =>
+      _$UserRegisterFromJson(json);
+  Map<String, dynamic> toJson() => _$UserRegisterToJson(this);
+}
+
+@JsonSerializable()
+class UserLogin {
+  UserLogin({
+    this.username,
+    this.password,
+  });
+
+  String? username;
+
+  String? password;
+
+  factory UserLogin.fromJson(Map<String, dynamic> json) =>
+      _$UserLoginFromJson(json);
+  Map<String, dynamic> toJson() => _$UserLoginToJson(this);
 }

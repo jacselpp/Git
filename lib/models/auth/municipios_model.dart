@@ -14,6 +14,7 @@ class Municipios {
   });
 
   bool? shopDelivery;
+  @JsonKey(name: "_id")
   String? id;
   String? nombre;
   String? provincia;

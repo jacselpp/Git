@@ -16,10 +16,13 @@ abstract class APIUsers {
   static APIUsers common() => APIUsers(dioCommon());
 
   @POST("auth/register/")
-  Future<User> register(@Body() User user);
+  Future<User> register(@Body() UserRegister user);
 
   @POST("auth/login")
-  Future<User> login(@Body() User user);
+  Future<User> login(@Body() UserLogin user);
+
+  @POST("auth/reset-password/request")
+  Future<User> passwordReset(@Body() User user);
 
   @PATCH("profile/change_password")
   Future<User> changePassword(@Body() User user);
@@ -32,6 +35,15 @@ abstract class APIUsers {
 
   @GET("municipios")
   Future<List<Municipios>> fetchMunicipios();
+
+  @GET("municipios/provincia/{id}")
+  Future<List<Municipios>> fetchMunicipiosProvincia(@Path("id") String id);
+
+  @GET("auth/reset-password/verify/{id}")
+  Future<List<Municipios>> verifyChangePassword(@Path("id") String id);
+
+  @GET("/auth/verify/{id}")
+  Future<List<Municipios>> verifyCreateUser(@Path("id") String id);
 
   @GET("provincias")
   Future<List<Provincias>> fetchProvincias();
