@@ -31,7 +31,7 @@ class AuthLayout extends StatelessWidget {
     bool isPortrait,
   ) =>
       SliverAppBar(
-        backgroundColor: Theme.of(context).backgroundColor,
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         expandedHeight: isPortrait
             ? ScreenHelper.screenHeightPercentage(
                 context,
@@ -49,7 +49,9 @@ class AuthLayout extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: SvgPicture.asset(
-                        'assets/images/1_Identidad_Recargas_v.svg'),
+                      'assets/images/1_Identidad_Recargas_v.svg',
+                      color: primaryColor,
+                    ),
                   ),
                 ),
               ),

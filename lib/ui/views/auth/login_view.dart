@@ -6,6 +6,7 @@ import 'package:detooo_recargas/services/providers/profile_provider.dart';
 import 'package:detooo_recargas/services/shared_preference.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:detooo_recargas/utils/handle_errors.dart';
+import 'package:detooo_recargas/utils/validators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -82,6 +83,16 @@ class _LoginViewState extends State<LoginView> {
           CustomTextFormField(
             controller: _usernameController,
             label: locale.read('phone_email'),
+            validator: (value) {
+              String? isEmail = validateEmail(context: context, value: value);
+              String? isPhone = validatePhone(context: context, value: value);
+
+              if (isEmail == null || isPhone == null) {
+                return null;
+              } else {
+                return locale.read('error_invalid_phone_email');
+              }
+            },
           ),
           const SizedBox(
             height: 10,
@@ -90,6 +101,10 @@ class _LoginViewState extends State<LoginView> {
             controller: _passwordController,
             obscureText: _visiblePassword,
             label: locale.read('password'),
+            validator: (value) => validatePassword(
+              context: context,
+              value: value,
+            ),
             suffixIcon: IconButton(
               onPressed: _handleVisiblePassword,
               icon: Icon(
@@ -143,6 +158,7 @@ class _LoginViewState extends State<LoginView> {
   }
 
   void _handleLogin(BuildContext context) {
+    FocusScope.of(context).requestFocus(FocusNode());
     final locale = AppLocalizations.of(context)!;
     if (!_formKey.currentState!.validate()) return;
     showMessage(context, locale.read('loading'), TypeMessage.LOADING);
@@ -153,7 +169,8 @@ class _LoginViewState extends State<LoginView> {
 
     APIUsers.common().login(userLogin).then((value) {
       SharedPreference.saveUserKey(value.accessToken!);
-      context.read<ProfileProvider>().setProfile(value);
+      showMessage(context, locale.read('done_login'), TypeMessage.INFO);
+
       Navigator.of(context).pushReplacementNamed(Routes.HOME);
     }).catchError((e) => HandleError.logError(context, e));
   }

@@ -13,6 +13,16 @@ class ProvinciasProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<Provincias> currentProvincia(String id) async {
+    if (_provinciaSelected != null && _provinciaSelected!.id == id) {
+      return _provinciaSelected!;
+    }
+    return await APIUsers.common().fetchProvincia(id).then((value) {
+      _provinciaSelected = value;
+      return value;
+    });
+  }
+
   Future<List<Provincias>> get allCountriesList async {
     if (_allProvinciasList.isEmpty) {
       await fetchAllProvincias();

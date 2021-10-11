@@ -2,6 +2,7 @@
 
 import 'dart:async';
 
+import 'package:detooo_recargas/services/repository/user_repository.dart';
 import 'package:dio/dio.dart';
 import 'package:detooo_recargas/utils/handle_errors.dart';
 import 'package:detooo_recargas/utils/log_utils.dart';
@@ -52,7 +53,7 @@ class LoggingInterceptor extends Interceptor {
 class AuthInterceptor extends Interceptor {
   @override
   Future onRequest(options, handler) async {
-    options.headers.addAll({'APPOrigin': 'https://recargas.detooo.com/'});
+    options.headers.addAll({'app_origin': 'https://recargas.detooo.com/'});
 
     String? _userKey = SharedPreference.readUserKey;
     if (_userKey != null) {
@@ -68,7 +69,7 @@ class AuthInterceptor extends Interceptor {
   @override
   Future onError(DioError err, handler) async {
     if (err.response?.statusCode! == 401) {
-      // UserRepository().logoutWithOutToken();
+      UserRepository().logout();
     }
     return handler.next(err);
   }

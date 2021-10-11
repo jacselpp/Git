@@ -1,18 +1,20 @@
+import 'package:detooo_recargas/services/providers/profile_provider.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+
 import 'package:detooo_recargas/models/auth/countries_model.dart';
 import 'package:detooo_recargas/models/auth/municipios_model.dart';
 import 'package:detooo_recargas/models/auth/provincias_model.dart';
 import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/network/api_users.dart';
 import 'package:detooo_recargas/services/providers/provincias_provider.dart';
-import 'package:detooo_recargas/ui/views/auth/activate_view.dart';
+import 'package:detooo_recargas/ui/layouts/home_layout.dart';
 import 'package:detooo_recargas/ui/views/auth/municipios_view.dart';
 import 'package:detooo_recargas/utils/handle_errors.dart';
 import 'package:detooo_recargas/utils/search/provincias_search_delegate.dart';
 import 'package:detooo_recargas/utils/validators.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
 
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/services/providers/countries_provider.dart';
@@ -95,12 +97,21 @@ class _RegisterViewState extends State<RegisterView> {
     if (_municipiosSelected != null) {
       _municipiosController.value = TextEditingValue(text: _textMunicipios);
     }
+
     if (_provinciaSelected != null) {
       _provinciasController.value =
           TextEditingValue(text: _provinciaSelected?.nombre ?? "");
     }
+
     final locale = AppLocalizations.of(context)!;
-    return AuthLayout(
+
+    User? user = context.watch<ProfileProvider>().profile;
+
+    if (user != null) {
+      List<Municipios>? _municipiosSelec;
+    }
+
+    return HomeLayout(
       child: Card(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
@@ -200,43 +211,6 @@ class _RegisterViewState extends State<RegisterView> {
               context: context,
               value: value,
             ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          CustomTextFormField(
-            controller: _password1Controller,
-            obscureText: _visiblePassword1,
-            label: locale.read('password'),
-            suffixIcon: IconButton(
-              onPressed: _handleVisiblePassword1,
-              icon: Icon(
-                (_visiblePassword1) ? Icons.visibility_off : Icons.visibility,
-              ),
-            ),
-            validator: (value) => validatePassword(
-              context: context,
-              value: value,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          CustomTextFormField(
-            controller: _password2Controller,
-            obscureText: _visiblePassword2,
-            label: locale.read('repeat_password'),
-            suffixIcon: IconButton(
-              onPressed: _handleVisiblePassword2,
-              icon: Icon(
-                (_visiblePassword2) ? Icons.visibility_off : Icons.visibility,
-              ),
-            ),
-            validator: (value) {
-              if (value != _password1Controller.text) {
-                return locale.read('error_password_no_match');
-              }
-            },
           ),
           const SizedBox(
             height: 10,
@@ -376,12 +350,6 @@ class _RegisterViewState extends State<RegisterView> {
 
   void _handleRegister(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (_) => const ActivateUserView(),
-      ),
-      (w) => false,
-    );
 
     if (!_formKey.currentState!.validate()) return;
     showMessage(context, locale.read('loading'), TypeMessage.LOADING);

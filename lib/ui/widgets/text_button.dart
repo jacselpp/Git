@@ -15,8 +15,6 @@ class CustomTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    bool isDark = ThemeProvider.of(context)!.brightness == Brightness.dark;
-
     return TextButton(
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all<Color>(color),
@@ -30,8 +28,8 @@ class CustomTextButton extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         child: Text(
           label,
-          style: TextStyle(
-            color: isDark ? Colors.black : Colors.white,
+          style: const TextStyle(
+            color: Colors.white,
             fontSize: 14.0,
             fontWeight: FontWeight.bold,
           ),

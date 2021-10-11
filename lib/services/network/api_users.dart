@@ -39,6 +39,9 @@ abstract class APIUsers {
   @GET("municipios/provincia/{id}")
   Future<List<Municipios>> fetchMunicipiosProvincia(@Path("id") String id);
 
+  @GET("provincias/{id}")
+  Future<Provincias> fetchProvincia(@Path("id") String id);
+
   @GET("auth/reset-password/verify/{id}")
   Future<List<Municipios>> verifyChangePassword(@Path("id") String id);
 

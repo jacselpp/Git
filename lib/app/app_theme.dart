@@ -16,6 +16,16 @@ class AppTheme {
       ),
     ),
     iconTheme: const IconThemeData(color: Colors.black),
+    inputDecorationTheme: const InputDecorationTheme(
+      labelStyle: TextStyle(
+        fontSize: 14.0,
+        color: primaryColor,
+      ),
+      hintStyle: TextStyle(
+        fontSize: 14.0,
+        color: primaryColor,
+      ),
+    ),
   );
 
   ThemeData darkTheme = ThemeData.dark().copyWith(
@@ -29,5 +39,8 @@ class AppTheme {
       ),
     ),
     iconTheme: const IconThemeData(color: Colors.white),
+    buttonTheme: const ButtonThemeData(
+      textTheme: ButtonTextTheme.normal,
+    ),
   );
 }

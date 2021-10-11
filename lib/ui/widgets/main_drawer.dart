@@ -1,4 +1,5 @@
 import 'package:detooo_recargas/models/auth/user_model.dart';
+import 'package:detooo_recargas/services/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -35,7 +36,9 @@ class MainDrawer extends StatelessWidget {
               Icons.logout,
               locale.read('logout'),
               context,
-              () {},
+              () {
+                UserRepository().logout();
+              },
             ),
             const Divider(
               thickness: 2.0,
@@ -47,7 +50,6 @@ class MainDrawer extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context) {
-    User? profile = context.watch<ProfileProvider>().profile;
     return SizedBox(
       height: 250.0,
       child: Stack(
@@ -79,26 +81,74 @@ class MainDrawer extends StatelessWidget {
               ),
             ),
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: CircleAvatar(
-                      maxRadius: 40.0,
-                      backgroundColor: Colors.transparent,
-                      backgroundImage: NetworkImage(profile?.avatar ?? ""),
-                    ),
+          (context.watch<ProfileProvider>().profile != null)
+              ? Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: CircleAvatar(
+                              maxRadius: 40.0,
+                              backgroundColor: Colors.transparent,
+                              backgroundImage: NetworkImage(
+                                  context
+                                          .watch<ProfileProvider>()
+                                          .profile
+                                          ?.avatar ??
+                                      "",
+                                  scale: 20.0),
+                            ),
+                          ),
+                        ],
+                      ),
+                      Text(context.watch<ProfileProvider>().profile?.fullname ??
+                          ''),
+                      Text(context.watch<ProfileProvider>().profile?.email ??
+                          ''),
+                    ],
                   ),
-                ],
-              ),
-              Text(profile?.fullname ?? ''),
-              Text(profile?.email ?? ''),
-            ],
-          ),
+                )
+              : Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Container(
+                              width: 80.0,
+                              height: 80.0,
+                              decoration: const BoxDecoration(
+                                color: primaryColor,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(40.0),
+                                ),
+                              ),
+                              child: Center(
+                                child: Icon(
+                                  Icons.supervised_user_circle_sharp,
+                                  size: 75.0,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Text(''),
+                      const Text(''),
+                    ],
+                  ),
+                ),
         ],
       ),
     );
