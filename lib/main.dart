@@ -38,11 +38,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final isPlatformDark =
         WidgetsBinding.instance!.window.platformBrightness == Brightness.dark;
-    final initTheme =
-        isPlatformDark ? AppTheme().darkTheme : AppTheme().lightTheme;
     return AppProvider(
       child: ThemeProvider(
-        initTheme: initTheme,
+        initTheme: SharedPreference.getDarkMode,
         builder: (_, myTheme) => MaterialApp(
           title: 'Detooo Recargas',
           debugShowCheckedModeBanner: false,

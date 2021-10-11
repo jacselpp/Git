@@ -57,7 +57,7 @@ class AuthInterceptor extends Interceptor {
     String? _userKey = SharedPreference.readUserKey;
     if (_userKey != null) {
       options.headers.addAll(
-        {'Authorization': 'Token $_userKey'},
+        {'Authorization': 'Bearer $_userKey'},
       );
     }
 

@@ -1,14 +1,14 @@
-import 'dart:html';
-
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/app/app_routes.dart';
 import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/network/api_users.dart';
+import 'package:detooo_recargas/services/providers/profile_provider.dart';
 import 'package:detooo_recargas/services/shared_preference.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:detooo_recargas/utils/handle_errors.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -153,6 +153,7 @@ class _LoginViewState extends State<LoginView> {
 
     APIUsers.common().login(userLogin).then((value) {
       SharedPreference.saveUserKey(value.accessToken!);
+      context.read<ProfileProvider>().setProfile(value);
       Navigator.of(context).pushReplacementNamed(Routes.HOME);
     }).catchError((e) => HandleError.logError(context, e));
   }

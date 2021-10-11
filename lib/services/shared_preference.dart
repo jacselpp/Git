@@ -1,3 +1,5 @@
+import 'package:detooo_recargas/app/app_theme.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreference {
@@ -28,7 +30,14 @@ class SharedPreference {
   static get deleteAppToken => _preference.remove(_appToken);
 
   // Theme: ------------------------------------------------------
-  static bool? get getDarkMode => _preference.getBool(_darkMode);
+  static ThemeData get getDarkMode {
+    if (_preference.getBool(_darkMode) != null &&
+        _preference.getBool(_darkMode) == true) {
+      return AppTheme().darkTheme;
+    }
+    return AppTheme().lightTheme;
+  }
+
   static Future setDarkMode(bool value) async =>
       await _preference.setBool(_darkMode, value);
 }

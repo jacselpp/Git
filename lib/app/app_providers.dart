@@ -1,5 +1,6 @@
 import 'package:detooo_recargas/services/providers/countries_provider.dart';
 import 'package:detooo_recargas/services/providers/municipios_provider.dart';
+import 'package:detooo_recargas/services/providers/profile_provider.dart';
 import 'package:detooo_recargas/services/providers/provincias_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -22,6 +23,9 @@ class AppProvider extends StatelessWidget {
         ),
         ChangeNotifierProvider<MunicipiosProvider>(
           create: (context) => MunicipiosProvider(),
+        ),
+        ChangeNotifierProvider<ProfileProvider>(
+          create: (context) => ProfileProvider(),
         ),
       ],
       child: DismissKeyboard(child: child),
