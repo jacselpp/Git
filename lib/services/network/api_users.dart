@@ -16,7 +16,7 @@ abstract class APIUsers {
   static APIUsers common() => APIUsers(dioCommon());
 
   @POST("auth/register/")
-  Future<User> register(@Body() UserRegister user);
+  Future<User> register(@Body() User user);
 
   @POST("auth/login")
   Future<User> login(@Body() UserLogin user);

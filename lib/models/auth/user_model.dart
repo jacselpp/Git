@@ -4,12 +4,11 @@ import 'package:json_annotation/json_annotation.dart';
 part 'user_model.g.dart';
 
 @JsonSerializable()
-@Entity(tableName: 'user', primaryKeys: ['id'])
 class User {
   User({
     this.country,
-    this.municipios,
-    this.avatar = '',
+    this.municipios = const ['5f10b9aed6c90e1c8c0920a8'],
+    this.avatar,
     this.role,
     this.saldo,
     this.isActive,
@@ -20,17 +19,20 @@ class User {
     this.email,
     this.movil,
     this.phone,
-    this.provincia,
+    this.provincia = '5ed67a87af617d3cd4f36a76',
     this.stripeCustomerId,
     this.createdAt,
     this.updatedAt,
     this.accessToken,
     this.acceptTerms = true,
+    this.password,
+    this.confirmPassword,
   });
-
+  String? password;
+  String? confirmPassword;
   Country? country;
-  List<String>? municipios;
-  String? avatar = '';
+  List<String>? municipios = ['5f10b9aed6c90e1c8c0920a8'];
+  String? avatar;
   List<String>? role;
   int? saldo;
   bool? isActive;
@@ -42,13 +44,15 @@ class User {
   String? email;
   String? movil;
   String? phone;
-  String? provincia;
+  String? provincia = '5ed67a87af617d3cd4f36a76';
   String? stripeCustomerId;
   String? createdAt;
   String? updatedAt;
   @JsonKey(name: "access_token")
   String? accessToken;
   bool? acceptTerms = true;
+  @JsonKey(name: 'origin_type')
+  String originType = 'movil';
 
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
   Map<String, dynamic> toJson() => _$UserToJson(this);

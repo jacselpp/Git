@@ -21,8 +21,8 @@ class HomeLayout extends StatelessWidget {
               width: 50.0,
               child: SvgPicture.asset(
                 ThemeProvider.of(context)!.brightness == Brightness.light
-                    ? 'assets/images/Recargas_Imagotipo.svg'
-                    : 'assets/images/Recargas_Imagotipo_dark.svg',
+                    ? 'assets/images/Recargas_Identidad_H.svg'
+                    : 'assets/images/Recargas_Identidad_H_dark.svg',
               ),
             ),
             const Padding(

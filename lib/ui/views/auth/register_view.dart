@@ -189,17 +189,7 @@ class _RegisterViewState extends State<RegisterView> {
               value: value,
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
-          CustomTextFormField(
-            controller: _phoneController,
-            label: locale.read('phone'),
-            validator: (value) => validatePhone(
-              context: context,
-              value: value,
-            ),
-          ),
+
           const SizedBox(
             height: 10,
           ),
@@ -274,9 +264,9 @@ class _RegisterViewState extends State<RegisterView> {
             },
             controller: _provinciasController,
             validator: (s) {
-              if (_provinciaSelected?.nombre == null) {
-                return locale.read('error_select_province');
-              }
+              // if (_provinciaSelected?.nombre == null) {
+              //   return locale.read('error_select_province');
+              // }
             },
           ),
           const SizedBox(
@@ -290,9 +280,9 @@ class _RegisterViewState extends State<RegisterView> {
             onChanged: (a) {},
             readOnly: true,
             validator: (s) {
-              if (_provinciaSelected?.id == null) {
-                return locale.read('error_select_municipalities');
-              }
+              // if (_provinciaSelected?.id == null) {
+              //   return locale.read('error_select_municipalities');
+              // }
             },
             onTap: () async {
               FocusScope.of(context).requestFocus(FocusNode());
@@ -307,13 +297,14 @@ class _RegisterViewState extends State<RegisterView> {
                 if (mun != null) {
                   _municipiosSelected = mun;
                 }
-              } else {
-                showMessage(
-                  context,
-                  locale.read('select_province_first'),
-                  TypeMessage.ERROR,
-                );
               }
+              // } else {
+              //   showMessage(
+              //     context,
+              //     locale.read('select_province_first'),
+              //     TypeMessage.ERROR,
+              //   );
+              // }
             },
           ),
           const SizedBox(
@@ -373,16 +364,13 @@ class _RegisterViewState extends State<RegisterView> {
     if (!_formKey.currentState!.validate()) return;
     showMessage(context, locale.read('loading'), TypeMessage.LOADING);
 
-    UserRegister userRegister = UserRegister(
+    User userRegister = User(
       fullname: _fullNameController.text,
-      country: _countrySelected,
+      country: _countrySelected!,
       email: _emailController.text,
-      phone: _phoneController.text,
       movil: _movilController.text,
       password: _password1Controller.text,
       confirmPassword: _password2Controller.text,
-      provincia: _provinciaSelected!.id,
-      municipios: _textMunicipiosId,
       acceptTerms: true,
     );
     APIUsers.common()
@@ -392,10 +380,11 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   void _handleSuccsess(User value, BuildContext context) {
+    print(value.toJson());
     final locale = AppLocalizations.of(context)!;
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(
-        builder: (_) => ActivateUserView(value.id),
+        builder: (_) => ActivateUserView(value.id!),
       ),
       (w) => false,
     );

@@ -11,9 +11,10 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
           ? null
           : Country.fromJson(json['country'] as Map<String, dynamic>),
       municipios: (json['municipios'] as List<dynamic>?)
-          ?.map((e) => e as String)
-          .toList(),
-      avatar: json['avatar'] as String? ?? '',
+              ?.map((e) => e as String)
+              .toList() ??
+          const ['5f10b9aed6c90e1c8c0920a8'],
+      avatar: json['avatar'] as String?,
       role: (json['role'] as List<dynamic>?)?.map((e) => e as String).toList(),
       saldo: json['saldo'] as int?,
       isActive: json['isActive'] as bool?,
@@ -30,15 +31,19 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       email: json['email'] as String?,
       movil: json['movil'] as String?,
       phone: json['phone'] as String?,
-      provincia: json['provincia'] as String?,
+      provincia: json['provincia'] as String? ?? '5ed67a87af617d3cd4f36a76',
       stripeCustomerId: json['stripeCustomerId'] as String?,
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
       accessToken: json['access_token'] as String?,
       acceptTerms: json['acceptTerms'] as bool? ?? true,
-    );
+      password: json['password'] as String?,
+      confirmPassword: json['confirmPassword'] as String?,
+    )..originType = json['origin_type'] as String;
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
+      'password': instance.password,
+      'confirmPassword': instance.confirmPassword,
       'country': instance.country,
       'municipios': instance.municipios,
       'avatar': instance.avatar,
@@ -58,6 +63,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'updatedAt': instance.updatedAt,
       'access_token': instance.accessToken,
       'acceptTerms': instance.acceptTerms,
+      'origin_type': instance.originType,
     };
 
 UserRegister _$UserRegisterFromJson(Map<String, dynamic> json) => UserRegister(

@@ -53,7 +53,7 @@ class LoggingInterceptor extends Interceptor {
 class AuthInterceptor extends Interceptor {
   @override
   Future onRequest(options, handler) async {
-    options.headers.addAll({'app_origin': 'https://recargas.detooo.com/'});
+    options.headers.addAll({'origin_type': 'movil'});
 
     String? _userKey = SharedPreference.readUserKey;
     if (_userKey != null) {
