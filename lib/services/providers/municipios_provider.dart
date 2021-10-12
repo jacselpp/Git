@@ -1,5 +1,6 @@
 import 'package:detooo_recargas/models/auth/municipios_model.dart';
 import 'package:detooo_recargas/services/network/api_users.dart';
+import 'package:detooo_recargas/services/shared_preference.dart';
 import 'package:flutter/material.dart';
 
 class MunicipiosProvider extends ChangeNotifier {
@@ -11,6 +12,7 @@ class MunicipiosProvider extends ChangeNotifier {
 
   void setMunicipios(List<Municipios> municipios) {
     _municipiosSelected = municipios;
+    SharedPreference.setMunicipios(municipios);
     notifyListeners();
   }
 
@@ -21,7 +23,19 @@ class MunicipiosProvider extends ChangeNotifier {
     return _allMunicipiosList;
   }
 
-  List<Municipios> get allMunicipios => _allMunicipiosList;
+  List<Municipios> get allMunicipios {
+    if (_allMunicipiosList.isEmpty) {
+      fetchAllMunicipios();
+    }
+    return _allMunicipiosList;
+  }
+
+  List<Municipios> allMunicipiosProvince(String provincia) {
+    if (_allMunicipiosListProvince.isEmpty) {
+      municipiosFrom(provincia);
+    }
+    return _allMunicipiosListProvince;
+  }
 
   void setAllMunicipios(List<Municipios> municipios) {
     _allMunicipiosList = municipios;
@@ -29,10 +43,14 @@ class MunicipiosProvider extends ChangeNotifier {
   }
 
   Future<void> fetchAllMunicipios() async {
-    if (_allMunicipiosList.isEmpty) {
+    List<Municipios>? municipios = SharedPreference.municipios;
+
+    if (municipios == null && municipios!.isEmpty) {
       APIUsers.common().fetchMunicipios().then((value) {
         setAllMunicipios(value);
       });
+    } else {
+      setAllMunicipios(municipios);
     }
   }
 
@@ -49,14 +67,10 @@ class MunicipiosProvider extends ChangeNotifier {
   }
 
   Future<List<Municipios>> municipiosFrom(String provincia) async {
-    if (_allMunicipiosListProvince.isEmpty) {
-      List<Municipios> municipios =
-          await APIUsers.common().fetchMunicipiosProvincia(provincia);
-      setAllMunicipiosProvince(municipios);
-      return municipios;
-    } else {
-      return _allMunicipiosListProvince;
-    }
+    List<Municipios> municipios =
+        await APIUsers.common().fetchMunicipiosProvincia(provincia);
+    setAllMunicipiosProvince(municipios);
+    return municipios;
   }
 
   void setAllMunicipiosProvince(List<Municipios> municipios) {
@@ -74,5 +88,13 @@ class MunicipiosProvider extends ChangeNotifier {
       _municipiosSelected.remove(municipio);
     }
     notifyListeners();
+  }
+
+  List<Municipios>? municipiosName(List<String>? municipios) {
+    List<Municipios>? municipiosString = [];
+    if (municipios != null && municipios.isNotEmpty) {
+      print(allMunicipios);
+    }
+    return municipiosString;
   }
 }

@@ -3,7 +3,6 @@ import 'package:detooo_recargas/models/auth/municipios_model.dart';
 import 'package:detooo_recargas/models/auth/provincias_model.dart';
 import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/network/api_users.dart';
-import 'package:detooo_recargas/services/providers/provincias_provider.dart';
 import 'package:detooo_recargas/ui/views/auth/activate_view.dart';
 import 'package:detooo_recargas/ui/views/auth/municipios_view.dart';
 import 'package:detooo_recargas/utils/handle_errors.dart';
@@ -291,22 +290,17 @@ class _RegisterViewState extends State<RegisterView> {
             onChanged: (a) {},
             readOnly: true,
             validator: (s) {
-              if (_provinciaSelected?.nombre == null) {
+              if (_provinciaSelected?.id == null) {
                 return locale.read('error_select_municipalities');
               }
             },
             onTap: () async {
               FocusScope.of(context).requestFocus(FocusNode());
-              if (context.read<ProvinciasProvider>().provinciaSelected !=
-                  null) {
+              if (_provinciaSelected?.id != null) {
                 List<Municipios>? mun = await Navigator.of(context).push(
                   MaterialPageRoute(
                     builder: (context) => MunicipiosSelect(
-                      provincia: context
-                              .read<ProvinciasProvider>()
-                              .provinciaSelected
-                              ?.id ??
-                          "",
+                      provincia: _provinciaSelected!.id!,
                     ),
                   ),
                 );
@@ -361,14 +355,13 @@ class _RegisterViewState extends State<RegisterView> {
 
   void _showProvinciasSearch(BuildContext context) async {
     FocusScope.of(context).requestFocus(FocusNode());
-    await context
-        .read<ProvinciasProvider>()
-        .fetchAllProvincias()
-        .then((value) async {
-      _provinciaSelected = await showSearch(
-        context: context,
-        delegate: ProvinciasSearch(),
-      );
+    await showSearch(
+      context: context,
+      delegate: ProvinciasSearch(),
+    ).then((value) {
+      setState(() {
+        _provinciaSelected = value;
+      });
     });
     _provinciasController.value =
         TextEditingValue(text: _provinciaSelected?.nombre ?? "");
@@ -376,12 +369,6 @@ class _RegisterViewState extends State<RegisterView> {
 
   void _handleRegister(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (_) => const ActivateUserView(),
-      ),
-      (w) => false,
-    );
 
     if (!_formKey.currentState!.validate()) return;
     showMessage(context, locale.read('loading'), TypeMessage.LOADING);
@@ -406,6 +393,12 @@ class _RegisterViewState extends State<RegisterView> {
 
   void _handleSuccsess(User value, BuildContext context) {
     final locale = AppLocalizations.of(context)!;
+    Navigator.of(context).pushAndRemoveUntil(
+      MaterialPageRoute(
+        builder: (_) => ActivateUserView(value.id),
+      ),
+      (w) => false,
+    );
     showMessage(
       context,
       locale.read('success_register'),

@@ -102,3 +102,20 @@ class UserLogin {
       _$UserLoginFromJson(json);
   Map<String, dynamic> toJson() => _$UserLoginToJson(this);
 }
+
+@JsonSerializable()
+class UserVerifyMovil {
+  UserVerifyMovil({
+    this.userId,
+    this.code,
+  });
+
+  @JsonKey(name: 'user_id')
+  String? userId;
+
+  String? code;
+
+  factory UserVerifyMovil.fromJson(Map<String, dynamic> json) =>
+      _$UserVerifyMovilFromJson(json);
+  Map<String, dynamic> toJson() => _$UserVerifyMovilToJson(this);
+}

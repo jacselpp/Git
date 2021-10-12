@@ -1,6 +1,6 @@
 import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/network/api_users.dart';
-import 'package:detooo_recargas/utils/handle_errors.dart';
+import 'package:detooo_recargas/services/shared_preference.dart';
 import 'package:flutter/material.dart';
 
 class ProfileProvider extends ChangeNotifier {
@@ -14,13 +14,19 @@ class ProfileProvider extends ChangeNotifier {
   }
 
   void _fetchProfile() {
-    APIUsers.common().profile().then((value) {
-      setProfile(value);
-    }).catchError((e) {});
+    User? profile = SharedPreference.profile;
+    if (profile == null) {
+      APIUsers.common().profile().then((value) {
+        setProfile(value);
+      }).catchError((e) {});
+    } else {
+      setProfile(profile);
+    }
   }
 
   void setProfile(User value) {
     _profile = value;
+    SharedPreference.setProfile(value);
     notifyListeners();
   }
 }

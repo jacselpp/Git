@@ -1,3 +1,5 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:detooo_recargas/app/app_routes.dart';
 import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/repository/user_repository.dart';
 import 'package:flutter/material.dart';
@@ -24,13 +26,17 @@ class MainDrawer extends StatelessWidget {
               Icons.group,
               locale.read('profile'),
               context,
-              () {},
+              () {
+                Navigator.of(context).pushNamed(Routes.PROFILE);
+              },
             ),
             _buildItem(
               Icons.password,
               locale.read('security'),
               context,
-              () {},
+              () {
+                Navigator.of(context).pushNamed(Routes.SECURITY);
+              },
             ),
             _buildItem(
               Icons.logout,
@@ -60,7 +66,7 @@ class MainDrawer extends StatelessWidget {
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
                 colors: [
-                  primaryColor75,
+                  Theme.of(context).cardColor,
                   Theme.of(context).scaffoldBackgroundColor,
                 ],
               ),
@@ -75,7 +81,9 @@ class MainDrawer extends StatelessWidget {
                   bottom: 100.0,
                 ),
                 child: SvgPicture.asset(
-                  'assets/images/1_Logo_Recargas.svg',
+                  ThemeProvider.of(context)!.brightness == Brightness.light
+                      ? 'assets/images/Recargas_Imagotipo.svg'
+                      : 'assets/images/Recargas_Imagotipo_dark.svg',
                   fit: BoxFit.fitHeight,
                 ),
               ),

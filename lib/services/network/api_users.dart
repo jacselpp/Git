@@ -24,8 +24,14 @@ abstract class APIUsers {
   @POST("auth/reset-password/request")
   Future<User> passwordReset(@Body() User user);
 
+  @POST("auth/movil/verify")
+  Future<void> verifyMovil(@Body() UserVerifyMovil user);
+
+  @POST("auth/movil/resend_activation_code")
+  Future<void> resendMovileCode(@Body() UserVerifyMovil user);
+
   @PATCH("profile/change_password")
-  Future<User> changePassword(@Body() User user);
+  Future<void> changePassword(@Body() User user);
 
   @GET("profile")
   Future<User> profile();
@@ -45,8 +51,8 @@ abstract class APIUsers {
   @GET("auth/reset-password/verify/{id}")
   Future<List<Municipios>> verifyChangePassword(@Path("id") String id);
 
-  @GET("/auth/verify/{id}")
-  Future<List<Municipios>> verifyCreateUser(@Path("id") String id);
+  @GET("auth/verify/{id}")
+  Future<void> verifyCreateUser(@Path("id") String id);
 
   @GET("provincias")
   Future<List<Provincias>> fetchProvincias();

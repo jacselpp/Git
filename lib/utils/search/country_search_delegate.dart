@@ -6,6 +6,7 @@ import 'package:detooo_recargas/models/auth/countries_model.dart';
 
 class CountrySearch extends SearchDelegate<Country> {
   Country country = Country();
+  bool _firsTime = true;
   @override
   List<Widget>? buildActions(BuildContext context) {
     return [
@@ -47,7 +48,12 @@ class CountrySearch extends SearchDelegate<Country> {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    return _showList(context);
+    if (_firsTime) {
+      FocusScope.of(context).requestFocus(FocusNode());
+      _firsTime = false;
+    }
+    return _listBuilder(
+        context.read<CountriesProvider>().allCountries, context);
   }
 
   Widget _showList(BuildContext context) {

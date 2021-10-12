@@ -19,7 +19,11 @@ class HomeLayout extends StatelessWidget {
             SizedBox(
               height: 50.0,
               width: 50.0,
-              child: SvgPicture.asset('assets/images/1_Logo_Recargas.svg'),
+              child: SvgPicture.asset(
+                ThemeProvider.of(context)!.brightness == Brightness.light
+                    ? 'assets/images/Recargas_Imagotipo.svg'
+                    : 'assets/images/Recargas_Imagotipo_dark.svg',
+              ),
             ),
             const Padding(
               padding: EdgeInsets.all(8.0),
@@ -49,6 +53,7 @@ class HomeLayout extends StatelessWidget {
         ],
       ),
       drawer: const MainDrawer(),
+      body: SingleChildScrollView(child: child),
     );
   }
 }

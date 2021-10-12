@@ -1,11 +1,14 @@
 import 'package:detooo_recargas/app/app_localizations.dart';
+import 'package:detooo_recargas/models/auth/user_model.dart';
+import 'package:detooo_recargas/services/network/api_users.dart';
 import 'package:detooo_recargas/utils/validators.dart';
 import 'package:flutter/material.dart';
 
 import '../../app_ui.dart';
 
 class ActivateUserView extends StatefulWidget {
-  const ActivateUserView({Key? key}) : super(key: key);
+  final String? id;
+  const ActivateUserView(this.id, {Key? key}) : super(key: key);
 
   @override
   _ActivateUserViewState createState() => _ActivateUserViewState();
@@ -13,6 +16,7 @@ class ActivateUserView extends StatefulWidget {
 
 class _ActivateUserViewState extends State<ActivateUserView> {
   final TextEditingController _codeController = TextEditingController();
+  bool _loading = false;
   @override
   void dispose() {
     // TODO: implement dispose
@@ -38,6 +42,11 @@ class _ActivateUserViewState extends State<ActivateUserView> {
               CustomTextFormField(
                 controller: _codeController,
                 label: locale.read('confirmation_code'),
+                onChanged: (value) {
+                  if (value != null && value.length == 6) {
+                    _handleConfirm(locale);
+                  }
+                },
                 validator: (value) => validateIsNumeric(
                   context: context,
                   value: value,
@@ -50,9 +59,10 @@ class _ActivateUserViewState extends State<ActivateUserView> {
                 children: [
                   Expanded(
                     child: CustomTextButton(
-                      color: primaryColor,
+                      color: !_loading ? primaryColor : Colors.grey,
                       label: locale.read('activate_account'),
-                      onPressed: () => _handleConfirm(),
+                      onPressed:
+                          !_loading ? () => _handleConfirm(locale) : () {},
                     ),
                   ),
                 ],
@@ -64,5 +74,22 @@ class _ActivateUserViewState extends State<ActivateUserView> {
     );
   }
 
-  _handleConfirm() {}
+  _handleConfirm(AppLocalizations locale) async {
+    setState(() {
+      _loading = true;
+    });
+    showMessage(
+      context,
+      locale.read('loading'),
+      TypeMessage.LOADING,
+    );
+
+    await APIUsers.common().verifyMovil(UserVerifyMovil(
+      userId: widget.id,
+      code: _codeController.text,
+    ));
+    setState(() {
+      _loading = false;
+    });
+  }
 }

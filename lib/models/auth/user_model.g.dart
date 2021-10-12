@@ -101,3 +101,15 @@ Map<String, dynamic> _$UserLoginToJson(UserLogin instance) => <String, dynamic>{
       'username': instance.username,
       'password': instance.password,
     };
+
+UserVerifyMovil _$UserVerifyMovilFromJson(Map<String, dynamic> json) =>
+    UserVerifyMovil(
+      userId: json['user_id'] as String?,
+      code: json['code'] as String?,
+    );
+
+Map<String, dynamic> _$UserVerifyMovilToJson(UserVerifyMovil instance) =>
+    <String, dynamic>{
+      'user_id': instance.userId,
+      'code': instance.code,
+    };

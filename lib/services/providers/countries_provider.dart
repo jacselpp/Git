@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:detooo_recargas/models/auth/countries_model.dart';
 import 'package:detooo_recargas/services/network/api_countries.dart';
 
+import '../shared_preference.dart';
+
 class CountriesProvider extends ChangeNotifier {
-  List<Country> _allCountryList = const [];
+  List<Country> _allCountryList = [];
 
   Future<List<Country>> get allCountriesList async {
     if (_allCountryList.isEmpty) {
@@ -13,18 +15,27 @@ class CountriesProvider extends ChangeNotifier {
     return _allCountryList;
   }
 
-  List<Country> get allCountries => _allCountryList;
+  List<Country> get allCountries {
+    if (_allCountryList.isEmpty) {
+      fetchAllCountries();
+    }
+    return _allCountryList;
+  }
 
   void setAllCountries(List<Country> countries) {
     _allCountryList = countries;
+    SharedPreference.saveCountries(countries);
     notifyListeners();
   }
 
   Future<void> fetchAllCountries() async {
-    if (_allCountryList.isEmpty) {
+    List<Country>? countriesFromBd = SharedPreference.countries;
+    if (countriesFromBd == null) {
       APICountries.common().countriesRead().then((value) {
         setAllCountries(value);
       });
+    } else {
+      setAllCountries(countriesFromBd);
     }
   }
 
