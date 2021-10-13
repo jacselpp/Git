@@ -65,7 +65,6 @@ class _RegisterViewState extends State<RegisterView> {
     _password2Controller.dispose();
     _emailController.dispose();
     _movilController.dispose();
-    _phoneController.dispose();
     super.dispose();
   }
 
@@ -230,86 +229,6 @@ class _RegisterViewState extends State<RegisterView> {
           const SizedBox(
             height: 10,
           ),
-          const Divider(),
-          const SizedBox(
-            height: 5,
-          ),
-          Row(
-            children: [
-              const Expanded(
-                child: Icon(Icons.info),
-              ),
-              Expanded(
-                flex: 10,
-                child: Container(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    locale.read('optional_fields'),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          CustomTextFormField(
-            suffixIcon: const Icon(Icons.arrow_drop_down),
-            label: locale.read('province'),
-            hintText: locale.read('province_hint'),
-            onChanged: (a) {},
-            readOnly: true,
-            onTap: () {
-              _showProvinciasSearch(context);
-            },
-            controller: _provinciasController,
-            validator: (s) {
-              // if (_provinciaSelected?.nombre == null) {
-              //   return locale.read('error_select_province');
-              // }
-            },
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          CustomTextFormField(
-            controller: _municipiosController,
-            suffixIcon: const Icon(Icons.arrow_drop_down),
-            label: locale.read('municipality'),
-            hintText: locale.read('municipality_hint'),
-            onChanged: (a) {},
-            readOnly: true,
-            validator: (s) {
-              // if (_provinciaSelected?.id == null) {
-              //   return locale.read('error_select_municipalities');
-              // }
-            },
-            onTap: () async {
-              FocusScope.of(context).requestFocus(FocusNode());
-              if (_provinciaSelected?.id != null) {
-                List<Municipios>? mun = await Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => MunicipiosSelect(
-                      provincia: _provinciaSelected!.id!,
-                    ),
-                  ),
-                );
-                if (mun != null) {
-                  _municipiosSelected = mun;
-                }
-              }
-              // } else {
-              //   showMessage(
-              //     context,
-              //     locale.read('select_province_first'),
-              //     TypeMessage.ERROR,
-              //   );
-              // }
-            },
-          ),
-          const SizedBox(
-            height: 10,
-          ),
           Row(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -344,20 +263,6 @@ class _RegisterViewState extends State<RegisterView> {
         TextEditingValue(text: _countrySelected?.name ?? "");
   }
 
-  void _showProvinciasSearch(BuildContext context) async {
-    FocusScope.of(context).requestFocus(FocusNode());
-    await showSearch(
-      context: context,
-      delegate: ProvinciasSearch(),
-    ).then((value) {
-      setState(() {
-        _provinciaSelected = value;
-      });
-    });
-    _provinciasController.value =
-        TextEditingValue(text: _provinciaSelected?.nombre ?? "");
-  }
-
   void _handleRegister(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
 
@@ -373,14 +278,12 @@ class _RegisterViewState extends State<RegisterView> {
       confirmPassword: _password2Controller.text,
       acceptTerms: true,
     );
-    APIUsers.common()
-        .register(userRegister)
-        .then((value) => _handleSuccsess(value, context))
-        .catchError((e) => HandleError.logError(context, e));
+    APIUsers.common().register(userRegister).then((value) {
+      _handleSuccsess(value, context);
+    }).catchError((e) => HandleError.logError(context, e));
   }
 
-  void _handleSuccsess(User value, BuildContext context) {
-    print(value.toJson());
+  void _handleSuccsess(Profile value, BuildContext context) {
     final locale = AppLocalizations.of(context)!;
     Navigator.of(context).pushAndRemoveUntil(
       MaterialPageRoute(

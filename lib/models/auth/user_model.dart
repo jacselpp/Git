@@ -1,5 +1,4 @@
 import 'package:detooo_recargas/models/auth/countries_model.dart';
-import 'package:floor/floor.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'user_model.g.dart';
 
@@ -17,6 +16,7 @@ class User {
     this.id,
     this.fullname,
     this.email,
+    this.username,
     this.movil,
     this.phone,
     this.provincia = '5ed67a87af617d3cd4f36a76',
@@ -42,6 +42,7 @@ class User {
   String? id;
   String? fullname;
   String? email;
+  String? username;
   String? movil;
   String? phone;
   String? provincia = '5ed67a87af617d3cd4f36a76';
@@ -59,55 +60,6 @@ class User {
 }
 
 @JsonSerializable()
-class UserRegister {
-  UserRegister({
-    this.country,
-    this.fullname,
-    this.email,
-    this.movil,
-    this.phone,
-    this.provincia,
-    this.municipios,
-    this.password,
-    this.confirmPassword,
-    this.acceptTerms = true,
-  });
-
-  Country? country;
-  List<String>? municipios;
-  @JsonKey(name: "_id")
-  String? id;
-  String? fullname;
-  String? email;
-  String? movil;
-  String? phone;
-  String? provincia;
-  String? password;
-  String? confirmPassword;
-  bool? acceptTerms = true;
-
-  factory UserRegister.fromJson(Map<String, dynamic> json) =>
-      _$UserRegisterFromJson(json);
-  Map<String, dynamic> toJson() => _$UserRegisterToJson(this);
-}
-
-@JsonSerializable()
-class UserLogin {
-  UserLogin({
-    this.username,
-    this.password,
-  });
-
-  String? username;
-
-  String? password;
-
-  factory UserLogin.fromJson(Map<String, dynamic> json) =>
-      _$UserLoginFromJson(json);
-  Map<String, dynamic> toJson() => _$UserLoginToJson(this);
-}
-
-@JsonSerializable()
 class UserVerifyMovil {
   UserVerifyMovil({
     this.userId,
@@ -122,4 +74,52 @@ class UserVerifyMovil {
   factory UserVerifyMovil.fromJson(Map<String, dynamic> json) =>
       _$UserVerifyMovilFromJson(json);
   Map<String, dynamic> toJson() => _$UserVerifyMovilToJson(this);
+}
+
+@JsonSerializable()
+class Profile {
+  Profile({
+    this.country,
+    this.municipios = const [],
+    this.avatar,
+    this.phone,
+    this.movil,
+    this.role = const [],
+    this.saldo,
+    this.isActive,
+    this.publicInfo = const [],
+    this.emailSubscriptions = const [],
+    this.id,
+    this.fullname,
+    this.email,
+    this.provincia,
+    this.stripeCustomerId,
+    this.createdAt,
+    this.updatedAt,
+    this.v,
+  });
+
+  Country? country;
+  List<String>? municipios = [];
+  String? avatar;
+  String? phone;
+  String? movil;
+  List<String>? role = [];
+  int? saldo;
+  bool? isActive;
+  List<String>? publicInfo = [];
+  List<String>? emailSubscriptions = [];
+  @JsonKey(name: '_id')
+  String? id;
+  String? fullname;
+  String? email;
+  String? provincia;
+  String? stripeCustomerId;
+  String? createdAt;
+  String? updatedAt;
+  @JsonKey(name: '__v')
+  int? v;
+  factory Profile.fromJson(Map<String, dynamic> json) =>
+      _$ProfileFromJson(json);
+  Map<String, dynamic> toJson() => _$ProfileToJson(this);
 }

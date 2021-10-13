@@ -52,8 +52,9 @@ class CountrySearch extends SearchDelegate<Country> {
       FocusScope.of(context).requestFocus(FocusNode());
       _firsTime = false;
     }
-    return _listBuilder(
-        context.read<CountriesProvider>().allCountries, context);
+    return query.isEmpty
+        ? _listBuilder(context.read<CountriesProvider>().allCountries, context)
+        : _showList(context);
   }
 
   Widget _showList(BuildContext context) {

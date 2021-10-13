@@ -16,10 +16,10 @@ abstract class APIUsers {
   static APIUsers common() => APIUsers(dioCommon());
 
   @POST("auth/register/")
-  Future<User> register(@Body() User user);
+  Future<Profile> register(@Body() User user);
 
   @POST("auth/login")
-  Future<User> login(@Body() UserLogin user);
+  Future<User> login(@Body() User user);
 
   @POST("auth/reset-password/request")
   Future<User> passwordReset(@Body() User user);

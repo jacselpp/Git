@@ -1,6 +1,9 @@
 import 'package:detooo_recargas/app/app_localizations.dart';
+import 'package:detooo_recargas/app/app_routes.dart';
 import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/network/api_users.dart';
+import 'package:detooo_recargas/ui/views/auth/login_view.dart';
+import 'package:detooo_recargas/utils/handle_errors.dart';
 import 'package:detooo_recargas/utils/validators.dart';
 import 'package:flutter/material.dart';
 
@@ -44,7 +47,7 @@ class _ActivateUserViewState extends State<ActivateUserView> {
                 label: locale.read('confirmation_code'),
                 onChanged: (value) {
                   if (value != null && value.length == 6) {
-                    _handleConfirm(locale);
+                    _handleConfirm(locale, context);
                   }
                 },
                 validator: (value) => validateIsNumeric(
@@ -61,8 +64,9 @@ class _ActivateUserViewState extends State<ActivateUserView> {
                     child: CustomTextButton(
                       color: !_loading ? primaryColor : Colors.grey,
                       label: locale.read('activate_account'),
-                      onPressed:
-                          !_loading ? () => _handleConfirm(locale) : () {},
+                      onPressed: !_loading
+                          ? () => _handleConfirm(locale, context)
+                          : () {},
                     ),
                   ),
                 ],
@@ -74,7 +78,7 @@ class _ActivateUserViewState extends State<ActivateUserView> {
     );
   }
 
-  _handleConfirm(AppLocalizations locale) async {
+  _handleConfirm(AppLocalizations locale, BuildContext context) async {
     setState(() {
       _loading = true;
     });
@@ -84,10 +88,21 @@ class _ActivateUserViewState extends State<ActivateUserView> {
       TypeMessage.LOADING,
     );
 
-    await APIUsers.common().verifyMovil(UserVerifyMovil(
+    await APIUsers.common()
+        .verifyMovil(UserVerifyMovil(
       userId: widget.id,
       code: _codeController.text,
-    ));
+    ))
+        .then((value) {
+      Navigator.of(context)
+          .pushAndRemoveUntil(
+            MaterialPageRoute(
+              builder: (_) => const LoginView(),
+            ),
+            (route) => false,
+          )
+          .catchError((e) => HandleError.logError(context, e));
+    });
     setState(() {
       _loading = false;
     });
