@@ -18,6 +18,11 @@ class UserRepository {
   AppLocalizations? _locale;
 
   void _handleNetwork(Future<void> function, context) async {
+    showMessage(
+      context,
+      _locale!.read('loading'),
+      TypeMessage.LOADING,
+    );
     if (await _networkStatus()) {
       showMessage(
           context, _locale!.read('no_network_error'), TypeMessage.ERROR);
@@ -66,5 +71,34 @@ class UserRepository {
           );
         }).catchError((e) => HandleError.logError(context, e)),
         context);
+  }
+
+  void updateProfile(Profile profile, BuildContext context) {
+    _handleLocale(context);
+    _handleNetwork(
+      APIUsers.common().updateProfile(profile).then((value) {
+        context.read<ProfileProvider>().setProfile(value);
+        showMessage(
+          context,
+          _locale!.read('success_update_profile'),
+          TypeMessage.ERROR,
+        );
+      }).catchError((e) => HandleError.logError(context, e)),
+      context,
+    );
+  }
+
+  void changePassword(UserPassword userPassword, BuildContext context) {
+    _handleLocale(context);
+    _handleNetwork(
+      APIUsers.common().changePassword(userPassword).then((value) {
+        showMessage(
+          context,
+          _locale!.read('success_change_password'),
+          TypeMessage.ERROR,
+        );
+      }).catchError((e) => HandleError.logError(context, e)),
+      context,
+    );
   }
 }

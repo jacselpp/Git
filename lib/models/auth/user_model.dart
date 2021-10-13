@@ -139,3 +139,20 @@ class UserLogin {
       _$UserLoginFromJson(json);
   Map<String, dynamic> toJson() => _$UserLoginToJson(this);
 }
+
+@JsonSerializable()
+class UserPassword {
+  UserPassword({
+    required this.oldPassword,
+    required this.password,
+    required this.confirmPassword,
+  });
+
+  String oldPassword;
+  String password;
+  String confirmPassword;
+
+  factory UserPassword.fromJson(Map<String, dynamic> json) =>
+      _$UserPasswordFromJson(json);
+  Map<String, dynamic> toJson() => _$UserPasswordToJson(this);
+}

@@ -146,3 +146,16 @@ Map<String, dynamic> _$UserLoginToJson(UserLogin instance) => <String, dynamic>{
       'user': instance.user,
       'access_token': instance.accessToken,
     };
+
+UserPassword _$UserPasswordFromJson(Map<String, dynamic> json) => UserPassword(
+      oldPassword: json['oldPassword'] as String,
+      password: json['password'] as String,
+      confirmPassword: json['confirmPassword'] as String,
+    );
+
+Map<String, dynamic> _$UserPasswordToJson(UserPassword instance) =>
+    <String, dynamic>{
+      'oldPassword': instance.oldPassword,
+      'password': instance.password,
+      'confirmPassword': instance.confirmPassword,
+    };

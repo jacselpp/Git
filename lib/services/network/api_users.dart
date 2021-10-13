@@ -31,13 +31,13 @@ abstract class APIUsers {
   Future<void> resendMovileCode(@Body() UserVerifyMovil user);
 
   @PATCH("profile/change_password")
-  Future<void> changePassword(@Body() User user);
+  Future<void> changePassword(@Body() UserPassword user);
 
   @GET("profile")
   Future<Profile> profile();
 
   @PUT("profile")
-  Future<User> updateProfile(@Body() User user);
+  Future<Profile> updateProfile(@Body() Profile user);
 
   @GET("municipios")
   Future<List<Municipios>> fetchMunicipios();

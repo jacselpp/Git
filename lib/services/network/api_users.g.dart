@@ -119,17 +119,18 @@ class _APIUsers implements APIUsers {
   }
 
   @override
-  Future<User> updateProfile(user) async {
+  Future<Profile> updateProfile(user) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
     _data.addAll(user.toJson());
-    final _result = await _dio.fetch<Map<String, dynamic>>(_setStreamType<User>(
-        Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
-            .compose(_dio.options, 'profile',
-                queryParameters: queryParameters, data: _data)
-            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    final value = User.fromJson(_result.data!);
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Profile>(
+            Options(method: 'PUT', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, 'profile',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = Profile.fromJson(_result.data!);
     return value;
   }
 
