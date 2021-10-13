@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:detooo_recargas/app/app_locator.dart';
 import 'package:detooo_recargas/app/app_routes.dart';
 import 'package:detooo_recargas/services/shared_preference.dart';
 import 'package:flutter/material.dart';

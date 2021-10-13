@@ -92,9 +92,7 @@ class MunicipiosProvider extends ChangeNotifier {
 
   List<Municipios>? municipiosName(List<String>? municipios) {
     List<Municipios>? municipiosString = [];
-    if (municipios != null && municipios.isNotEmpty) {
-      print(allMunicipios);
-    }
+    if (municipios != null && municipios.isNotEmpty) {}
     return municipiosString;
   }
 }

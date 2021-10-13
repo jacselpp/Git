@@ -1,8 +1,7 @@
 import 'package:detooo_recargas/app/app_localizations.dart';
-import 'package:detooo_recargas/models/auth/provincias_model.dart';
 import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/providers/profile_provider.dart';
-import 'package:detooo_recargas/services/providers/provincias_provider.dart';
+
 import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:detooo_recargas/ui/layouts/home_layout.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +15,7 @@ class ProfileView extends StatefulWidget {
 }
 
 class _ProfileViewState extends State<ProfileView> {
-  User? _profile;
+  Profile? _profile;
   @override
   Widget build(BuildContext context) {
     return HomeLayout(
@@ -30,13 +29,6 @@ class _ProfileViewState extends State<ProfileView> {
 
   Widget _buildBody(BuildContext context) {
     _profile = Provider.of<ProfileProvider>(context, listen: false).profile;
-    Provincias? _provincia;
-
-    if (_profile?.provincia != null) {
-      _provincia = context
-          .watch<ProvinciasProvider>()
-          .fetchProvincia(_profile?.provincia);
-    }
 
     final locale = AppLocalizations.of(context)!;
     return Form(
@@ -66,22 +58,7 @@ class _ProfileViewState extends State<ProfileView> {
                   initialValue: _profile?.movil,
                   label: locale.read('movil'),
                 ),
-                _buildSeparation(),
-                CustomTextFormField(
-                  initialValue: _profile?.phone,
-                  label: locale.read('phone'),
-                ),
                 const Divider(),
-                _buildSeparation(),
-                CustomTextFormField(
-                  initialValue: _provincia?.nombre,
-                  label: locale.read('province'),
-                ),
-                _buildSeparation(),
-                CustomTextFormField(
-                  // initialValue: _municipalities,
-                  label: locale.read('municipalities'),
-                ),
                 _buildSeparation(),
                 Row(
                   children: [

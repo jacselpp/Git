@@ -1,9 +1,10 @@
+import 'package:provider/provider.dart';
+import 'package:flutter/material.dart';
+
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/services/providers/profile_provider.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:detooo_recargas/ui/layouts/home_layout.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
 
 class ChangePasswordView extends StatefulWidget {
   const ChangePasswordView({Key? key}) : super(key: key);

@@ -134,3 +134,15 @@ Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
       'updatedAt': instance.updatedAt,
       '__v': instance.v,
     };
+
+UserLogin _$UserLoginFromJson(Map<String, dynamic> json) => UserLogin(
+      user: json['user'] == null
+          ? null
+          : Profile.fromJson(json['user'] as Map<String, dynamic>),
+      accessToken: json['access_token'] as String?,
+    );
+
+Map<String, dynamic> _$UserLoginToJson(UserLogin instance) => <String, dynamic>{
+      'user': instance.user,
+      'access_token': instance.accessToken,
+    };

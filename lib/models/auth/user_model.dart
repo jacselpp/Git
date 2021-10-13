@@ -123,3 +123,19 @@ class Profile {
       _$ProfileFromJson(json);
   Map<String, dynamic> toJson() => _$ProfileToJson(this);
 }
+
+@JsonSerializable()
+class UserLogin {
+  UserLogin({
+    this.user,
+    this.accessToken,
+  });
+
+  Profile? user;
+  @JsonKey(name: 'access_token')
+  String? accessToken;
+
+  factory UserLogin.fromJson(Map<String, dynamic> json) =>
+      _$UserLoginFromJson(json);
+  Map<String, dynamic> toJson() => _$UserLoginToJson(this);
+}

@@ -1,12 +1,11 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
+
 import 'package:detooo_recargas/models/auth/municipios_model.dart';
 import 'package:detooo_recargas/models/auth/provincias_model.dart';
 import 'package:detooo_recargas/models/auth/user_model.dart';
-import 'package:flutter/material.dart';
-
 import 'package:detooo_recargas/app/app_theme.dart';
 import 'package:detooo_recargas/models/auth/countries_model.dart';
-import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SharedPreference {
@@ -24,7 +23,6 @@ class SharedPreference {
   static const _darkMode = 'DARK_MODE';
   static const _countries = 'COUNTRIES';
   static const _provincias = 'PROVINCIAS';
-  static const _municipios = 'MUNICIPIOS';
 
 // Token: ------------------------------------------------------
   static String? get readUserKey => _preference.getString(_userKey);
@@ -95,14 +93,14 @@ class SharedPreference {
   }
 
 //!Profile---------------------------------------------
-  static void setProfile(User value) {
+  static void setProfile(Profile value) {
     _preference.setString('PROFILE', jsonEncode(value.toJson()));
   }
 
-  static User? get profile {
+  static Profile? get profile {
     String? userString = _preference.getString('PROFILE');
     if (userString != null) {
-      return User.fromJson(jsonDecode(userString));
+      return Profile.fromJson(jsonDecode(userString));
     }
   }
 

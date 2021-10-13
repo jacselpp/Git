@@ -1,5 +1,4 @@
 import 'package:detooo_recargas/app/app_localizations.dart';
-import 'package:detooo_recargas/app/app_routes.dart';
 import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/network/api_users.dart';
 import 'package:detooo_recargas/ui/views/auth/login_view.dart';
@@ -22,7 +21,6 @@ class _ActivateUserViewState extends State<ActivateUserView> {
   bool _loading = false;
   @override
   void dispose() {
-    // TODO: implement dispose
     _codeController.dispose();
     super.dispose();
   }

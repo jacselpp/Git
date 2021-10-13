@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class DismissKeyboard extends StatelessWidget {
   final Widget child;
+  // ignore: use_key_in_widget_constructors
   const DismissKeyboard({
     Key? key,
     required this.child,

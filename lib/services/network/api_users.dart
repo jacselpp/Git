@@ -19,10 +19,10 @@ abstract class APIUsers {
   Future<Profile> register(@Body() User user);
 
   @POST("auth/login")
-  Future<User> login(@Body() User user);
+  Future<UserLogin> login(@Body() User user);
 
   @POST("auth/reset-password/request")
-  Future<User> passwordReset(@Body() User user);
+  Future<void> passwordReset(@Body() User user);
 
   @POST("auth/movil/verify")
   Future<void> verifyMovil(@Body() UserVerifyMovil user);
@@ -34,7 +34,7 @@ abstract class APIUsers {
   Future<void> changePassword(@Body() User user);
 
   @GET("profile")
-  Future<User> profile();
+  Future<Profile> profile();
 
   @PUT("profile")
   Future<User> updateProfile(@Body() User user);

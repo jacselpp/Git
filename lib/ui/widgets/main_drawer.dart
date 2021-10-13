@@ -1,6 +1,5 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:detooo_recargas/app/app_routes.dart';
-import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/repository/user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

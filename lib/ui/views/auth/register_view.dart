@@ -1,18 +1,12 @@
-import 'package:detooo_recargas/models/auth/countries_model.dart';
-import 'package:detooo_recargas/models/auth/municipios_model.dart';
-import 'package:detooo_recargas/models/auth/provincias_model.dart';
-import 'package:detooo_recargas/models/auth/user_model.dart';
-import 'package:detooo_recargas/services/network/api_users.dart';
-import 'package:detooo_recargas/ui/views/auth/activate_view.dart';
-import 'package:detooo_recargas/ui/views/auth/municipios_view.dart';
-import 'package:detooo_recargas/utils/handle_errors.dart';
-import 'package:detooo_recargas/utils/search/provincias_search_delegate.dart';
-import 'package:detooo_recargas/utils/validators.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import 'package:detooo_recargas/models/auth/countries_model.dart';
+import 'package:detooo_recargas/models/auth/user_model.dart';
+import 'package:detooo_recargas/services/repository/user_repository.dart';
+import 'package:detooo_recargas/utils/validators.dart';
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/services/providers/countries_provider.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
@@ -31,16 +25,11 @@ class _RegisterViewState extends State<RegisterView> {
   final _countryController = TextEditingController();
   final _emailController = TextEditingController();
   final _movilController = TextEditingController();
-  final _phoneController = TextEditingController();
   final _usernameController = TextEditingController();
   final _password1Controller = TextEditingController();
   final _password2Controller = TextEditingController();
-  final _municipiosController = TextEditingController();
-  final _provinciasController = TextEditingController();
 
-  Provincias? _provinciaSelected;
   Country? _countrySelected;
-  List<Municipios>? _municipiosSelected;
 
   bool _visiblePassword1 = true, _visiblePassword2 = true;
 
@@ -68,35 +57,8 @@ class _RegisterViewState extends State<RegisterView> {
     super.dispose();
   }
 
-  String get _textMunicipios {
-    String municipios = '';
-
-    for (var municipio in _municipiosSelected!) {
-      municipios = '$municipios ${municipio.nombre},';
-    }
-
-    return municipios;
-  }
-
-  List<String> get _textMunicipiosId {
-    List<String> municipios = [];
-
-    for (var municipio in _municipiosSelected!) {
-      municipios.add(municipio.id!);
-    }
-
-    return municipios;
-  }
-
   @override
   Widget build(BuildContext context) {
-    if (_municipiosSelected != null) {
-      _municipiosController.value = TextEditingValue(text: _textMunicipios);
-    }
-    if (_provinciaSelected != null) {
-      _provinciasController.value =
-          TextEditingValue(text: _provinciaSelected?.nombre ?? "");
-    }
     final locale = AppLocalizations.of(context)!;
     return AuthLayout(
       child: Card(
@@ -278,23 +240,6 @@ class _RegisterViewState extends State<RegisterView> {
       confirmPassword: _password2Controller.text,
       acceptTerms: true,
     );
-    APIUsers.common().register(userRegister).then((value) {
-      _handleSuccsess(value, context);
-    }).catchError((e) => HandleError.logError(context, e));
-  }
-
-  void _handleSuccsess(Profile value, BuildContext context) {
-    final locale = AppLocalizations.of(context)!;
-    Navigator.of(context).pushAndRemoveUntil(
-      MaterialPageRoute(
-        builder: (_) => ActivateUserView(value.id!),
-      ),
-      (w) => false,
-    );
-    showMessage(
-      context,
-      locale.read('success_register'),
-      TypeMessage.ERROR,
-    );
+    UserRepository().register(userRegister, context);
   }
 }

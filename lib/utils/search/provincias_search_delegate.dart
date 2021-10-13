@@ -1,8 +1,9 @@
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/models/auth/provincias_model.dart';
 import 'package:detooo_recargas/services/providers/provincias_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/src/provider.dart';
 
 class ProvinciasSearch extends SearchDelegate<Provincias> {
   Provincias provincia = Provincias();

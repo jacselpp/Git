@@ -4,9 +4,9 @@ import 'package:detooo_recargas/services/shared_preference.dart';
 import 'package:flutter/material.dart';
 
 class ProfileProvider extends ChangeNotifier {
-  User? _profile;
+  Profile? _profile;
 
-  User? get profile {
+  Profile? get profile {
     if (_profile == null) {
       _fetchProfile();
     }
@@ -14,7 +14,7 @@ class ProfileProvider extends ChangeNotifier {
   }
 
   void _fetchProfile() {
-    User? profile = SharedPreference.profile;
+    Profile? profile = SharedPreference.profile;
     if (profile == null) {
       APIUsers.common().profile().then((value) {
         setProfile(value);
@@ -24,7 +24,7 @@ class ProfileProvider extends ChangeNotifier {
     }
   }
 
-  void setProfile(User value) {
+  void setProfile(Profile value) {
     _profile = value;
     SharedPreference.setProfile(value);
     notifyListeners();
