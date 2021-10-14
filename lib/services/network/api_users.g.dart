@@ -152,6 +152,21 @@ class _APIUsers implements APIUsers {
   }
 
   @override
+  Future<Profile> fetchUserById(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Profile>(
+            Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+                .compose(_dio.options, 'admin/users/$id',
+                    queryParameters: queryParameters, data: _data)
+                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = Profile.fromJson(_result.data!);
+    return value;
+  }
+
+  @override
   Future<List<Municipios>> fetchMunicipiosProvincia(id) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

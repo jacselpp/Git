@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Creator: CorelDRAW X8 -->
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="3877px" height="3877px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
-viewBox="0 0 3877 3877"
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="12116px" height="12116px" version="1.1" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd"
+viewBox="0 0 12577 12577"
  xmlns:xlink="http://www.w3.org/1999/xlink">
- <defs>
-  <style type="text/css">
-   <![CDATA[
-    .fil0 {fill:#008DD2}
-   ]]>
-  </style>
- </defs>
  <g id="Capa_x0020_1">
   <metadata id="CorelCorpID_0Corel-Layer"/>
-  <path class="fil0" d="M3877 1938c0,-1070 -868,-1938 -1939,-1938 -1070,0 -1938,868 -1938,1938 0,1071 868,1939 1938,1939 1071,0 1939,-868 1939,-1939zm-1344 1362c95,0 172,-78 172,-173l0 -2386c0,-95 -77,-172 -172,-172l-1198 0c-86,0 -163,77 -163,172l0 2386c0,95 77,173 163,173l1198 0zm-681 -267c0,-52 43,-95 95,-95 52,0 95,43 95,95 0,51 -43,94 -95,94 -52,0 -95,-43 -95,-94zm423 -2292c51,0 86,43 86,86 0,52 -35,86 -86,86l-164 0c-52,0 -86,-34 -86,-86 0,-43 34,-86 86,-86l164 0zm-423 86c0,52 -43,86 -86,86 -52,0 -86,-34 -86,-86 0,-43 34,-86 86,-86 43,0 86,43 86,86zm-517 259l1198 0 0 1705 -1198 0 0 -1705z"/>
+  <path fill="#008DD2" d="M12577 6287c0,-3471 -2816,-6287 -6290,-6287 -3471,0 -6287,2816 -6287,6287 0,3474 2816,6290 6287,6290 3474,0 6290,-2816 6290,-6290zm-4360 4418c308,0 558,-253 558,-561l0 -7740c0,-308 -250,-558 -558,-558l-3886 0c-279,0 -529,250 -529,558l0 7740c0,308 250,561 529,561l3886 0zm-2209 -866c0,-169 139,-308 308,-308 169,0 308,139 308,308 0,165 -139,305 -308,305 -169,0 -308,-140 -308,-305zm1372 -7435c165,0 279,139 279,279 0,168 -114,279 -279,279l-532 0c-169,0 -279,-111 -279,-279 0,-140 110,-279 279,-279l532 0zm-1372 279c0,168 -140,279 -279,279 -169,0 -279,-111 -279,-279 0,-140 110,-279 279,-279 139,0 279,139 279,279zm-1677 840l3886 0 0 5531 -3886 0 0 -5531z"/>
  </g>
 </svg>

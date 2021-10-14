@@ -1,21 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
 <!-- Creator: CorelDRAW X8 -->
-<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="3806px" height="3806px" version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
-viewBox="0 0 3806 3806"
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve" width="11894px" height="11894px" version="1.1" shape-rendering="geometricPrecision" text-rendering="geometricPrecision" image-rendering="optimizeQuality" fill-rule="evenodd" clip-rule="evenodd"
+viewBox="0 0 12131 12131"
  xmlns:xlink="http://www.w3.org/1999/xlink">
- <defs>
-  <style type="text/css">
-   <![CDATA[
-    .fil0 {fill:#008DD2}
-   ]]>
-  </style>
- </defs>
  <g id="Capa_x0020_1">
   <metadata id="CorelCorpID_0Corel-Layer"/>
-  <g id="_2552100385296">
-   <path class="fil0" d="M879 1903c0,0 0,0 0,0 0,17 0,34 8,51 9,9 18,26 26,34l760 760c51,51 128,51 179,0 51,-43 51,-128 0,-179l-546 -538 1536 0c68,0 128,-60 128,-128 0,-68 -60,-128 -128,-128l-1536 0 546 -546c51,-51 51,-128 0,-179 -51,-52 -128,-52 -179,0l-760 759c-8,17 -17,26 -26,43 -8,17 -8,34 -8,51l0 0 0 0z"/>
-   <path class="fil0" d="M1903 0c-1050,0 -1903,853 -1903,1903 0,1050 853,1903 1903,1903 1050,0 1903,-853 1903,-1903 0,-1050 -853,-1903 -1903,-1903zm0 213c-930,0 -1690,760 -1690,1690 0,930 760,1681 1690,1681 930,0 1681,-751 1681,-1681 0,-930 -751,-1690 -1681,-1690z"/>
+  <g id="_2477352299360">
+   <g id="_2552100385296">
+    <path fill="#008DD2" d="M2802 6066c0,0 0,0 0,0 0,54 0,108 25,162 29,29 58,83 83,109l2423 2422c162,163 408,163 570,0 163,-137 163,-408 0,-571l-1740 -1714 4896 0c216,0 408,-192 408,-408 0,-217 -192,-408 -408,-408l-4896 0 1740 -1741c163,-162 163,-408 0,-570 -163,-166 -408,-166 -570,0l-2423 2419c-25,54 -54,83 -83,137 -25,54 -25,108 -25,163l0 0 0 0 0 0z"/>
+    <path fill="#008DD2" d="M6066 0c-3347,0 -6066,2719 -6066,6066 0,3346 2719,6065 6066,6065 3346,0 6065,-2719 6065,-6065 0,-3347 -2719,-6066 -6065,-6066zm0 679c-2965,0 -5387,2422 -5387,5387 0,2964 2422,5358 5387,5358 2964,0 5358,-2394 5358,-5358 0,-2965 -2394,-5387 -5358,-5387z"/>
+   </g>
   </g>
  </g>
 </svg>

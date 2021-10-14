@@ -42,6 +42,9 @@ abstract class APIUsers {
   @GET("municipios")
   Future<List<Municipios>> fetchMunicipios();
 
+  @GET("admin/users/{id}")
+  Future<Profile> fetchUserById(@Path("id") String id);
+
   @GET("municipios/provincia/{id}")
   Future<List<Municipios>> fetchMunicipiosProvincia(@Path("id") String id);
 

@@ -89,8 +89,8 @@ class MainDrawer extends StatelessWidget {
                 ),
                 child: SvgPicture.asset(
                   ThemeProvider.of(context)!.brightness == Brightness.light
-                      ? 'assets/images/Recargas_Imagotipo.svg'
-                      : 'assets/images/Recargas_Imagotipo_dark.svg',
+                      ? 'assets/images/Identidad_Recargas_v.svg'
+                      : 'assets/images/Identidad_Recargas_v.svg',
                   fit: BoxFit.fitHeight,
                 ),
               ),
