@@ -29,30 +29,6 @@ class MainDrawer extends StatelessWidget {
                 Navigator.of(context).pushNamed(Routes.HOME);
               },
             ),
-            _buildItem(
-              Icons.group,
-              locale.read('profile'),
-              context,
-              () {
-                Navigator.of(context).pushNamed(Routes.PROFILE);
-              },
-            ),
-            _buildItem(
-              Icons.password,
-              locale.read('security'),
-              context,
-              () {
-                Navigator.of(context).pushNamed(Routes.SECURITY);
-              },
-            ),
-            _buildItem(
-              Icons.logout,
-              locale.read('logout'),
-              context,
-              () {
-                UserRepository().logout();
-              },
-            ),
             const Divider(
               thickness: 2.0,
             )
@@ -64,7 +40,7 @@ class MainDrawer extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     return SizedBox(
-      height: 250.0,
+      height: 130.0,
       child: Stack(
         children: [
           Container(
@@ -85,85 +61,88 @@ class MainDrawer extends StatelessWidget {
                   top: 15.0,
                   left: 15.0,
                   right: 15.0,
-                  bottom: 100.0,
+                  bottom: 15.0,
                 ),
                 child: SvgPicture.asset(
-                  ThemeProvider.of(context)!.brightness == Brightness.light
-                      ? 'assets/images/Identidad_Recargas_v.svg'
-                      : 'assets/images/Identidad_Recargas_v.svg',
+                  'assets/images/Recargas_Imagotipo.svg',
                   fit: BoxFit.fitHeight,
                 ),
               ),
             ),
           ),
-          (context.watch<ProfileProvider>().profile != null)
-              ? Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: CircleAvatar(
-                              maxRadius: 40.0,
-                              backgroundColor: Colors.transparent,
-                              backgroundImage: NetworkImage(
-                                  context
-                                          .watch<ProfileProvider>()
-                                          .profile
-                                          ?.avatar ??
-                                      "",
-                                  scale: 20.0),
-                            ),
-                          ),
-                        ],
-                      ),
-                      Text(context.watch<ProfileProvider>().profile?.fullname ??
-                          ''),
-                      Text(context.watch<ProfileProvider>().profile?.email ??
-                          ''),
-                    ],
-                  ),
-                )
-              : Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Container(
-                              width: 80.0,
-                              height: 80.0,
-                              decoration: const BoxDecoration(
-                                color: primaryColor,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(40.0),
-                                ),
-                              ),
-                              child: Center(
-                                child: Icon(
-                                  Icons.supervised_user_circle_sharp,
-                                  size: 75.0,
-                                  color:
-                                      Theme.of(context).scaffoldBackgroundColor,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Text(''),
-                      const Text(''),
-                    ],
-                  ),
-                ),
+          // (context.watch<ProfileProvider>().profile != null)
+          //     ? Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: Column(
+          //           mainAxisAlignment: MainAxisAlignment.end,
+          //           children: [
+          //             Row(
+          //               mainAxisAlignment: MainAxisAlignment.center,
+          //               children: [
+          //                 Padding(
+          //                   padding: const EdgeInsets.all(8.0),
+          //                   child: CircleAvatar(
+          //                     maxRadius: 40.0,
+          //                     backgroundColor: Colors.transparent,
+          //                     backgroundImage: NetworkImage(
+          //                         context
+          //                                 .watch<ProfileProvider>()
+          //                                 .profile
+          //                                 ?.avatar ??
+          //                             "",
+          //                         scale: 20.0),
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //             Text(
+          //               context.watch<ProfileProvider>().profile?.fullname ??
+          //                   '',
+          //               style: Theme.of(context).textTheme.headline6,
+          //             ),
+          //             Text(
+          //               context.watch<ProfileProvider>().profile?.email ?? '',
+          //               style: Theme.of(context).textTheme.bodyText2,
+          //             ),
+          //           ],
+          //         ),
+          //       )
+          //     : Padding(
+          //         padding: const EdgeInsets.all(8.0),
+          //         child: Column(
+          //           mainAxisAlignment: MainAxisAlignment.end,
+          //           children: [
+          //             Row(
+          //               mainAxisAlignment: MainAxisAlignment.center,
+          //               children: [
+          //                 Padding(
+          //                   padding: const EdgeInsets.all(8.0),
+          //                   child: Container(
+          //                     width: 80.0,
+          //                     height: 80.0,
+          //                     decoration: const BoxDecoration(
+          //                       color: primaryColor,
+          //                       borderRadius: BorderRadius.all(
+          //                         Radius.circular(40.0),
+          //                       ),
+          //                     ),
+          //                     child: Center(
+          //                       child: Icon(
+          //                         Icons.supervised_user_circle_sharp,
+          //                         size: 75.0,
+          //                         color:
+          //                             Theme.of(context).scaffoldBackgroundColor,
+          //                       ),
+          //                     ),
+          //                   ),
+          //                 ),
+          //               ],
+          //             ),
+          //             const Text(''),
+          //             const Text(''),
+          //           ],
+          //         ),
+          //       ),
         ],
       ),
     );

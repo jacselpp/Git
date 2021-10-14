@@ -1,5 +1,4 @@
 import 'package:detooo_recargas/app/app_localizations.dart';
-import 'package:detooo_recargas/models/recargas/package_model.dart';
 import 'package:detooo_recargas/models/recargas/promotions_model.dart';
 import 'package:detooo_recargas/services/providers/recargas_provider.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
@@ -24,9 +23,13 @@ class HomeView extends StatelessWidget {
       builder:
           (BuildContext context, AsyncSnapshot<List<Promotions>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 4.0,
+          return SizedBox(
+            height: ScreenHelper.screenHeight(context) * .90,
+            width: ScreenHelper.screenWidth(context),
+            child: const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 4.0,
+              ),
             ),
           );
         }
@@ -42,7 +45,7 @@ class HomeView extends StatelessWidget {
 
   Widget _buildList(BuildContext context, List<Promotions>? data) {
     return SizedBox(
-      height: ScreenHelper.screenHeight(context),
+      height: ScreenHelper.screenHeight(context) * .90,
       child: ListView.builder(
         itemCount: data!.length,
         itemBuilder: (BuildContext context, int index) {
