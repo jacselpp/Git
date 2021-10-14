@@ -1,6 +1,7 @@
 // ignore_for_file: constant_identifier_names
 
 import 'package:detooo_recargas/ui/views/auth/change_password_view.dart';
+import 'package:detooo_recargas/ui/views/auth/forgot_password_view.dart';
 import 'package:detooo_recargas/ui/views/auth/profile_view.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +17,7 @@ class Routes {
   static const String REGISTER = 'register';
   static const String PROFILE = 'profile';
   static const String SECURITY = 'security';
+  static const String FORGOTPASSWORD = 'forgot_password';
 
   //!Home Views
   static const String HOME = 'home';
@@ -33,6 +35,8 @@ class Routes {
         return MaterialPageRoute(builder: (_) => const ProfileView());
       case SECURITY:
         return MaterialPageRoute(builder: (_) => const ChangePasswordView());
+      case FORGOTPASSWORD:
+        return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
 
       //!Home Views
       case HOME:

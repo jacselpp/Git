@@ -101,4 +101,18 @@ class UserRepository {
       context,
     );
   }
+
+  void forgotPassword(User userEmail, BuildContext context) {
+    _handleLocale(context);
+    _handleNetwork(
+      APIUsers.common().passwordReset(userEmail).then((value) {
+        showMessage(
+          context,
+          _locale!.read('success_password_reset'),
+          TypeMessage.ERROR,
+        );
+      }).catchError((e) => HandleError.logError(context, e)),
+      context,
+    );
+  }
 }

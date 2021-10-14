@@ -143,7 +143,9 @@ class _LoginViewState extends State<LoginView> {
                 child: Text(locale.read('create_account')),
               ),
               TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(context).pushNamed(Routes.FORGOTPASSWORD);
+                },
                 child: Text(locale.read('forgot_password')),
               ),
             ],
