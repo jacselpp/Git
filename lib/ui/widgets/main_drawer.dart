@@ -22,6 +22,14 @@ class MainDrawer extends StatelessWidget {
           children: [
             _buildHeader(context),
             _buildItem(
+              Icons.home,
+              locale.read('home'),
+              context,
+              () {
+                Navigator.of(context).pushNamed(Routes.HOME);
+              },
+            ),
+            _buildItem(
               Icons.group,
               locale.read('profile'),
               context,

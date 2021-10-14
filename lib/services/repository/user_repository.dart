@@ -1,5 +1,6 @@
 import 'package:detooo_recargas/app/app_connectivity.dart';
 import 'package:detooo_recargas/ui/views/auth/activate_view.dart';
+import 'package:detooo_recargas/ui/views/auth/login_view.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +38,12 @@ class UserRepository {
 
   void logout() {
     SharedPreference.deleteUserKey;
-    NavigatorProvider().navigatorKeyState.pushReplacementNamed(Routes.LOGIN);
+    SharedPreference.deleteProfile;
+    NavigatorProvider().navigatorKeyState.pushAndRemoveUntil(
+          MaterialPageRoute<void>(
+              builder: (BuildContext context) => const LoginView()),
+          ModalRoute.withName('/'),
+        );
   }
 
   void login(User userLogin, BuildContext context) {
@@ -77,7 +83,7 @@ class UserRepository {
     _handleLocale(context);
     _handleNetwork(
       APIUsers.common().updateProfile(profile).then((value) {
-        context.read<ProfileProvider>().setProfile(value);
+        context.read<ProfileProvider>().setProfile(profile);
         showMessage(
           context,
           _locale!.read('success_update_profile'),

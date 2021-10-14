@@ -97,6 +97,10 @@ class SharedPreference {
     _preference.setString('PROFILE', jsonEncode(value.toJson()));
   }
 
+  static void get deleteProfile {
+    _preference.remove('PROFILE');
+  }
+
   static Profile? get profile {
     String? userString = _preference.getString('PROFILE');
     if (userString != null) {

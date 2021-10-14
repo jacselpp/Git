@@ -37,10 +37,12 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
                     context: context,
                     value: value,
                   );
-                  String? isPhone = validatePhone(
-                    context: context,
-                    value: value,
-                  );
+
+                  //! dejar aqui por si hay que validar el movila para enviar el codigo
+                  // String? isPhone = validatePhone(
+                  //   context: context,
+                  //   value: value,
+                  // );
 
                   if (isEmail == null) {
                     return null;
