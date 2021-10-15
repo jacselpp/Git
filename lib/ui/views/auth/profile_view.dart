@@ -1,4 +1,6 @@
 import 'package:detooo_recargas/models/auth/countries_model.dart';
+import 'package:detooo_recargas/services/providers/countries_provider.dart';
+import 'package:detooo_recargas/utils/search/country_search_delegate.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -83,6 +85,10 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
                 _buildSeparation(),
                 CustomTextFormField(
+                  onTap: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    _showSearch(context);
+                  },
                   controller: _countryController,
                   label: locale.read('country'),
                 ),
@@ -169,5 +175,18 @@ class _ProfileViewState extends State<ProfileView> {
     _profile!.country = _selectedCountry;
 
     UserRepository().updateProfile(_profile!, context);
+  }
+
+  void _showSearch(BuildContext context) async {
+    await context
+        .read<CountriesProvider>()
+        .fetchAllCountries()
+        .then((value) async {
+      _selectedCountry = await showSearch(
+        context: context,
+        delegate: CountrySearch(),
+      );
+    });
+    setState(() {});
   }
 }
