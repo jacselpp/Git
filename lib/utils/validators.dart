@@ -16,9 +16,21 @@ String? validatePhone({String? value, required BuildContext context}) {
   }
 }
 
+String? validatePhoneCubacel({String? value, required BuildContext context}) {
+  if (!value!.isValidPhoneCubacel) {
+    return getLocale(context: context, locale: "invalid_cubacel_phone_error");
+  }
+}
+
 String? validateEmail({String? value, required BuildContext context}) {
   if (!value!.isValidEmail) {
     return getLocale(context: context, locale: "invalid_email_error");
+  }
+}
+
+String? validateEmailNauta({String? value, required BuildContext context}) {
+  if (!value!.isValidEmailNauta) {
+    return getLocale(context: context, locale: "invalid_nauta_email_error");
   }
 }
 

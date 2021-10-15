@@ -4,7 +4,7 @@ import '../app_ui.dart';
 
 class CustomTextFormField extends StatelessWidget {
   final String? label, counterText, helperText, hintText;
-  final IconData? icon;
+  final Widget? icon;
   final String? initialValue;
   final VoidCallback? onEditingComplete, onTap;
   final TextEditingController? controller;
@@ -48,8 +48,18 @@ class CustomTextFormField extends StatelessWidget {
         counterText: counterText,
         helperText: helperText,
         hintText: hintText,
-        icon: icon != null ? Icon(icon) : null,
+        // icon: icon,
         suffixIcon: suffixIcon,
+        prefixIcon: icon != null
+            ? Container(
+                alignment: Alignment.centerLeft,
+                width: 45.0,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: icon,
+                ),
+              )
+            : null,
         labelText: label,
         contentPadding: const EdgeInsets.all(10.0),
         border: OutlineInputBorder(

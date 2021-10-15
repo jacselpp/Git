@@ -3,6 +3,8 @@ import 'package:detooo_recargas/models/recargas/promotions_model.dart';
 import 'package:detooo_recargas/services/providers/recargas_provider.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:detooo_recargas/ui/layouts/home_layout.dart';
+import 'package:detooo_recargas/ui/views/recargas/recargas_cubacel_view.dart';
+import 'package:detooo_recargas/ui/views/recargas/recargas_nauta_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -106,18 +108,16 @@ class HomeView extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                      child: Container(),
-                    ),
-                    Expanded(
-                      flex: 2,
                       child: CustomTextButton(
                         color: primaryColor,
                         label: locale.read('recharge'),
-                        onPressed: () {},
+                        onPressed: () {
+                          _handleRecarga(
+                            context,
+                            data,
+                          );
+                        },
                       ),
-                    ),
-                    Expanded(
-                      child: Container(),
                     ),
                   ],
                 ),
@@ -141,5 +141,22 @@ class HomeView extends StatelessWidget {
       caracteristicasString,
       style: Theme.of(context).textTheme.bodyText2,
     );
+  }
+
+  void _handleRecarga(BuildContext context, Promotions data) {
+    if (data.dest == 'cubacel') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const RecargasCubacelView(),
+        ),
+      );
+    }
+    if (data.dest == 'nauta') {
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (context) => const RecargasNautaView(),
+        ),
+      );
+    }
   }
 }

@@ -1,1 +1,66 @@
-{}
+{
+    "loading": "Loading...",
+    "no_network_error": "You are not connected to the internet.",
+    "success_register": "Successfully registered.",
+    "success_update_profile": "Profile updated successfully.",
+    "success_change_password": "Password changed successfully.",
+    "success_password_reset": "Password reset successfully.",
+    "done_login": "Successfully accessed.",
+
+    "home": "Home",
+    "recharges": "Recharges",
+    "cubacel": "CUBACEL",
+    "nauta": "NAUTA",
+    "history": "History",
+    "profile": "Profile",
+    "security": "Security",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Sign Up",
+    "register_subtitle": "Register on the platform",
+    "create_account": "Create Account",
+    "forgot_password": "Forgot password?",
+
+    "password": "Password",
+    "old_password": "Current password",
+    "new_password": "New password",
+    "repeat_new_password": "Confirm password",
+    "change_password": "Change password",
+    "fullname": "Full Name",
+    "country": "Country",
+    "email": "E-mail",
+    "movil": "Mobile Phone",
+    "update_profile": "Update Profile",
+
+    "phone_email": "Phone / Email",
+    "repeat_password": "Confirm password",
+    "error_invalid_email": "Invalid E-mail",
+    "error_password_no_match": "Passwords do not match",
+    "error_invalid_name": "Invalid name",
+    "error_select_country": "Invalid country",
+    "error_invalid_phone_email": "Invalid Phone/E-mail",
+    "send": "Send",
+    "package": "Package",
+    "recharge": "Recharge",
+    "cubacel_recharge": "Recharge CUBACEL",
+    "nauta_recharge": "Recharge NAUTA",
+    "nauta_account": "NAUTA Account",
+    "query_empty": "Empty query",
+    "query_load_error": "Query error",
+    "query_no_match": "The query does not match",
+
+    "municipalities": "Municipalities",
+    "select_municipalities": "Selected Municipalities",
+
+    "start_session": "Log in",
+    "start_session_subtitle": "Login to the platform",
+
+    "confirmation_code": "Confirmation code",
+    "activate_account": "Activate account",
+
+    "should_accept": "To pay you must accept the service",
+    "invalid_nauta_email_error": "Invalid NAUTA account",
+    "invalid_cubacel_phone_error": "Invalid CUBACEL phone",
+
+    "accept_therms_recharge": "I confirm that I have reviewed the NAUTA numbers and / or accounts and I accept that this service does not allow reimbursement."
+}

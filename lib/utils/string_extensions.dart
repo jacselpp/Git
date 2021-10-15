@@ -19,9 +19,21 @@ extension extString on String {
     return emailRegExp.hasMatch(this);
   }
 
+  bool get isValidEmailNauta {
+    final emailRegExp = RegExp(
+        r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@(nauta.[com]{2,3}.cu)$');
+    return emailRegExp.hasMatch(this);
+  }
+
   bool get isValidPhone {
     // final phoneRegExp = RegExp(r"^([\+])([0-9]{1,3}[0-9]{8,12})$");
     final phoneRegExp = RegExp(r"^([0-9]{8,12})$");
+    return phoneRegExp.hasMatch(this);
+  }
+
+  bool get isValidPhoneCubacel {
+    // final phoneRegExp = RegExp(r"^([\+])([0-9]{1,3}[0-9]{8,12})$");
+    final phoneRegExp = RegExp(r"^([5][0-9]{7})$");
     return phoneRegExp.hasMatch(this);
   }
 

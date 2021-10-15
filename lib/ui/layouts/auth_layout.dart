@@ -49,7 +49,7 @@ class AuthLayout extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: SvgPicture.asset(
-                      'assets/images/Recargas_Imagotipo.svg',
+                      'assets/images/Identidad_Recargas_v.svg',
                       color: primaryColor,
                     ),
                   ),

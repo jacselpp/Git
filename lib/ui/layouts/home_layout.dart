@@ -6,9 +6,7 @@ import 'package:detooo_recargas/services/providers/profile_provider.dart';
 import 'package:detooo_recargas/services/repository/user_repository.dart';
 import 'package:detooo_recargas/services/shared_preference.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
-import 'package:detooo_recargas/ui/views/auth/profile_view.dart';
 import 'package:detooo_recargas/ui/widgets/main_drawer.dart';
-import 'package:detooo_recargas/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -28,11 +26,7 @@ class HomeLayout extends StatelessWidget {
               height: 50.0,
               width:
                   ScreenHelper.screenWidthPercentage(context, percentage: 0.35),
-              child: SvgPicture.asset(
-                ThemeProvider.of(context)!.brightness == Brightness.light
-                    ? 'assets/images/Recargas_Identidad_H.svg'
-                    : 'assets/images/Recargas_Identidad_H_dark.svg',
-              ),
+              child: SvgPicture.asset('assets/images/Recargas_Identidad_H.svg'),
             ),
           ],
         ),
@@ -48,7 +42,9 @@ class HomeLayout extends StatelessWidget {
                     ThemeProvider.of(context)!.brightness == Brightness.light);
                 ThemeSwitcher.of(context)!.changeTheme(theme: themeName);
               },
-              icon: const Icon(Icons.dark_mode),
+              icon: ThemeProvider.of(context)!.brightness == Brightness.light
+                  ? const Icon(Icons.dark_mode)
+                  : const Icon(Icons.light_mode),
             ),
           ),
           IconButton(
@@ -110,7 +106,6 @@ class HomeLayout extends StatelessWidget {
   PopupMenuItem _buildMenuItem(BuildContext context, String s, Icon icon) {
     final locale = AppLocalizations.of(context)!;
     return PopupMenuItem(
-      // height: .350,
       value: s,
       child: Row(
         children: <Widget>[

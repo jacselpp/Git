@@ -1,1 +1,66 @@
-{}
+{
+    "loading": "Cargando...",
+    "no_network_error": "No está conectado a internet.",
+    "success_register": "Registrado exitosamente.",
+    "success_update_profile": "Perfil actualizado exitosamente.",
+    "success_change_password": "Contraseña cambiada exitosamente.",
+    "success_password_reset": "Contraseña reestablecida exitosamente.",
+    "done_login": "Accedió exitosamente.",
+
+    "home": "Inicio",
+    "recharges": "Recargas",
+    "cubacel": "CUBACEL",
+    "nauta": "NAUTA",
+    "history": "Historial",
+    "profile": "Perfil",
+    "security": "Seguridad",
+    "logout": "Salir",
+    "login": "Acceder",
+    "register": "Registrarse",
+    "register_subtitle": "Regístrese en la plataforma",
+    "create_account": "Crear Cuenta",
+    "forgot_password": "Olvidé mi contraseña",
+
+    "password": "Contraseña",
+    "old_password": "Contraseña Actual",
+    "new_password": "Nueva Contraseña",
+    "repeat_new_password": "Confirme su Contraseña",
+    "change_password": "Cambiar Contraseña",
+    "fullname": "Nombre Completo",
+    "country": "País",
+    "email": "E-mail",
+    "movil": "Teléfono Móvil",
+    "update_profile": "Actualizar Perfil",
+
+    "phone_email": "Teléfono / Email",
+    "repeat_password": "Repita su contraseña",
+    "error_invalid_email": "Email no válido",
+    "error_password_no_match": "Las contraseñas no coinciden",
+    "error_invalid_name": "Nombre no válido",
+    "error_select_country": "País no válido",
+    "error_invalid_phone_email": "Teléfono/Email no válido",
+    "send": "Enviar",
+    "package": "Paquete",
+    "recharge": "Recargar",
+    "cubacel_recharge": "Recarga CUBACEL",
+    "nauta_recharge": "Recarga NAUTA",
+    "nauta_account": "Cuenta NAUTA",
+    "query_empty": "Consulta vacia",
+    "query_load_error": "Error en la consulta",
+    "query_no_match": "La consulta no coincide",
+
+    "municipalities": "Municipios",
+    "select_municipalities": "Municipios Seleccionados",
+
+    "start_session": "Inicia Sesión",
+    "start_session_subtitle": "Inicie sesión en la plataforma",
+
+    "confirmation_code": "Código de confirmación",
+    "activate_account": "Activar cuenta",
+
+    "should_accept": "Para pagar debe aceptar el servicio",
+    "invalid_nauta_email_error": "Cuenta NAUTA no válida",
+    "invalid_cubacel_phone_error": "Teléfono CUBACEL no válido",
+
+    "accept_therms_recharge": "Confirmo que he revisado los números y/o cuentas Nautas y acepto que este servicio no admite reembolso."
+}

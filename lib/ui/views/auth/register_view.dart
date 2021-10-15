@@ -116,7 +116,6 @@ class _RegisterViewState extends State<RegisterView> {
           CustomTextFormField(
             suffixIcon: const Icon(Icons.arrow_drop_down),
             label: locale.read('country'),
-            hintText: locale.read('country_hint'),
             validator: (s) {
               if (_countrySelected?.name == null) {
                 return locale.read('error_select_country');

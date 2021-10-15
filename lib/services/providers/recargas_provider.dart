@@ -14,6 +14,13 @@ class PackagesProvider extends ChangeNotifier {
     return _packages!;
   }
 
+  List<Promotions> get pack {
+    if (_packages == null && _paginated == null) {
+      fetchPackages();
+    }
+    return _packages!;
+  }
+
   fetchPackages() async {
     await APIRecargas.common().readPromotions().then((value) {
       setPackages(value.items!);
