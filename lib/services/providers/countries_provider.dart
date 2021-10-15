@@ -30,7 +30,7 @@ class CountriesProvider extends ChangeNotifier {
 
   Future<void> fetchAllCountries() async {
     List<Country>? countriesFromBd = SharedPreference.countries;
-    if (countriesFromBd == null) {
+    if (countriesFromBd == null || countriesFromBd.isEmpty) {
       APICountries.common().countriesRead().then((value) {
         setAllCountries(value);
       });
@@ -43,6 +43,9 @@ class CountriesProvider extends ChangeNotifier {
     BuildContext context,
     String query,
   ) async {
+    if (_allCountryList.isEmpty) {
+      await fetchAllCountries();
+    }
     return allCountries
         .where((value) =>
             value.name!.toLowerCase().startsWith(query.toLowerCase()))
