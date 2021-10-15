@@ -25,6 +25,7 @@
     "old_password": "Contraseña Actual",
     "new_password": "Nueva Contraseña",
     "repeat_new_password": "Confirme su Contraseña",
+    "password_to_short_error": "Contraseña demasiado corta",
     "change_password": "Cambiar Contraseña",
     "fullname": "Nombre Completo",
     "country": "País",

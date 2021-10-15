@@ -2,6 +2,7 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/app/app_routes.dart';
 import 'package:detooo_recargas/app/app_theme.dart';
+import 'package:detooo_recargas/services/providers/language_provider.dart';
 import 'package:detooo_recargas/services/providers/profile_provider.dart';
 import 'package:detooo_recargas/services/repository/user_repository.dart';
 import 'package:detooo_recargas/services/shared_preference.dart';
@@ -48,8 +49,20 @@ class HomeLayout extends StatelessWidget {
             ),
           ),
           IconButton(
-            onPressed: () {},
             icon: const Icon(Icons.language),
+            onPressed: () {
+              final String appLocale =
+                  Localizations.localeOf(context).languageCode;
+              if (appLocale == 'en') {
+                context
+                    .read<LanguageProvider>()
+                    .setLanguage(const Locale('es'));
+              } else {
+                context
+                    .read<LanguageProvider>()
+                    .setLanguage(const Locale('en'));
+              }
+            },
           ),
           PopupMenuButton(
             onSelected: (choice) => _choiceAction(choice.toString(), context),

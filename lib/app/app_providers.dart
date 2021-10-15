@@ -1,4 +1,5 @@
 import 'package:detooo_recargas/services/providers/countries_provider.dart';
+import 'package:detooo_recargas/services/providers/language_provider.dart';
 import 'package:detooo_recargas/services/providers/municipios_provider.dart';
 import 'package:detooo_recargas/services/providers/profile_provider.dart';
 import 'package:detooo_recargas/services/providers/provincias_provider.dart';
@@ -30,6 +31,9 @@ class AppProvider extends StatelessWidget {
         ),
         ChangeNotifierProvider<PackagesProvider>(
           create: (context) => PackagesProvider(),
+        ),
+        ChangeNotifierProvider<LanguageProvider>(
+          create: (context) => LanguageProvider(),
         ),
       ],
       child: DismissKeyboard(child: child),

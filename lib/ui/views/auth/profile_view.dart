@@ -1,12 +1,14 @@
+import 'package:detooo_recargas/models/auth/countries_model.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/providers/profile_provider.dart';
 import 'package:detooo_recargas/services/repository/user_repository.dart';
-
 import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:detooo_recargas/ui/layouts/home_layout.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:detooo_recargas/utils/validators.dart';
 
 class ProfileView extends StatefulWidget {
   const ProfileView({Key? key}) : super(key: key);
@@ -17,6 +19,8 @@ class ProfileView extends StatefulWidget {
 
 class _ProfileViewState extends State<ProfileView> {
   Profile? _profile;
+  Country? _selectedCountry;
+
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _fullnameController = TextEditingController();
   final TextEditingController _countryController = TextEditingController();
@@ -45,13 +49,16 @@ class _ProfileViewState extends State<ProfileView> {
 
   Widget _buildBody(BuildContext context) {
     _profile = Provider.of<ProfileProvider>(context, listen: false).profile;
+
+    _selectedCountry ??= _profile?.country;
+
     final locale = AppLocalizations.of(context)!;
     if (_profile != null) {
       _fullnameController.value = TextEditingValue(
         text: _profile?.fullname ?? '',
       );
       _countryController.value = TextEditingValue(
-        text: _profile?.country?.name ?? '',
+        text: _selectedCountry?.name ?? '',
       );
       _emailController.value = TextEditingValue(
         text: _profile?.email ?? '',
@@ -83,11 +90,19 @@ class _ProfileViewState extends State<ProfileView> {
                 CustomTextFormField(
                   controller: _emailController,
                   label: locale.read('email'),
+                  validator: (value) => validateEmail(
+                    context: context,
+                    value: value,
+                  ),
                 ),
                 _buildSeparation(),
                 CustomTextFormField(
                   controller: _movilController,
                   label: locale.read('movil'),
+                  validator: (value) => validatePhone(
+                    context: context,
+                    value: value,
+                  ),
                 ),
                 const Divider(),
                 _buildSeparation(),
@@ -151,6 +166,8 @@ class _ProfileViewState extends State<ProfileView> {
     _profile!.email = _emailController.text;
     _profile!.fullname = _fullnameController.text;
     _profile!.movil = _movilController.text;
+    _profile!.country = _selectedCountry;
+
     UserRepository().updateProfile(_profile!, context);
   }
 }

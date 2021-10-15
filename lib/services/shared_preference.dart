@@ -97,15 +97,15 @@ class SharedPreference {
     _preference.setString('PROFILE', jsonEncode(value.toJson()));
   }
 
-  static void get deleteProfile {
-    _preference.remove('PROFILE');
-  }
-
   static Profile? get profile {
     String? userString = _preference.getString('PROFILE');
     if (userString != null) {
       return Profile.fromJson(jsonDecode(userString));
     }
+  }
+
+  static void get deleteProfile {
+    _preference.remove('PROFILE');
   }
 
 //!Municipios---------------------------------------------
@@ -127,5 +127,20 @@ class SharedPreference {
       }
     }
     return municipiosList;
+  }
+
+  //!Language ----------------------------------------------------
+  static Locale? get language {
+    String? lang = _preference.getString('LANGUAGE');
+    Locale? locale;
+    if (lang != null) {
+      locale = Locale(lang);
+    }
+
+    return locale;
+  }
+
+  static void saveLanguage(Locale language) {
+    _preference.setString('LANGUAGE', language.toString());
   }
 }

@@ -46,10 +46,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
   @override
   Widget build(BuildContext context) {
     return HomeLayout(
-      child: Form(
-        key: _formKey,
-        child: _buildContetnt(context),
-      ),
+      child: _buildContetnt(context),
     );
   }
 
@@ -59,6 +56,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
       children: [
         _buildAvatar(context),
         Form(
+          key: _formKey,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Card(
