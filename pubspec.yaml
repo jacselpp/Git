@@ -53,7 +53,6 @@ dependencies:
   # Network
   retrofit: ^2.0.1
   dio: ^4.0.0
-  http: ^0.13.4
 
   #Firebase Messaging
   # firebase_auth:
@@ -94,9 +93,6 @@ dependencies:
 
   #Slider
   carousel_slider: ^4.0.0
-
-  #io
-  universal_io: ^2.0.4
   
 dev_dependencies:
   flutter_test:
