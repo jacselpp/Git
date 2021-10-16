@@ -1,4 +1,5 @@
 import 'package:detooo_recargas/models/recargas/promotions_model.dart';
+import 'package:detooo_recargas/models/recargas/testimonials_model.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -20,4 +21,10 @@ abstract class APIRecargas {
 
   @GET("promotions")
   Future<Paginated<Promotions>> readPromotions();
+
+  @GET("testimonials/user_list")
+  Future<List<Testimonials>> fetchTestimonials();
+
+  @POST("testimonials")
+  Future<void> createTestimonials(@Body() Testimonials testimonials);
 }

@@ -1,10 +1,10 @@
 import 'dart:io';
 
+import 'package:detooo_recargas/models/recargas/testimonials_model.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
 import 'package:detooo_recargas/models/auth/municipios_model.dart';
-import 'package:detooo_recargas/models/auth/provincias_model.dart';
 import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/network/dio_instances.dart';
 import 'package:detooo_recargas/utils/constant.dart';
@@ -41,32 +41,12 @@ abstract class APIUsers {
   @PUT("profile")
   Future<Profile> updateProfile(@Body() Profile user);
 
-  @GET("municipios")
-  Future<List<Municipios>> fetchMunicipios();
-
-  @GET("admin/users/{id}")
-  Future<Profile> fetchUserById(@Path("id") String id);
-
-  @GET("municipios/provincia/{id}")
-  Future<List<Municipios>> fetchMunicipiosProvincia(@Path("id") String id);
-
-  @GET("provincias/{id}")
-  Future<Provincias> fetchProvincia(@Path("id") String id);
+  @GET("users/public/list?id={id}")
+  Future<List<Profile>> fetchUserById(@Path("id") String id);
 
   @GET("auth/reset-password/verify/{id}")
-  Future<List<Municipios>> verifyChangePassword(@Path("id") String id);
+  Future<void> verifyChangePassword(@Path("id") String id);
 
   @GET("auth/verify/{id}")
   Future<void> verifyCreateUser(@Path("id") String id);
-
-  @GET("provincias")
-  Future<List<Provincias>> fetchProvincias();
-
-  @PATCH("profile/update_avatar")
-  Future<Map<String, String>> postFormData({
-    @Part(
-      name: 'avatar',
-    )
-        required File avatar,
-  });
 }

@@ -5,6 +5,7 @@ import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:detooo_recargas/ui/layouts/home_layout.dart';
 import 'package:detooo_recargas/ui/views/recargas/recargas_cubacel_view.dart';
 import 'package:detooo_recargas/ui/views/recargas/recargas_nauta_view.dart';
+import 'package:detooo_recargas/ui/widgets/testimonials_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
@@ -15,7 +16,17 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return HomeLayout(
-      child: _buildBody(context),
+      child: Column(
+        children: [
+          const Padding(
+            padding: EdgeInsets.all(8.0),
+            child: TestimonialsWidget(
+              height: 150.0,
+            ),
+          ),
+          _buildBody(context),
+        ],
+      ),
     );
   }
 
@@ -26,7 +37,7 @@ class HomeView extends StatelessWidget {
           (BuildContext context, AsyncSnapshot<List<Promotions>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return SizedBox(
-            height: ScreenHelper.screenHeight(context) * .90,
+            height: (ScreenHelper.screenHeight(context) * .90) - 150,
             width: ScreenHelper.screenWidth(context),
             child: const Center(
               child: CircularProgressIndicator(
@@ -47,7 +58,7 @@ class HomeView extends StatelessWidget {
 
   Widget _buildList(BuildContext context, List<Promotions>? data) {
     return SizedBox(
-      height: ScreenHelper.screenHeight(context) * .90,
+      height: (ScreenHelper.screenHeight(context) * .90) - 150,
       child: ListView.builder(
         itemCount: data!.length,
         itemBuilder: (BuildContext context, int index) {
