@@ -245,6 +245,24 @@ class _APIUsers implements APIUsers {
     return value;
   }
 
+  @override
+  Future<Map<String, String>> postFormData({required avatar}) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = FormData();
+    _data.files.add(MapEntry(
+        'avatar',
+        MultipartFile.fromFileSync(avatar.path,
+            filename: avatar.path.split(Platform.pathSeparator).last)));
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Map<String, String>>(Options(
+                method: 'PATCH', headers: <String, dynamic>{}, extra: _extra)
+            .compose(_dio.options, 'profile/update_avatar',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    return {};
+  }
+
   RequestOptions _setStreamType<T>(RequestOptions requestOptions) {
     if (T != dynamic &&
         !(requestOptions.responseType == ResponseType.bytes ||

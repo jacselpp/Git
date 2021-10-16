@@ -133,6 +133,52 @@ AlertDialog dialogLogout(BuildContext context, {VoidCallback? onAccept}) {
   );
 }
 
+AlertDialog dialogProfileImage(
+  BuildContext context, {
+  VoidCallback? selectFromGallery,
+  VoidCallback? selectFromCamera,
+}) {
+  final locale = AppLocalizations.of(context)!;
+
+  return AlertDialog(
+    title: Text(locale.read('dialog_profile').toUpperCase()),
+    content: Row(
+      children: [
+        Expanded(
+          child: GestureDetector(
+            onTap: selectFromCamera,
+            child: const Icon(
+              Icons.add_a_photo,
+              size: 36.0,
+              color: primaryColor,
+            ),
+          ),
+        ),
+        Expanded(
+          child: GestureDetector(
+            onTap: selectFromGallery,
+            child: const Icon(
+              Icons.image,
+              size: 50.0,
+              color: primaryColor,
+            ),
+          ),
+        ),
+      ],
+    ),
+    actions: [
+      TextButton(
+        child: Text(locale.read('dialog_cancel')),
+        onPressed: () => Navigator.of(context).pop(false),
+      ),
+      TextButton(
+        child: Text(locale.read('dialog_accept')),
+        onPressed: () {},
+      ),
+    ],
+  );
+}
+
 void showLoadingBottomSheet(BuildContext context,
     {VoidCallback? onPressed, bool close = false}) {
   final locale = AppLocalizations.of(context)!;

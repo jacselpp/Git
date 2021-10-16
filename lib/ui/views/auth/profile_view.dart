@@ -1,9 +1,16 @@
-import 'package:detooo_recargas/models/auth/countries_model.dart';
-import 'package:detooo_recargas/services/providers/countries_provider.dart';
-import 'package:detooo_recargas/utils/search/country_search_delegate.dart';
+import 'dart:io';
+import 'dart:html';
+import 'package:universal_io/io.dart';
+
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:image_picker/image_picker.dart';
 
+import 'package:detooo_recargas/models/auth/countries_model.dart';
+import 'package:detooo_recargas/services/network/dio_instances.dart';
+import 'package:detooo_recargas/services/providers/countries_provider.dart';
+import 'package:detooo_recargas/utils/search/country_search_delegate.dart';
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/providers/profile_provider.dart';
@@ -150,11 +157,14 @@ class _ProfileViewState extends State<ProfileView> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(10.0),
-                child: CircleAvatar(
-                  maxRadius: 60.0,
-                  backgroundColor: Colors.transparent,
-                  backgroundImage: NetworkImage(
-                      context.watch<ProfileProvider>().profile!.avatar!),
+                child: GestureDetector(
+                  onTap: _handleAvatar,
+                  child: CircleAvatar(
+                    maxRadius: 60.0,
+                    backgroundColor: Colors.transparent,
+                    backgroundImage: NetworkImage(
+                        context.watch<ProfileProvider>().profile!.avatar!),
+                  ),
                 ),
               ),
             ],
@@ -188,5 +198,28 @@ class _ProfileViewState extends State<ProfileView> {
       );
     });
     setState(() {});
+  }
+
+  void _handleAvatar() async {
+    final ImagePicker _picker = ImagePicker();
+    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+
+    final _data = FormData();
+
+    _data.files.add(
+      MapEntry(
+        'avatar',
+        MultipartFile.fromFileSync(
+          image!.path,
+          filename: image.path.split('/').last,
+        ),
+      ),
+    );
+
+    dioCommon().patch(
+      'https://api.v2.users.detooo.com/profile/update_avatar',
+      options: Options(headers: {'Accept': 'multipart/form-data'}),
+      data: _data,
+    );
   }
 }

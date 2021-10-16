@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -59,4 +61,12 @@ abstract class APIUsers {
 
   @GET("provincias")
   Future<List<Provincias>> fetchProvincias();
+
+  @PATCH("profile/update_avatar")
+  Future<Map<String, String>> postFormData({
+    @Part(
+      name: 'avatar',
+    )
+        required File avatar,
+  });
 }
