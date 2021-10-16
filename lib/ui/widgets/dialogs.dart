@@ -149,7 +149,7 @@ AlertDialog dialogProfileImage(
             onTap: selectFromCamera,
             child: const Icon(
               Icons.add_a_photo,
-              size: 36.0,
+              size: 50.0,
               color: primaryColor,
             ),
           ),

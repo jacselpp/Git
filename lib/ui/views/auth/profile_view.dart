@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:html';
-import 'package:universal_io/io.dart';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -202,7 +200,20 @@ class _ProfileViewState extends State<ProfileView> {
 
   void _handleAvatar() async {
     final ImagePicker _picker = ImagePicker();
-    final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+    XFile? image = await showDialog(
+      context: context,
+      builder: (ctx) => dialogProfileImage(
+        context,
+        selectFromGallery: () async {
+          Navigator.of(ctx)
+              .pop(await _picker.pickImage(source: ImageSource.gallery));
+        },
+        selectFromCamera: () async {
+          Navigator.of(ctx)
+              .pop(await _picker.pickImage(source: ImageSource.camera));
+        },
+      ),
+    );
 
     final _data = FormData();
 
@@ -211,7 +222,7 @@ class _ProfileViewState extends State<ProfileView> {
         'avatar',
         MultipartFile.fromFileSync(
           image!.path,
-          filename: image.path.split('/').last,
+          filename: image.path.split(Platform.pathSeparator).last,
         ),
       ),
     );
