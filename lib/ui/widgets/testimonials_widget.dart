@@ -9,14 +9,16 @@ import '../app_ui.dart';
 
 class TestimonialsWidget extends StatefulWidget {
   final double? height;
-  const TestimonialsWidget({Key? key, this.height}) : super(key: key);
+  final VoidCallback handleClose;
+  const TestimonialsWidget({Key? key, this.height, required this.handleClose})
+      : super(key: key);
 
   @override
   State<TestimonialsWidget> createState() => _TestimonialsWidgetState();
 }
 
 class _TestimonialsWidgetState extends State<TestimonialsWidget> {
-  List<String> _usersId = [];
+  List<String?> _usersId = [];
 
   @override
   Widget build(BuildContext context) {
@@ -54,9 +56,7 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
                   children: [
                     IconButton(
                       color: Colors.redAccent,
-                      onPressed: () {
-                        print('nepte');
-                      },
+                      onPressed: widget.handleClose,
                       icon: const Icon(Icons.close),
                     ),
                   ],
@@ -71,9 +71,7 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
                   children: [
                     IconButton(
                       color: primaryColor,
-                      onPressed: () {
-                        print('nepte');
-                      },
+                      onPressed: () {},
                       icon: const Icon(Icons.add),
                     ),
                   ],
@@ -123,9 +121,38 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
   }
 
   Widget _buildUser(String userId, BuildContext context) {
-    // Profile? profile = context.read<UsersProvider>().getProfile(userId);
+    List<Profile?> _profiles = context.watch<UsersProvider>().getProfile;
+    Profile? _user;
+    for (var profile in _profiles) {
+      if (profile!.id == userId) {
+        _user = profile;
+      }
+    }
     return Row(
-        // children: [Text(profile?.fullname ?? '')],
-        );
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: CircleAvatar(
+              maxRadius: 15.0,
+              backgroundColor: Colors.transparent,
+              backgroundImage: (_user?.avatar != null)
+                  ? NetworkImage(_user!.avatar!, scale: 20.0)
+                  : null,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 4,
+          child: Text(
+            _user?.fullname ?? '',
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
+        ),
+      ],
+    );
   }
 }

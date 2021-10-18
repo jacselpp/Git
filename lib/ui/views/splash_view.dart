@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:detooo_recargas/app/app_routes.dart';
+import 'package:detooo_recargas/services/providers/profile_provider.dart';
 import 'package:detooo_recargas/services/shared_preference.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:provider/src/provider.dart';
 
 import '../screen_helper.dart';
 
@@ -42,10 +44,10 @@ class _SplashViewState extends State<SplashView> {
 
   void navigate() {
     String? token = SharedPreference.readUserKey;
-
-    // if (notFirstTime == null || notFirstTime == false) {
-    //   Navigator.of(context).pushReplacementNamed(Routes.LOGIN);
-    // } else {
+    String? _key = SharedPreference.readUserKey;
+    if (_key != null) {
+      context.read<ProfileProvider>().fetchProfile();
+    }
     (token == null || token.isEmpty)
         ? Navigator.of(context).pushReplacementNamed(Routes.LOGIN)
         : Navigator.of(context).pushReplacementNamed(Routes.HOME);

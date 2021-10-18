@@ -1,6 +1,7 @@
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/models/recargas/promotions_model.dart';
 import 'package:detooo_recargas/services/providers/recargas_provider.dart';
+import 'package:detooo_recargas/services/shared_preference.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:detooo_recargas/ui/layouts/home_layout.dart';
 import 'package:detooo_recargas/ui/views/recargas/recargas_cubacel_view.dart';
@@ -10,20 +11,42 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  late bool _testimonials;
+
+  _handleTestimonials() {
+    SharedPreference.setTestimonials(!_testimonials);
+    setState(() {
+      _testimonials = !_testimonials;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _testimonials = SharedPreference.testimonials;
+  }
 
   @override
   Widget build(BuildContext context) {
     return HomeLayout(
       child: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.all(8.0),
-            child: TestimonialsWidget(
-              height: 150.0,
+          if (_testimonials)
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TestimonialsWidget(
+                height: 150.0,
+                handleClose: () => _handleTestimonials(),
+              ),
             ),
-          ),
           _buildBody(context),
         ],
       ),
@@ -37,7 +60,9 @@ class HomeView extends StatelessWidget {
           (BuildContext context, AsyncSnapshot<List<Promotions>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return SizedBox(
-            height: (ScreenHelper.screenHeight(context) * .90) - 150,
+            height: (_testimonials)
+                ? (ScreenHelper.screenHeight(context) * .90) - 150
+                : (ScreenHelper.screenHeight(context) * .90),
             width: ScreenHelper.screenWidth(context),
             child: const Center(
               child: CircularProgressIndicator(
@@ -58,7 +83,9 @@ class HomeView extends StatelessWidget {
 
   Widget _buildList(BuildContext context, List<Promotions>? data) {
     return SizedBox(
-      height: (ScreenHelper.screenHeight(context) * .90) - 150,
+      height: (_testimonials)
+          ? (ScreenHelper.screenHeight(context) * .90) - 160
+          : (ScreenHelper.screenHeight(context) * .90),
       child: ListView.builder(
         itemCount: data!.length,
         itemBuilder: (BuildContext context, int index) {

@@ -6,14 +6,9 @@ import 'package:flutter/material.dart';
 class ProfileProvider extends ChangeNotifier {
   Profile? _profile;
 
-  Profile? get profile {
-    if (_profile == null) {
-      _fetchProfile();
-    }
-    return _profile;
-  }
+  Profile? get profile => _profile;
 
-  void _fetchProfile() {
+  void fetchProfile() {
     Profile? profile = SharedPreference.profile;
     if (profile == null) {
       APIUsers.common().profile().then((value) {

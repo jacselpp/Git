@@ -143,4 +143,12 @@ class SharedPreference {
   static void saveLanguage(Locale language) {
     _preference.setString('LANGUAGE', language.toString());
   }
+
+  //! Testimonials ----------------------------------------------------
+  static bool get testimonials => _preference.getBool("TESTIMONIALS") ?? true;
+
+  static void deleteTestimonials() => _preference.remove("TESTIMONIALS");
+
+  static void setTestimonials(bool testimonial) =>
+      _preference.setBool('TESTIMONIALS', testimonial);
 }

@@ -2,6 +2,7 @@ import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/app/app_routes.dart';
 import 'package:detooo_recargas/app/app_theme.dart';
+import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/providers/language_provider.dart';
 import 'package:detooo_recargas/services/providers/profile_provider.dart';
 import 'package:detooo_recargas/services/repository/user_repository.dart';
@@ -12,12 +13,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:provider/provider.dart';
 
-class HomeLayout extends StatelessWidget {
+class HomeLayout extends StatefulWidget {
   final Widget child;
   const HomeLayout({Key? key, required this.child}) : super(key: key);
 
   @override
+  State<HomeLayout> createState() => _HomeLayoutState();
+}
+
+class _HomeLayoutState extends State<HomeLayout> {
+  Profile? _profile;
+
+  @override
   Widget build(BuildContext context) {
+    _profile ??= context.watch<ProfileProvider>().profile;
     return Scaffold(
       appBar: AppBar(
         toolbarHeight: 50.0,
@@ -71,9 +80,7 @@ class HomeLayout extends StatelessWidget {
               child: CircleAvatar(
                 maxRadius: 15.0,
                 backgroundColor: Colors.transparent,
-                backgroundImage: NetworkImage(
-                    context.watch<ProfileProvider>().profile?.avatar ?? "",
-                    scale: 20.0),
+                backgroundImage: NetworkImage(_profile!.avatar!, scale: 20.0),
               ),
             ),
             itemBuilder: (context) => [
@@ -97,7 +104,7 @@ class HomeLayout extends StatelessWidget {
         ],
       ),
       drawer: const MainDrawer(),
-      body: SingleChildScrollView(child: child),
+      body: SingleChildScrollView(child: widget.child),
     );
   }
 
