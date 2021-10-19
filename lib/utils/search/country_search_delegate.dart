@@ -1,5 +1,6 @@
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/services/providers/countries_provider.dart';
+import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:detooo_recargas/models/auth/countries_model.dart';
@@ -117,7 +118,7 @@ class CountrySearch extends SearchDelegate<Country> {
                       text: queryText,
                       style: const TextStyle(
                           fontWeight: FontWeight.bold,
-                          color: Colors.red,
+                          color: primaryColor,
                           fontSize: 16.0),
                       children: [
                         TextSpan(
