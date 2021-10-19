@@ -215,10 +215,13 @@ class _ProfileViewState extends State<ProfileView> {
         .read<CountriesProvider>()
         .fetchAllCountries()
         .then((value) async {
-      _selectedCountry = await showSearch(
+      Country? selectedCountry = await showSearch(
         context: context,
         delegate: CountrySearch(),
       );
+      if (selectedCountry?.name != null) {
+        _selectedCountry = selectedCountry;
+      }
     });
     setState(() {});
   }
