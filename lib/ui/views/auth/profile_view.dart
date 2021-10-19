@@ -96,6 +96,7 @@ class _ProfileViewState extends State<ProfileView> {
                   },
                   controller: _countryController,
                   label: locale.read('country'),
+                  suffixIcon: const Icon(Icons.arrow_drop_down_rounded),
                 ),
                 _buildSeparation(),
                 CustomTextFormField(
@@ -157,11 +158,35 @@ class _ProfileViewState extends State<ProfileView> {
                 padding: const EdgeInsets.all(10.0),
                 child: GestureDetector(
                   onTap: _handleAvatar,
-                  child: CircleAvatar(
-                    maxRadius: 60.0,
-                    backgroundColor: Colors.transparent,
-                    backgroundImage: NetworkImage(
-                        context.watch<ProfileProvider>().profile!.avatar!),
+                  child: Stack(
+                    children: [
+                      CircleAvatar(
+                        maxRadius: 60.0,
+                        backgroundColor: Colors.transparent,
+                        backgroundImage: NetworkImage(
+                            context.watch<ProfileProvider>().profile!.avatar!),
+                      ),
+                      SizedBox(
+                        width: 115.0,
+                        height: 115.0,
+                        child: Column(
+                          mainAxisSize: MainAxisSize.max,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: const [
+                                Icon(
+                                  Icons.camera_alt_rounded,
+                                  color: primaryColor,
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -205,32 +230,42 @@ class _ProfileViewState extends State<ProfileView> {
       builder: (ctx) => dialogProfileImage(
         context,
         selectFromGallery: () async {
-          Navigator.of(ctx)
-              .pop(await _picker.pickImage(source: ImageSource.gallery));
+          Navigator.of(ctx).pop(
+            await _picker.pickImage(
+              source: ImageSource.gallery,
+              maxWidth: 720.0,
+            ),
+          );
         },
         selectFromCamera: () async {
-          Navigator.of(ctx)
-              .pop(await _picker.pickImage(source: ImageSource.camera));
+          Navigator.of(ctx).pop(
+            await _picker.pickImage(
+              source: ImageSource.camera,
+              maxWidth: 720.0,
+            ),
+          );
         },
       ),
     );
 
-    final _data = FormData();
+    if (image != null) {
+      final _data = FormData();
 
-    _data.files.add(
-      MapEntry(
-        'avatar',
-        MultipartFile.fromFileSync(
-          image!.path,
-          filename: image.path.split(Platform.pathSeparator).last,
+      _data.files.add(
+        MapEntry(
+          'avatar',
+          MultipartFile.fromFileSync(
+            image.path,
+            filename: image.path.split(Platform.pathSeparator).last,
+          ),
         ),
-      ),
-    );
+      );
 
-    dioCommon().patch(
-      'https://api.v2.users.detooo.com/profile/update_avatar',
-      options: Options(headers: {'Accept': 'multipart/form-data'}),
-      data: _data,
-    );
+      dioCommon().patch(
+        'https://api.v2.users.detooo.com/profile/update_avatar',
+        options: Options(headers: {'Accept': 'multipart/form-data'}),
+        data: _data,
+      );
+    }
   }
 }

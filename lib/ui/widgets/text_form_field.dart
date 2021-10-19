@@ -16,6 +16,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType? keyboardType;
 
   final Widget? suffixIcon;
+  final int? minLines;
 
   const CustomTextFormField({
     Key? key,
@@ -35,16 +36,20 @@ class CustomTextFormField extends StatelessWidget {
     this.suffixIcon,
     this.readOnly,
     this.onTap,
+    this.minLines,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      minLines: minLines,
+      maxLines: minLines != null ? minLines! + 1 : null,
       onTap: onTap,
       keyboardType: keyboardType,
       controller: controller,
       cursorColor: primaryColor,
       decoration: InputDecoration(
+        alignLabelWithHint: (minLines != null),
         counterText: counterText,
         helperText: helperText,
         hintText: hintText,

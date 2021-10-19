@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:detooo_recargas/app/app_localizations.dart';
 
 import '../app_ui.dart';
+import 'add_testimonials_widget.dart';
 
 //! SNACKBARS
 enum TypeMessage { ERROR, INFO, LOADING }
@@ -67,6 +68,7 @@ void showMessage(BuildContext context, String message, TypeMessage type) {
 
 SnackBar messageSnack(String text, Color color, Widget icon, int duration) {
   return SnackBar(
+    elevation: 1000.0,
     duration: Duration(seconds: duration),
     backgroundColor: Colors.transparent,
     padding: const EdgeInsets.symmetric(horizontal: 1.0),
@@ -166,16 +168,19 @@ AlertDialog dialogProfileImage(
         ),
       ],
     ),
-    actions: [
-      TextButton(
-        child: Text(locale.read('dialog_cancel')),
-        onPressed: () => Navigator.of(context).pop(false),
-      ),
-      TextButton(
-        child: Text(locale.read('dialog_accept')),
-        onPressed: () {},
-      ),
-    ],
+  );
+}
+
+AlertDialog showTestimonialsDialog(BuildContext context) {
+  final locale = AppLocalizations.of(context)!;
+  return AlertDialog(
+    elevation: 1.0,
+    title: Text(
+      locale.read('testimonials_title'.toUpperCase()),
+    ),
+    content: const SingleChildScrollView(
+      child: AddTestimonials(),
+    ),
   );
 }
 
