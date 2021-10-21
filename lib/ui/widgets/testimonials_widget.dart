@@ -189,6 +189,7 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
         rating.add(const Icon(
           Icons.star,
           size: 20.0,
+          color: Color(0xFFD4AF37),
         ));
       } else {
         rating.add(const Icon(

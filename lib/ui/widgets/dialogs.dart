@@ -176,7 +176,7 @@ AlertDialog showTestimonialsDialog(BuildContext context) {
   return AlertDialog(
     elevation: 1.0,
     title: Text(
-      locale.read('testimonials_title'.toUpperCase()),
+      locale.read('testimonial'),
     ),
     content: const SingleChildScrollView(
       child: AddTestimonials(),

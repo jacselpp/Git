@@ -49,16 +49,8 @@ class _AddTestimonialsState extends State<AddTestimonials> {
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: MainAxisSize.max,
         children: [
-          Text(
-            locale.read('rating'),
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: _buildRating(),
-          ),
           const Divider(),
           const SizedBox(
             height: 10.0,
@@ -73,6 +65,17 @@ class _AddTestimonialsState extends State<AddTestimonials> {
               }
             },
             helperText: (_length > 0) ? '$_length > 20' : '',
+          ),
+          const SizedBox(
+            height: 10.0,
+          ),
+          Text(
+            locale.read('rating'),
+            style: Theme.of(context).textTheme.headline5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: _buildRating(),
           ),
           const SizedBox(
             height: 10.0,
@@ -115,6 +118,7 @@ class _AddTestimonialsState extends State<AddTestimonials> {
             icon: const Icon(
               Icons.star,
               size: 24.0,
+              color: Color(0xFFD4AF37),
             ),
           ),
         );
