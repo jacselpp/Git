@@ -7,17 +7,17 @@ part of 'summary_model.dart';
 // **************************************************************************
 
 Summary _$SummaryFromJson(Map<String, dynamic> json) => Summary(
-      total: json['total'] as int?,
-      status: json['status'] == null
+      total: json['Total'] as int?,
+      status: json['Status'] == null
           ? null
-          : Status.fromJson(json['status'] as Map<String, dynamic>),
-      currencies: json['currencies'] == null
+          : Status.fromJson(json['Status'] as Map<String, dynamic>),
+      currencies: json['Currencies'] == null
           ? null
-          : Currencies.fromJson(json['currencies'] as Map<String, dynamic>),
+          : Currencies.fromJson(json['Currencies'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$SummaryToJson(Summary instance) => <String, dynamic>{
-      'total': instance.total,
-      'status': instance.status,
-      'currencies': instance.currencies,
+      'Total': instance.total,
+      'Status': instance.status,
+      'Currencies': instance.currencies,
     };

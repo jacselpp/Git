@@ -10,8 +10,11 @@ class Currencies {
     this.totalMlc,
   });
 
+  @JsonKey(name: 'totalCUP')
   int? totalCup;
+  @JsonKey(name: 'totalUSD')
   int? totalUsd;
+  @JsonKey(name: 'totalMLC')
   int? totalMlc;
 
   factory Currencies.fromJson(Map<String, dynamic> json) =>

@@ -13,8 +13,11 @@ class Summary {
     this.currencies,
   });
 
+  @JsonKey(name: 'Total')
   int? total;
+  @JsonKey(name: 'Status')
   Status? status;
+  @JsonKey(name: 'Currencies')
   Currencies? currencies;
 
   factory Summary.fromJson(Map<String, dynamic> json) =>

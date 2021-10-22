@@ -7,9 +7,9 @@ part of 'dashboard_model.dart';
 // **************************************************************************
 
 Dashboard _$DashboardFromJson(Map<String, dynamic> json) => Dashboard(
-      summary: json['summary'] == null
+      summary: json['Summary'] == null
           ? null
-          : Summary.fromJson(json['summary'] as Map<String, dynamic>),
+          : Summary.fromJson(json['Summary'] as Map<String, dynamic>),
       anuncios: json['anuncios'] == null
           ? null
           : Anuncios.fromJson(json['anuncios'] as Map<String, dynamic>),
@@ -25,7 +25,7 @@ Dashboard _$DashboardFromJson(Map<String, dynamic> json) => Dashboard(
     );
 
 Map<String, dynamic> _$DashboardToJson(Dashboard instance) => <String, dynamic>{
-      'summary': instance.summary,
+      'Summary': instance.summary,
       'anuncios': instance.anuncios,
       'recargas': instance.recargas,
       'recargadores': instance.recargadores,
@@ -34,40 +34,40 @@ Map<String, dynamic> _$DashboardToJson(Dashboard instance) => <String, dynamic>{
 
 Anuncios _$AnunciosFromJson(Map<String, dynamic> json) => Anuncios(
       total: json['total'] as int?,
-      status: json['status'] == null
+      status: json['Status'] == null
           ? null
-          : Status.fromJson(json['status'] as Map<String, dynamic>),
-      currencies: json['currencies'] == null
+          : Status.fromJson(json['Status'] as Map<String, dynamic>),
+      currencies: json['Currencies'] == null
           ? null
-          : Currencies.fromJson(json['currencies'] as Map<String, dynamic>),
+          : Currencies.fromJson(json['Currencies'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$AnunciosToJson(Anuncios instance) => <String, dynamic>{
       'total': instance.total,
-      'status': instance.status,
-      'currencies': instance.currencies,
+      'Status': instance.status,
+      'Currencies': instance.currencies,
     };
 
 Recarga _$RecargaFromJson(Map<String, dynamic> json) => Recarga(
       total: json['total'] as int?,
-      status: json['status'] == null
+      status: json['Status'] == null
           ? null
-          : Status.fromJson(json['status'] as Map<String, dynamic>),
-      currencies: json['currencies'] == null
+          : Status.fromJson(json['Status'] as Map<String, dynamic>),
+      currencies: json['Currencies'] == null
           ? null
-          : Currencies.fromJson(json['currencies'] as Map<String, dynamic>),
-      cubacel: json['cubacel'] == null
+          : Currencies.fromJson(json['Currencies'] as Map<String, dynamic>),
+      cubacel: json['Cubacel'] == null
           ? null
-          : Summary.fromJson(json['cubacel'] as Map<String, dynamic>),
-      nauta: json['nauta'] == null
+          : Summary.fromJson(json['Cubacel'] as Map<String, dynamic>),
+      nauta: json['Nauta'] == null
           ? null
-          : Summary.fromJson(json['nauta'] as Map<String, dynamic>),
+          : Summary.fromJson(json['Nauta'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$RecargaToJson(Recarga instance) => <String, dynamic>{
       'total': instance.total,
-      'status': instance.status,
-      'currencies': instance.currencies,
-      'cubacel': instance.cubacel,
-      'nauta': instance.nauta,
+      'Status': instance.status,
+      'Currencies': instance.currencies,
+      'Cubacel': instance.cubacel,
+      'Nauta': instance.nauta,
     };

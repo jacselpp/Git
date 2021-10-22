@@ -3,6 +3,7 @@
 import 'package:detooo_recargas/ui/views/auth/change_password_view.dart';
 import 'package:detooo_recargas/ui/views/auth/forgot_password_view.dart';
 import 'package:detooo_recargas/ui/views/auth/profile_view.dart';
+import 'package:detooo_recargas/ui/views/recargas/dashboard_view.dart';
 import 'package:flutter/material.dart';
 
 import 'package:detooo_recargas/ui/views/auth/login_view.dart';
@@ -18,6 +19,7 @@ class Routes {
   static const String PROFILE = 'profile';
   static const String SECURITY = 'security';
   static const String FORGOTPASSWORD = 'forgot_password';
+  static const String DASHBOARD = 'dashboard';
 
   //!Home Views
   static const String HOME = 'home';
@@ -41,6 +43,8 @@ class Routes {
       //!Home Views
       case HOME:
         return MaterialPageRoute(builder: (_) => const HomeView());
+      case DASHBOARD:
+        return MaterialPageRoute(builder: (_) => const DashboardView());
     }
   }
 }

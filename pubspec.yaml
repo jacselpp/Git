@@ -96,6 +96,9 @@ dependencies:
 
   #payments
   flutter_stripe: ^2.0.1
+
+  #pieChart
+  pie_chart: ^5.0.1
   
 dev_dependencies:
   flutter_test:

@@ -16,6 +16,7 @@ class Dashboard {
     this.shop,
   });
 
+  @JsonKey(name: 'Summary')
   Summary? summary;
   Anuncios? anuncios;
   Recarga? recargas;
@@ -36,7 +37,9 @@ class Anuncios {
   });
 
   int? total;
+  @JsonKey(name: 'Status')
   Status? status;
+  @JsonKey(name: 'Currencies')
   Currencies? currencies;
 
   factory Anuncios.fromJson(Map<String, dynamic> json) =>
@@ -55,9 +58,13 @@ class Recarga {
   });
 
   int? total;
+  @JsonKey(name: 'Status')
   Status? status;
+  @JsonKey(name: 'Currencies')
   Currencies? currencies;
+  @JsonKey(name: 'Cubacel')
   Summary? cubacel;
+  @JsonKey(name: 'Nauta')
   Summary? nauta;
 
   factory Recarga.fromJson(Map<String, dynamic> json) =>

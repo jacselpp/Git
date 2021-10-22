@@ -1,3 +1,4 @@
+import 'package:detooo_recargas/services/providers/dashboard_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -34,6 +35,9 @@ class AppProvider extends StatelessWidget {
         ),
         ChangeNotifierProvider<LanguageProvider>(
           create: (context) => LanguageProvider(),
+        ),
+        ChangeNotifierProvider<DashboardProvider>(
+          create: (context) => DashboardProvider(),
         ),
       ],
       child: DismissKeyboard(child: child),
