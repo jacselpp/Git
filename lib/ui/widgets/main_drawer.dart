@@ -68,14 +68,14 @@ class MainDrawer extends StatelessWidget {
             const Divider(
               thickness: 2.0,
             ),
-            _buildItem(
-              Icons.dashboard,
-              locale.read('dashboard'),
-              context,
-              () {
-                Navigator.of(context).pushNamed(Routes.DASHBOARD);
-              },
-            ),
+            // _buildItem(
+            //   Icons.dashboard,
+            //   locale.read('dashboard'),
+            //   context,
+            //   () {
+            //     // 3 Navigator.of(context).pushNamed(Routes.DASHBOARD);
+            //   },
+            // ),
           ],
         ),
       ),
