@@ -7,6 +7,7 @@ class CustomDropdown extends StatefulWidget {
 
   final String? value;
 
+  // ignore: prefer_typing_uninitialized_variables
   final onChanged;
 
   final List<String> items;

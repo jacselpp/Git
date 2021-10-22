@@ -20,6 +20,7 @@ class TestimonialsWidget extends StatefulWidget {
 }
 
 class _TestimonialsWidgetState extends State<TestimonialsWidget> {
+  // ignore: prefer_final_fields
   List<String?> _usersId = [];
 
   @override
