@@ -62,7 +62,7 @@ class MainDrawer extends StatelessWidget {
               locale.read('history'),
               context,
               () {
-                Navigator.of(context).pushNamed(Routes.HOME);
+                // Navigator.of(context).pushNamed(Routes.HOME);
               },
             ),
             const Divider(
