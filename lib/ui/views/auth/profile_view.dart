@@ -1,5 +1,7 @@
 import 'dart:io';
 
+import 'package:detooo_recargas/services/network/api_users.dart';
+import 'package:detooo_recargas/services/providers/subscriptions_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -46,12 +48,13 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return HomeLayout(
-        child: Column(
-      children: [
-        _buildAvatar(context),
-        _buildBody(context),
-      ],
-    ));
+      child: Column(
+        children: [
+          _buildAvatar(context),
+          _buildBody(context),
+        ],
+      ),
+    );
   }
 
   Widget _buildBody(BuildContext context) {
@@ -106,6 +109,7 @@ class _ProfileViewState extends State<ProfileView> {
                     context: context,
                     value: value,
                   ),
+                  suffixIcon: _publicInfo(locale, 'email'),
                 ),
                 _buildSeparation(),
                 CustomTextFormField(
@@ -115,6 +119,51 @@ class _ProfileViewState extends State<ProfileView> {
                     context: context,
                     value: value,
                   ),
+                  suffixIcon: _publicInfo(locale, 'movil'),
+                ),
+                _buildSeparation(),
+                Row(
+                  children: [
+                    Expanded(
+                      child: SwitchListTile(
+                        title: Text(locale.read('subscribe')),
+                        activeColor: primaryColor,
+                        onChanged: (bool value) {
+                          if (value) {
+                            APIUsers.common().userSubscribe(
+                              {"subscription": "promo_recargas"},
+                            ).then((_) {
+                              showMessage(
+                                  context,
+                                  locale.read('subscribed_message'),
+                                  TypeMessage.INFO);
+                            });
+                            _profile?.emailSubscriptions.add('promo_recargas');
+                          } else {
+                            APIUsers.common().userUnsubscribe(
+                              {"subscription": "promo_recargas"},
+                            ).then((_) {
+                              showMessage(
+                                  context,
+                                  locale.read('unsubscribed_message'),
+                                  TypeMessage.INFO);
+                            });
+                            _profile?.emailSubscriptions
+                                .remove('promo_recargas');
+                          }
+                          context
+                              .read<SubscriptionsProvider>()
+                              .setSubscribed(value);
+                          _handleUpdateProfile(context);
+                        },
+                        value:
+                            context.watch<SubscriptionsProvider>().subscribed,
+                      ),
+                    ),
+                    Expanded(
+                      child: Container(),
+                    ),
+                  ],
                 ),
                 const Divider(),
                 _buildSeparation(),
@@ -135,6 +184,41 @@ class _ProfileViewState extends State<ProfileView> {
             ),
           ),
         ),
+      ),
+    );
+  }
+
+  Padding _publicInfo(AppLocalizations locale, String field) {
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            locale.read('public_info'),
+            style: const TextStyle(
+              fontSize: 10.0,
+            ),
+          ),
+          Checkbox(
+            value: _profile!.publicInfo.any((element) => element == field),
+            onChanged: (element) {
+              if (element!) {
+                if (_profile?.publicInfo != null) {
+                  _profile?.publicInfo.add(field);
+                }
+              } else {
+                _profile?.publicInfo.remove(field);
+              }
+              setState(() {});
+            },
+            activeColor: primaryColor,
+            splashRadius: 5.0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10.0),
+            ),
+          )
+        ],
       ),
     );
   }
@@ -202,6 +286,7 @@ class _ProfileViewState extends State<ProfileView> {
   void _handleUpdateProfile(BuildContext context) {
     if (!_formKey.currentState!.validate()) return;
 
+    _profile!.emailSubscriptions = [];
     _profile!.email = _emailController.text;
     _profile!.fullname = _fullnameController.text;
     _profile!.movil = _movilController.text;

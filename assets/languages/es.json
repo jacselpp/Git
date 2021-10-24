@@ -70,6 +70,9 @@
     "should_accept": "Para pagar debe aceptar el servicio",
     "invalid_nauta_email_error": "Cuenta NAUTA no válida",
     "invalid_cubacel_phone_error": "Teléfono CUBACEL no válido",
+    
+    "public_info": "Información Pública",
+    "subscribe": "Suscribirse",
 
     "accept_therms_recharge": "Confirmo que he revisado los números y/o cuentas Nautas y acepto que este servicio no admite reembolso."
 }

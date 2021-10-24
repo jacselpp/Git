@@ -90,6 +90,62 @@ class _APIUsers implements APIUsers {
   }
 
   @override
+  Future<void> userSubscribe(opts) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(opts);
+    await _dio.fetch<void>(_setStreamType<void>(
+        Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+            .compose(_dio.options, 'subscriptions/',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    return null;
+  }
+
+  @override
+  Future<void> userUnsubscribe(opts) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    _data.addAll(opts);
+    await _dio.fetch<void>(_setStreamType<void>(
+        Options(method: 'POST', headers: <String, dynamic>{}, extra: _extra)
+            .compose(_dio.options, 'subscriptions/remove',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    return null;
+  }
+
+  @override
+  Future<bool> userSubscriptionsRecarga() async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+        Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+            .compose(_dio.options, 'subscriptions/subscription/promo_recargas',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
+  Future<bool> userpublicInfo(id) async {
+    const _extra = <String, dynamic>{};
+    final queryParameters = <String, dynamic>{};
+    final _data = <String, dynamic>{};
+    final _result = await _dio.fetch<bool>(_setStreamType<bool>(
+        Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
+            .compose(_dio.options, 'profile/public/info/$id',
+                queryParameters: queryParameters, data: _data)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final value = _result.data!;
+    return value;
+  }
+
+  @override
   Future<void> changePassword(user) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};

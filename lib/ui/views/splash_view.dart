@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:detooo_recargas/services/providers/subscriptions_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -47,6 +48,7 @@ class _SplashViewState extends State<SplashView> {
     String? _key = SharedPreference.readUserKey;
     if (_key != null) {
       context.read<ProfileProvider>().fetchProfile();
+      context.read<SubscriptionsProvider>().fetchSubscribed();
     }
     (token == null || token.isEmpty)
         ? Navigator.of(context).pushReplacementNamed(Routes.LOGIN)

@@ -107,8 +107,8 @@ class Profile {
   List<String>? role = [];
   int? saldo;
   bool? isActive;
-  List<String>? publicInfo = [];
-  List<String>? emailSubscriptions = [];
+  List<String?> publicInfo = [];
+  List<String?> emailSubscriptions = [];
   @JsonKey(name: '_id')
   String? id;
   String? fullname;

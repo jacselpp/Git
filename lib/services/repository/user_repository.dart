@@ -52,7 +52,7 @@ class UserRepository {
     _handleNetwork(
       APIUsers.common().login(userLogin).then((value) {
         SharedPreference.saveUserKey(value.accessToken!);
-        context.read<ProfileProvider>().setProfile(value.user!);
+        context.read<ProfileProvider>().fetchProfile();
         showMessage(context, _locale!.read('done_login'), TypeMessage.INFO);
 
         Navigator.of(context).pushReplacementNamed(Routes.HOME);

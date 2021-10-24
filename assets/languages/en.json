@@ -71,5 +71,8 @@
     "invalid_nauta_email_error": "Invalid NAUTA account",
     "invalid_cubacel_phone_error": "Invalid CUBACEL phone",
 
+    "public_info": "Public Info",
+    "subscribe": "Subscribe",
+
     "accept_therms_recharge": "I confirm that I have reviewed the NAUTA numbers and / or accounts and I accept that this service does not allow reimbursement."
 }

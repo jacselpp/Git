@@ -97,11 +97,11 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) => Profile(
       saldo: json['saldo'] as int?,
       isActive: json['isActive'] as bool?,
       publicInfo: (json['publicInfo'] as List<dynamic>?)
-              ?.map((e) => e as String)
+              ?.map((e) => e as String?)
               .toList() ??
           const [],
       emailSubscriptions: (json['emailSubscriptions'] as List<dynamic>?)
-              ?.map((e) => e as String)
+              ?.map((e) => e as String?)
               .toList() ??
           const [],
       id: json['_id'] as String?,

@@ -28,6 +28,18 @@ abstract class APIUsers {
   @POST("auth/movil/resend_activation_code")
   Future<void> resendMovileCode(@Body() UserVerifyMovil user);
 
+  @POST("subscriptions/")
+  Future<void> userSubscribe(@Body() Map<String, String> opts);
+
+  @POST("subscriptions/remove")
+  Future<void> userUnsubscribe(@Body() Map<String, String> opts);
+
+  @GET("subscriptions/subscription/promo_recargas")
+  Future<bool> userSubscriptionsRecarga();
+
+  @GET("profile/public/info/{id}")
+  Future<bool> userpublicInfo(@Path('id') String id);
+
   @PATCH("profile/change_password")
   Future<void> changePassword(@Body() UserPassword user);
 
