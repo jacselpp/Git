@@ -28,7 +28,13 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                locale.read('recover_password'),
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              const Divider(),
               CustomTextFormField(
                 controller: _emailController,
                 label: locale.read('phone_email'),

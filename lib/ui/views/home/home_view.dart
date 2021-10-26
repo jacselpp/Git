@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/models/recargas/promotions_model.dart';
 import 'package:detooo_recargas/services/providers/recargas_provider.dart';
@@ -37,18 +39,15 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return HomeLayout(
-      child: Column(
-        children: [
-          if (_testimonials)
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TestimonialsWidget(
-                height: 150.0,
-                handleClose: () => _handleTestimonials(),
-              ),
-            ),
-          _buildBody(context),
-        ],
+      child: SingleChildScrollView(
+        primary: true,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const BuildSuggestions(),
+            _buildBody(context),
+          ],
+        ),
       ),
     );
   }
@@ -82,23 +81,23 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _buildList(BuildContext context, List<Promotions>? data) {
-    return SizedBox(
-      height: (_testimonials)
-          ? (ScreenHelper.screenHeight(context) * .90) - 160
-          : (ScreenHelper.screenHeight(context) * .90),
-      child: ListView.builder(
-        itemCount: data!.length,
-        itemBuilder: (BuildContext context, int index) {
-          return _buildItem(data[index], context);
-        },
-      ),
+    return ListView.builder(
+      primary: false,
+      shrinkWrap: true,
+      itemCount: data!.length,
+      itemBuilder: (BuildContext context, int index) {
+        return _buildItem(data[index], context);
+      },
     );
   }
 
   Widget _buildItem(Promotions data, BuildContext context) {
     final locale = AppLocalizations.of(context)!;
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: EdgeInsets.symmetric(
+        vertical: 8.0,
+        horizontal: ScreenHelper.screenWidth(context) * .20,
+      ),
       child: Container(
         decoration: const BoxDecoration(
           borderRadius: BorderRadius.all(
@@ -145,7 +144,9 @@ class _HomeViewState extends State<HomeView> {
                 _buildSeparation(),
                 Row(
                   children: [
+                    Expanded(child: Container()),
                     Expanded(
+                      flex: 2,
                       child: CustomTextButton(
                         color: primaryColor,
                         label: locale.read('recharge'),
@@ -157,6 +158,7 @@ class _HomeViewState extends State<HomeView> {
                         },
                       ),
                     ),
+                    Expanded(child: Container()),
                   ],
                 ),
               ],

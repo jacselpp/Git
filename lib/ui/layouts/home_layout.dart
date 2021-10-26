@@ -104,7 +104,7 @@ class _HomeLayoutState extends State<HomeLayout> {
         ],
       ),
       drawer: const MainDrawer(),
-      body: SingleChildScrollView(child: widget.child),
+      body: widget.child,
     );
   }
 
