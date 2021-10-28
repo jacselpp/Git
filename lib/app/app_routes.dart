@@ -1,6 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
-import 'package:detooo_recargas/ui/views/auth/change_password_view.dart';
+import 'package:detooo_recargas/ui/widgets/profile/tab_security.dart';
 import 'package:detooo_recargas/ui/views/auth/forgot_password_view.dart';
 import 'package:detooo_recargas/ui/views/auth/profile_view.dart';
 import 'package:detooo_recargas/ui/views/recargas/dashboard_view.dart';
@@ -36,7 +36,7 @@ class Routes {
       case PROFILE:
         return MaterialPageRoute(builder: (_) => const ProfileView());
       case SECURITY:
-        return MaterialPageRoute(builder: (_) => const ChangePasswordView());
+        return MaterialPageRoute(builder: (_) => const TabSecurity());
       case FORGOTPASSWORD:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
 

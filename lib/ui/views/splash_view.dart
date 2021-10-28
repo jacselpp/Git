@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:detooo_recargas/services/providers/municipios_provider.dart';
+import 'package:detooo_recargas/services/providers/provincias_provider.dart';
 import 'package:detooo_recargas/services/providers/subscriptions_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -50,6 +52,10 @@ class _SplashViewState extends State<SplashView> {
       context.read<ProfileProvider>().fetchProfile();
       context.read<SubscriptionsProvider>().fetchSubscribed();
     }
+
+    context.read<ProvinciasProvider>().fetchAllProvincias();
+    context.read<MunicipiosProvider>().fetchAllMunicipios();
+
     (token == null || token.isEmpty)
         ? Navigator.of(context).pushReplacementNamed(Routes.LOGIN)
         : Navigator.of(context).pushReplacementNamed(Routes.HOME);

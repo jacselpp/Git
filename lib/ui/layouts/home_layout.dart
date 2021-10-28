@@ -15,7 +15,9 @@ import 'package:provider/provider.dart';
 
 class HomeLayout extends StatefulWidget {
   final Widget child;
-  const HomeLayout({Key? key, required this.child}) : super(key: key);
+  final TabBar? tabBar;
+  const HomeLayout({Key? key, required this.child, this.tabBar})
+      : super(key: key);
 
   @override
   State<HomeLayout> createState() => _HomeLayoutState();
@@ -102,6 +104,7 @@ class _HomeLayoutState extends State<HomeLayout> {
             ],
           ),
         ],
+        bottom: widget.tabBar,
       ),
       drawer: const MainDrawer(),
       body: widget.child,
