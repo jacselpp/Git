@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   ThemeData lightTheme = ThemeData.light().copyWith(
-    scaffoldBackgroundColor: Colors.white,
+    scaffoldBackgroundColor: Colors.blue[50],
     appBarTheme: const AppBarTheme(
       elevation: 0,
       backgroundColor: Colors.white,
@@ -17,6 +17,7 @@ class AppTheme {
       ),
     ),
     iconTheme: const IconThemeData(color: Colors.black),
+    cardTheme: const CardTheme(shadowColor: primaryColor),
     inputDecorationTheme: const InputDecorationTheme(
       labelStyle: TextStyle(
         fontSize: 14.0,
@@ -43,6 +44,9 @@ class AppTheme {
     ),
     scaffoldBackgroundColor: const Color(0XFF1C2025),
     cardColor: const Color(0XFF282c34),
+    cardTheme: const CardTheme(
+      shadowColor: Colors.white,
+    ),
     iconTheme: const IconThemeData(color: Colors.white),
     buttonTheme: const ButtonThemeData(
       textTheme: ButtonTextTheme.normal,

@@ -182,6 +182,7 @@ class _TabGeneralState extends State<TabGeneral> {
                   ),
                   suffixIcon: _publicInfo(locale, 'movil'),
                 ),
+                //! TODO: municipios y provincias en el perfil
                 _buildSeparation(),
                 CustomTextFormField(
                   controller: _provinciaController,
@@ -192,16 +193,16 @@ class _TabGeneralState extends State<TabGeneral> {
                   // ),
                   suffixIcon: _publicInfo(locale, 'movil'),
                 ),
-                _buildSeparation(),
-                CustomTextFormField(
-                  controller: _municipiosController,
-                  label: locale.read('municipios'),
-                  // validator: (value) => validatePhone(
-                  //   context: context,
-                  //   value: value,
-                  // ),
-                  suffixIcon: _publicInfo(locale, 'movil'),
-                ),
+                // _buildSeparation(),
+                // CustomTextFormField(
+                //   controller: _municipiosController,
+                //   label: locale.read('municipios'),
+                //   // validator: (value) => validatePhone(
+                //   //   context: context,
+                //   //   value: value,
+                //   // ),
+                //   suffixIcon: _publicInfo(locale, 'movil'),
+                // ),
                 _buildSeparation(),
                 Row(
                   children: [

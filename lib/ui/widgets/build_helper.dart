@@ -61,45 +61,55 @@ class BuildHelp extends StatelessWidget {
               ),
           textAlign: TextAlign.center,
         ),
-        _buildEachIcon(
-          context,
-          locale,
-          asset: isPortrait
-              ? 'assets/images/Icon_4.svg'
-              : 'assets/images/Icon_4.2.svg',
-          value: 'sign_in',
-        ),
         Padding(
-          padding: const EdgeInsets.only(left: 32.0),
-          child: Container(
-            width: 5.0,
-            height: 25.0,
-            color: isPortrait ? primaryColor : Theme.of(context).cardColor,
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildEachIcon(
+                context,
+                locale,
+                asset: isPortrait
+                    ? 'assets/images/Icon_4.svg'
+                    : 'assets/images/Icon_4.2.svg',
+                value: 'sign_in',
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 32.0),
+                child: Container(
+                  width: 5.0,
+                  height: 25.0,
+                  color:
+                      isPortrait ? primaryColor : Theme.of(context).cardColor,
+                ),
+              ),
+              _buildEachIcon(
+                context,
+                locale,
+                asset: isPortrait
+                    ? 'assets/images/Icon_5.svg'
+                    : 'assets/images/Icon_5.2.svg',
+                value: 'order',
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 32.0),
+                child: Container(
+                  width: 5.0,
+                  height: 25.0,
+                  color:
+                      isPortrait ? primaryColor : Theme.of(context).cardColor,
+                ),
+              ),
+              _buildEachIcon(
+                context,
+                locale,
+                asset: isPortrait
+                    ? 'assets/images/Icon_6.svg'
+                    : 'assets/images/Icon_6.2.svg',
+                value: 'pay',
+              ),
+            ],
           ),
-        ),
-        _buildEachIcon(
-          context,
-          locale,
-          asset: isPortrait
-              ? 'assets/images/Icon_5.svg'
-              : 'assets/images/Icon_5.2.svg',
-          value: 'order',
-        ),
-        Padding(
-          padding: const EdgeInsets.only(left: 32.0),
-          child: Container(
-            width: 5.0,
-            height: 25.0,
-            color: isPortrait ? primaryColor : Theme.of(context).cardColor,
-          ),
-        ),
-        _buildEachIcon(
-          context,
-          locale,
-          asset: isPortrait
-              ? 'assets/images/Icon_6.svg'
-              : 'assets/images/Icon_6.2.svg',
-          value: 'pay',
         ),
       ],
     );

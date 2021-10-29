@@ -13,6 +13,10 @@
     "nauta": "NAUTA",
     "history": "History",
     "profile": "Profile",
+    "tab_general":"General",
+    "tab_testimony":"Testimonials",
+    "tab_security":"Security",
+    "add_new_testimony":"Add new testimonial",
     "security": "Security",
     "logout": "Logout",
     "login": "Login",
@@ -73,6 +77,26 @@
 
     "public_info": "Public Info",
     "subscribe": "Subscribe",
+
+    "top_up": "Top-ups to Cuba",
+    "top_up_subtitle": "Recharge any Cubacel mobile phone and Nauta account.",
+    "top_up_now": "Top-up now",
+    "users": "Users",
+    "satisfied_clients": "Satisfied Clients",
+    "safe_fast_easy": "Safe, Fast, Easy",
+    "safe_fast_easy_subtitle": "Send your top-ups in three steps!",
+    "sign_in":"Sign In",
+    "order":"Order",
+    "pay":"Pay",
+    "promotions": "Promotions",
+    "promotions_subtitle": "We have exclusive promotions and the best recharge offers!",
+    "somewhere_recharge": "Every second, someone, somewhere sends recharge with",
+    "with_the_trust": "Trusted by Thousands of Happy Customer",
+    "with_the_trust_subtitle": "These are the stories of our customers who have joined us with great pleasure.",
+    "write_testimonial": "Write a Review",
+    "last_promotions": "Get the latest promotions",
+    "last_promotions_subtitle": "Be the first to know about exclusive discounts, promotions and special offers.",
+    "subscribe_now": "Subscribe now",
 
     "accept_therms_recharge": "I confirm that I have reviewed the NAUTA numbers and / or accounts and I accept that this service does not allow reimbursement."
 }

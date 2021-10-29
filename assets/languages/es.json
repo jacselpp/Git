@@ -13,6 +13,10 @@
     "nauta": "NAUTA",
     "history": "Historial",
     "profile": "Perfil",
+    "tab_general":"General",
+    "tab_testimony":"Testimonios",
+    "tab_security":"Seguridad",
+    "add_new_testimony":"Enviar nuevo testimonio",
     "security": "Seguridad",
     "logout": "Salir",
     "login": "Acceder",
@@ -73,6 +77,26 @@
     
     "public_info": "Información Pública",
     "subscribe": "Suscribirse",
+
+    "top_up": "Recargas a Cuba",
+    "top_up_subtitle": "Recargue cualquier teléfono móvil Cubacel y cuenta Nauta.",
+    "top_up_now": "Enviar Recarga",
+    "users": "Usuarios",
+    "satisfied_clients": "Clientes satisfechos",
+    "safe_fast_easy": "Seguro, Rápido, Fácil",
+    "safe_fast_easy_subtitle": "¡Envía tus recargas en tres pasos!",
+    "sign_in":"Inicia Sesión",
+    "order":"Ordena",
+    "pay":"Paga",
+    "promotions": "Promociones",
+    "promotions_subtitle": "Tenemos promociones exclusivas y las mejores ofertas de recargas",
+    "somewhere_recharge": "Cada segundo, alguien, en algún lugar envía recargas con",
+    "with_the_trust": "Con la confianza de miles de clientes felices",
+    "with_the_trust_subtitle": "Estas son las historias de nuestros clientes que se han unido a nosotros con gran placer.",
+    "write_testimonial": "Escribir Reseña",
+    "last_promotions": "Obtén las últimas promociones",
+    "last_promotions_subtitle": "Sé el primero en enterarte de descuentos exclusivos, promociones y ofertas especiales.",
+    "subscribe_now": "Suscríbete ahora ",
 
     "accept_therms_recharge": "Confirmo que he revisado los números y/o cuentas Nautas y acepto que este servicio no admite reembolso."
 }

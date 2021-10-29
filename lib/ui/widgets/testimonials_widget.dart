@@ -11,8 +11,8 @@ import '../app_ui.dart';
 
 class TestimonialsWidget extends StatefulWidget {
   final double? height;
-  final VoidCallback handleClose;
-  const TestimonialsWidget({Key? key, this.height, required this.handleClose})
+  final VoidCallback? handleClose;
+  const TestimonialsWidget({Key? key, this.height, this.handleClose})
       : super(key: key);
 
   @override
@@ -26,31 +26,31 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.height,
-      child: Card(
-        child: Stack(
-          children: [
-            FutureBuilder(
-              future: context.watch<TestimonialsProvider>().testimonialsFuture,
-              builder: (BuildContext context,
-                  AsyncSnapshot<List<Testimonials>> snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const Center(
-                    child: CircularProgressIndicator(
-                      strokeWidth: 4.0,
-                    ),
-                  );
+      height: widget.height ?? 150.0,
+      child: Stack(
+        children: [
+          FutureBuilder(
+            future: context.watch<TestimonialsProvider>().testimonialsFuture,
+            builder: (BuildContext context,
+                AsyncSnapshot<List<Testimonials>> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return const Center(
+                  child: CircularProgressIndicator(
+                    strokeWidth: 4.0,
+                  ),
+                );
+              }
+              if (snapshot.hasData) {
+                for (var item in snapshot.data!) {
+                  _usersId.add("\"${item.user!}\"");
                 }
-                if (snapshot.hasData) {
-                  for (var item in snapshot.data!) {
-                    _usersId.add("\"${item.user!}\"");
-                  }
-                  context.read<UsersProvider>().fetchUser(_usersId.toString());
-                  return _buildList(snapshot.data!);
-                }
-                return Container();
-              },
-            ),
+                context.read<UsersProvider>().fetchUser(_usersId.toString());
+                return _buildList(snapshot.data!);
+              }
+              return Container();
+            },
+          ),
+          if (widget.handleClose != null)
             Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
@@ -66,6 +66,7 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
                 ),
               ],
             ),
+          if (widget.handleClose != null)
             Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
@@ -86,8 +87,7 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
                 ),
               ],
             ),
-          ],
-        ),
+        ],
       ),
     );
   }
@@ -114,12 +114,12 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
                 children: [
-                  _buildUser(data.user!, context),
+                  _buildUser(data.user!, context, data.rating!),
                   const Divider(),
                   const SizedBox(
                     height: 10.0,
@@ -132,10 +132,10 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
                 overflow: TextOverflow.ellipsis,
                 style: Theme.of(context).textTheme.bodyText2,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: _buildRating(data.rating!),
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.center,
+              //   children: _buildRating(data.rating!),
+              // ),
             ],
           ),
         ),
@@ -143,7 +143,7 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
     );
   }
 
-  Widget _buildUser(String userId, BuildContext context) {
+  Widget _buildUser(String userId, BuildContext context, int rating) {
     final locale = AppLocalizations.of(context)!;
     List<Profile?> _profiles = context.watch<UsersProvider>().getProfile;
     Profile? _profile = context.watch<ProfileProvider>().profile;
@@ -170,13 +170,25 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
           ),
         ),
         Expanded(
-          flex: 4,
+          flex: 3,
           child: Text(
             (_profile?.id != _user?.id)
                 ? _user?.fullname ?? ''
                 : locale.read('me'),
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
+          ),
+        ),
+        Expanded(
+          flex: 1,
+          child: Row(
+            children: [
+              Text('$rating'),
+              const Icon(
+                Icons.star,
+                color: Color(0xFFD4AF37),
+              ),
+            ],
           ),
         ),
       ],

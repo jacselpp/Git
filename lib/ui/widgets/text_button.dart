@@ -26,7 +26,7 @@ class CustomTextButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(15.0),
         child: Text(
-          label,
+          label.toUpperCase(),
           style: const TextStyle(
             color: Colors.white,
             fontSize: 14.0,

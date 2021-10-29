@@ -34,12 +34,9 @@ class _SplashViewState extends State<SplashView> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Stack(
-        children: [
-          _buildBackground(context),
-        ],
-      ),
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: _buildBackground(context),
     );
   }
 

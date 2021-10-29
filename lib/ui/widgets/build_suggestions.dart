@@ -88,52 +88,55 @@ class BuildSuggestions extends StatelessWidget {
   }
 
   Widget _buildHeaderTopUp(AppLocalizations locale, BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text(
-          locale.read('top_up'),
-          style: Theme.of(context).textTheme.headline4!.copyWith(
-                color: ScreenHelper.isPortrait(context)
-                    ? Theme.of(context).textTheme.headline4!.color
-                    : Theme.of(context).appBarTheme.backgroundColor!,
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text(
+            locale.read('top_up'),
+            style: Theme.of(context).textTheme.headline4!.copyWith(
+                  color: ScreenHelper.isPortrait(context)
+                      ? Theme.of(context).textTheme.headline4!.color
+                      : Theme.of(context).appBarTheme.backgroundColor!,
+                ),
+          ),
+          Text(
+            locale.read('top_up_subtitle'),
+            style: Theme.of(context).textTheme.headline6!.copyWith(
+                  color: ScreenHelper.isPortrait(context)
+                      ? Theme.of(context).textTheme.headline4!.color
+                      : Theme.of(context).appBarTheme.backgroundColor!,
+                ),
+          ),
+          const SizedBox(
+            height: 50.0,
+          ),
+          Row(
+            children: [
+              Expanded(child: Container()),
+              Expanded(
+                flex: 2,
+                child: CustomTextButton(
+                  color: ScreenHelper.isPortrait(context)
+                      ? primaryColor
+                      : Theme.of(context).appBarTheme.backgroundColor!,
+                  label: locale.read('top_up_now'),
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const RecargasCubacelView(),
+                    ));
+                  },
+                ),
               ),
-        ),
-        Text(
-          locale.read('top_up_subtitle'),
-          style: Theme.of(context).textTheme.headline6!.copyWith(
-                color: ScreenHelper.isPortrait(context)
-                    ? Theme.of(context).textTheme.headline4!.color
-                    : Theme.of(context).appBarTheme.backgroundColor!,
-              ),
-        ),
-        const SizedBox(
-          height: 50.0,
-        ),
-        Row(
-          children: [
-            Expanded(child: Container()),
-            Expanded(
-              flex: 2,
-              child: CustomTextButton(
-                color: ScreenHelper.isPortrait(context)
-                    ? primaryColor
-                    : Theme.of(context).appBarTheme.backgroundColor!,
-                label: locale.read('top_up_now'),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const RecargasCubacelView(),
-                  ));
-                },
-              ),
-            ),
-            Expanded(child: Container()),
-          ],
-        ),
-        const SizedBox(
-          height: 30.0,
-        ),
-      ],
+              Expanded(child: Container()),
+            ],
+          ),
+          const SizedBox(
+            height: 30.0,
+          ),
+        ],
+      ),
     );
   }
 
@@ -172,7 +175,7 @@ class BuildSuggestions extends StatelessWidget {
           context,
           locale,
           asset: 'assets/images/Icon_3.svg',
-          key: 'satified_clients',
+          key: 'satisfied_clients',
           value: '200+',
         ),
       ],
@@ -181,31 +184,34 @@ class BuildSuggestions extends StatelessWidget {
 
   Widget _buildIconsRowColumn(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        _buildEachIcon(
-          context,
-          locale,
-          asset: 'assets/images/Icon_1.svg',
-          key: 'recharges',
-          value: '1000+',
-        ),
-        _buildEachIcon(
-          context,
-          locale,
-          asset: 'assets/images/Icon_2.svg',
-          key: 'users',
-          value: '200+',
-        ),
-        _buildEachIcon(
-          context,
-          locale,
-          asset: 'assets/images/Icon_3.svg',
-          key: 'satified_clients',
-          value: '200+',
-        ),
-      ],
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          _buildEachIcon(
+            context,
+            locale,
+            asset: 'assets/images/Icon_1.svg',
+            key: 'recharges',
+            value: '1000+',
+          ),
+          _buildEachIcon(
+            context,
+            locale,
+            asset: 'assets/images/Icon_2.svg',
+            key: 'users',
+            value: '200+',
+          ),
+          _buildEachIcon(
+            context,
+            locale,
+            asset: 'assets/images/Icon_3.svg',
+            key: 'satisfied_clients',
+            value: '200+',
+          ),
+        ],
+      ),
     );
   }
 
