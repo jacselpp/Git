@@ -78,6 +78,17 @@ class _HomeViewState extends State<HomeView> {
             ),
           );
         }
+        if (snapshot.connectionState == ConnectionState.active) {
+          return SizedBox(
+            height: (ScreenHelper.screenHeight(context) * .90),
+            width: ScreenHelper.screenWidth(context),
+            child: const Center(
+              child: CircularProgressIndicator(
+                strokeWidth: 4.0,
+              ),
+            ),
+          );
+        }
         if (snapshot.connectionState == ConnectionState.done &&
             snapshot.hasData) {
           return _buildList(context, snapshot.data);
@@ -114,7 +125,7 @@ class _HomeViewState extends State<HomeView> {
       padding: EdgeInsets.symmetric(
         vertical: 8.0,
         horizontal: ScreenHelper.isPortrait(context)
-            ? ScreenHelper.screenWidth(context) * .15
+            ? ScreenHelper.screenWidth(context) * .2
             : ScreenHelper.screenWidth(context) * .1,
       ),
       child: Container(
@@ -179,18 +190,15 @@ class _HomeViewState extends State<HomeView> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // Expanded(child: Container()),
-                    Expanded(
-                      flex: 2,
-                      child: CustomTextButton(
-                        color: primaryColor,
-                        label: locale.read('recharge'),
-                        onPressed: () {
-                          _handleRecarga(
-                            context,
-                            data,
-                          );
-                        },
-                      ),
+                    CustomTextButton(
+                      color: primaryColor,
+                      label: locale.read('recharge'),
+                      onPressed: () {
+                        _handleRecarga(
+                          context,
+                          data,
+                        );
+                      },
                     ),
                     // Expanded(child: Container()),
                   ],

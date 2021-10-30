@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:io';
 
 import 'package:detooo_recargas/models/auth/municipios_model.dart';
@@ -113,8 +114,10 @@ class _TabGeneralState extends State<TabGeneral> {
 
     if (_profile != null) {
       _selectedMunicipios ??
-          context.watch<MunicipiosProvider>().setUserMunicipiosSelected(
-              _profile!.municipios!, _profile!.provincia!);
+          Timer(
+            const Duration(seconds: 1),
+            _handleFillMunicipios,
+          );
 
       _selectedMunicipios ??=
           context.watch<MunicipiosProvider>().municipiosSelected;
@@ -192,7 +195,6 @@ class _TabGeneralState extends State<TabGeneral> {
                   ),
                   suffixIcon: _publicInfo(locale, 'movil'),
                 ),
-                //! TODO: municipios y provincias en el perfil
                 _buildSeparation(),
                 CustomTextFormField(
                   controller: _provinciaController,
@@ -384,5 +386,12 @@ class _TabGeneralState extends State<TabGeneral> {
       context: context,
       delegate: ProvinciasSearch(),
     );
+  }
+
+  void _handleFillMunicipios() {
+    context.read<MunicipiosProvider>().setUserMunicipiosSelected(
+          _profile!.municipios!,
+          _profile!.provincia!,
+        );
   }
 }

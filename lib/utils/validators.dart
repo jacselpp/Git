@@ -36,7 +36,7 @@ String? validateEmailNauta({String? value, required BuildContext context}) {
 
 String? validatePassword({String? value, required BuildContext context}) {
   if (value!.length < 8) {
-    return getLocale(context: context, locale: "password_too_short_error");
+    return getLocale(context: context, locale: "password_to_short_error");
   }
 }
 

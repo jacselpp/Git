@@ -95,15 +95,19 @@ class BuildSuggestions extends StatelessWidget {
         children: [
           Text(
             locale.read('top_up'),
-            style: Theme.of(context).textTheme.headline4!.copyWith(
+            style: Theme.of(context).textTheme.headline5!.copyWith(
                   color: ScreenHelper.isPortrait(context)
-                      ? Theme.of(context).textTheme.headline4!.color
+                      ? Theme.of(context).textTheme.headline5!.color
                       : Theme.of(context).appBarTheme.backgroundColor!,
+                  fontWeight: FontWeight.bold,
                 ),
+          ),
+          const SizedBox(
+            height: 20.0,
           ),
           Text(
             locale.read('top_up_subtitle'),
-            style: Theme.of(context).textTheme.headline6!.copyWith(
+            style: Theme.of(context).textTheme.subtitle1!.copyWith(
                   color: ScreenHelper.isPortrait(context)
                       ? Theme.of(context).textTheme.headline4!.color
                       : Theme.of(context).appBarTheme.backgroundColor!,

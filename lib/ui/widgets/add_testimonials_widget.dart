@@ -91,20 +91,12 @@ class _AddTestimonialsState extends State<AddTestimonials> {
           ),
           const Divider(),
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(
-                flex: 3,
-                child: Container(),
-              ),
-              Expanded(
-                child: CustomTextButton(
-                  color: primaryColor,
-                  label: locale.read('send_testimonial'),
-                  onPressed: _handleTestimonial,
-                ),
-              ),
-              const SizedBox(
-                width: 10.0,
+              CustomTextButton(
+                color: primaryColor,
+                label: locale.read('send_testimonial'),
+                onPressed: _handleTestimonial,
               ),
             ],
           ),
@@ -153,9 +145,14 @@ class _AddTestimonialsState extends State<AddTestimonials> {
     showMessage(context, locale.read('loading'), TypeMessage.LOADING);
     APIRecargas.common().createTestimonials(_userTestimonial).then((value) {
       context.read<TestimonialsProvider>().fetchTestimonials();
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
       showMessage(
-          context, locale.read('success_testimonial'), TypeMessage.INFO);
+        context,
+        locale.read('success_testimonial'),
+        TypeMessage.INFO,
+      );
+      _testimonialController.value = TextEditingValue.empty;
+      // _rating = 3;
     }).catchError(
       (e) => HandleError.logError(context, e),
     );
