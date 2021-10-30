@@ -1,17 +1,17 @@
-import 'package:detooo_recargas/app/app_localizations.dart';
-import 'package:detooo_recargas/models/recargas/promotions_model.dart';
-import 'package:detooo_recargas/services/network/api_users.dart';
-import 'package:detooo_recargas/services/providers/recargas_provider.dart';
-import 'package:detooo_recargas/services/providers/subscriptions_provider.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
+import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/ui/layouts/home_layout.dart';
 import 'package:detooo_recargas/ui/views/auth/profile_view.dart';
+import 'package:detooo_recargas/services/network/api_users.dart';
+import 'package:detooo_recargas/models/recargas/promotions_model.dart';
+import 'package:detooo_recargas/services/providers/recargas_provider.dart';
+import 'package:detooo_recargas/services/providers/subscriptions_provider.dart';
 import 'package:detooo_recargas/ui/views/recargas/recargas_cubacel_view.dart';
 import 'package:detooo_recargas/ui/views/recargas/recargas_nauta_view.dart';
 import 'package:detooo_recargas/ui/widgets/testimonials_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:provider/provider.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);

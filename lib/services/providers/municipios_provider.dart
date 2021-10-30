@@ -16,18 +16,17 @@ class MunicipiosProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<List<Municipios>> get allMunicipiosList async {
-    if (_allMunicipiosList.isEmpty) {
-      await fetchAllMunicipios();
+  void setUserMunicipiosSelected(List<String> municipios, String provincia) {
+    for (var id in municipios) {
+      for (var municipio in _allMunicipiosList) {
+        if (id == municipio.id &&
+            municipio.provincia == provincia &&
+            !_municipiosSelected.any((element) => element == municipio)) {
+          _municipiosSelected.add(municipio);
+        }
+      }
     }
-    return _allMunicipiosList;
-  }
-
-  List<Municipios> get allMunicipios {
-    if (_allMunicipiosList.isEmpty) {
-      fetchAllMunicipios();
-    }
-    return _allMunicipiosList;
+    notifyListeners();
   }
 
   List<Municipios> allMunicipiosProvince(String provincia) {
@@ -42,35 +41,18 @@ class MunicipiosProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> fetchAllMunicipios() async {
-    List<Municipios>? municipios = SharedPreference.municipios;
-
-    if (municipios == null || municipios.isEmpty) {
-      APIUsers.common().fetchMunicipios().then((value) {
-        setAllMunicipios(value);
-        SharedPreference.setMunicipios(value);
-      });
-    } else {
-      setAllMunicipios(municipios);
-    }
-  }
-
-  Future<List<Municipios>> filterListMunicipios(
-    BuildContext context,
-    String query,
-  ) async {
-    return allMunicipios
-        .where(
-          (value) =>
-              value.nombre!.toLowerCase().startsWith(query.toLowerCase()),
-        )
-        .toList();
-  }
-
   Future<List<Municipios>> municipiosFrom(String provincia) async {
-    List<Municipios> municipios =
-        await APIUsers.common().fetchMunicipiosProvincia(provincia);
-    setAllMunicipiosProvince(municipios);
+    List<Municipios> municipios = [];
+    if (_allMunicipiosList.isNotEmpty) {
+      for (var municipio in _allMunicipiosList) {
+        if (municipio.provincia == provincia) {
+          municipios.add(municipio);
+        }
+      }
+    } else {
+      fetchAllMunicipios();
+      municipiosFrom(provincia);
+    }
     return municipios;
   }
 
@@ -80,7 +62,7 @@ class MunicipiosProvider extends ChangeNotifier {
   }
 
   void setMunicipiosSelected(Municipios municipio) {
-    if (!_municipiosSelected.any((element) => element.id == municipio.id)) {
+    if (!_municipiosSelected.any((element) => element == municipio)) {
       _municipiosSelected.add(municipio);
     } else {
       _municipiosSelected.remove(municipio);
@@ -94,19 +76,18 @@ class MunicipiosProvider extends ChangeNotifier {
     return municipiosString;
   }
 
-  List<Municipios?> selectedMunicipios(List<String>? municipios) {
-    List<Municipios?> _selectedMunicipios = [];
-    print(
-        '!!!----------------------------------------------------------------!!!');
-    if (municipios != null) {
-      for (var id in municipios) {
-        for (var municipio in _allMunicipiosList) {
-          if (id == municipio.id) {
-            _selectedMunicipios.add(municipio);
-          }
-        }
-      }
+  bool selectedMunicipio(Municipios s) =>
+      municipiosSelected.any((element) => element == s);
+
+  void fetchAllMunicipios() async {
+    List<Municipios>? municipiosDb = SharedPreference.municipios;
+    if (municipiosDb == null) {
+      await APIUsers.common().fetchMunicipios().then((value) {
+        setAllMunicipios(value);
+        SharedPreference.setMunicipios(value);
+      });
+    } else {
+      setAllMunicipios(municipiosDb);
     }
-    return _selectedMunicipios;
   }
 }

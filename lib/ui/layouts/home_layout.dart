@@ -91,11 +91,11 @@ class _HomeLayoutState extends State<HomeLayout> {
                 "profile",
                 const Icon(Icons.supervised_user_circle),
               ),
-              _buildMenuItem(
-                context,
-                "security",
-                const Icon(Icons.security),
-              ),
+              // _buildMenuItem(
+              //   context,
+              //   "security",
+              //   const Icon(Icons.security),
+              // ),
               _buildMenuItem(
                 context,
                 "logout",

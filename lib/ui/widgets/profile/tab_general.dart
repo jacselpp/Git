@@ -6,7 +6,9 @@ import 'package:detooo_recargas/services/network/api_users.dart';
 import 'package:detooo_recargas/services/providers/municipios_provider.dart';
 import 'package:detooo_recargas/services/providers/provincias_provider.dart';
 import 'package:detooo_recargas/services/providers/subscriptions_provider.dart';
+import 'package:detooo_recargas/ui/views/auth/municipios_view.dart';
 import 'package:detooo_recargas/ui/widgets/profile/tab_avatar.dart';
+import 'package:detooo_recargas/utils/search/provincias_search_delegate.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -33,7 +35,7 @@ class TabGeneral extends StatefulWidget {
 class _TabGeneralState extends State<TabGeneral> {
   Profile? _profile;
   Country? _selectedCountry;
-  List<Municipios?> _selectedMunicipios = [];
+  List<Municipios>? _selectedMunicipios;
   Provincias? _selectedProvincia;
 
   final _formKey = GlobalKey<FormState>();
@@ -110,7 +112,13 @@ class _TabGeneralState extends State<TabGeneral> {
     final locale = AppLocalizations.of(context)!;
 
     if (_profile != null) {
-      _selectedMunicipios = context.watch<MunicipiosProvider>().allMunicipios;
+      _selectedMunicipios ??
+          context.watch<MunicipiosProvider>().setUserMunicipiosSelected(
+              _profile!.municipios!, _profile!.provincia!);
+
+      _selectedMunicipios ??=
+          context.watch<MunicipiosProvider>().municipiosSelected;
+
       _fullnameController.value = TextEditingValue(
         text: _profile?.fullname ?? '',
       );
@@ -125,7 +133,8 @@ class _TabGeneralState extends State<TabGeneral> {
       );
 
       _provinciaController.value = TextEditingValue(
-        text: context
+        text: _selectedProvincia?.nombre ??
+            context
                 .watch<ProvinciasProvider>()
                 .fetchProvincia(_profile!.provincia!)
                 ?.nombre ??
@@ -134,7 +143,8 @@ class _TabGeneralState extends State<TabGeneral> {
 
       _municipiosController.value = TextEditingValue(
         text: _handleMunicipalitiesSelectedName(
-          context.watch<MunicipiosProvider>().municipiosSelected,
+          _selectedMunicipios ??
+              context.watch<MunicipiosProvider>().municipiosSelected,
         ),
       );
     }
@@ -187,22 +197,36 @@ class _TabGeneralState extends State<TabGeneral> {
                 CustomTextFormField(
                   controller: _provinciaController,
                   label: locale.read('provincia'),
-                  // validator: (value) => validatePhone(
-                  //   context: context,
-                  //   value: value,
-                  // ),
-                  suffixIcon: _publicInfo(locale, 'movil'),
+                  onTap: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    _showSearchProvince();
+                  },
+                  readOnly: true,
+                  suffixIcon: _publicInfo(locale, 'provincia'),
                 ),
-                // _buildSeparation(),
-                // CustomTextFormField(
-                //   controller: _municipiosController,
-                //   label: locale.read('municipios'),
-                //   // validator: (value) => validatePhone(
-                //   //   context: context,
-                //   //   value: value,
-                //   // ),
-                //   suffixIcon: _publicInfo(locale, 'movil'),
-                // ),
+                _buildSeparation(),
+                CustomTextFormField(
+                  controller: _municipiosController,
+                  label: locale.read('municipios'),
+                  validator: (value) {
+                    if (value!.trim().isEmpty) {
+                      return locale.read('select_municipality_error');
+                    }
+                  },
+                  readOnly: true,
+                  onTap: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => MunicipiosSelect(
+                          provincia:
+                              _selectedProvincia?.id ?? _profile!.provincia!,
+                        ),
+                      ),
+                    );
+                  },
+                  suffixIcon: _publicInfo(locale, 'municipios'),
+                ),
                 _buildSeparation(),
                 Row(
                   children: [
@@ -298,7 +322,7 @@ class _TabGeneralState extends State<TabGeneral> {
             activeColor: primaryColor,
             splashRadius: 5.0,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(3.0),
             ),
           )
         ],
@@ -320,6 +344,8 @@ class _TabGeneralState extends State<TabGeneral> {
     _profile!.fullname = _fullnameController.text;
     _profile!.movil = _movilController.text;
     _profile!.country = _selectedCountry;
+    _profile!.provincia = _selectedProvincia?.id ?? _profile!.provincia;
+    _profile!.municipios = _selectedMunicipios!.map((e) => e.id!).toList();
 
     UserRepository().updateProfile(_profile!, context);
   }
@@ -345,8 +371,18 @@ class _TabGeneralState extends State<TabGeneral> {
   ) {
     String municipiosSelectedName = '';
     for (var municipio in municipiosSelected) {
-      municipiosSelectedName = '$municipiosSelectedName ${municipio.nombre}';
+      municipiosSelectedName = '$municipiosSelectedName ${municipio.nombre},';
     }
-    return municipiosSelectedName;
+    return municipiosSelectedName.substring(
+      0,
+      municipiosSelectedName.isNotEmpty ? municipiosSelectedName.length - 1 : 0,
+    );
+  }
+
+  void _showSearchProvince() async {
+    _selectedProvincia = await showSearch(
+      context: context,
+      delegate: ProvinciasSearch(),
+    );
   }
 }
