@@ -1,7 +1,6 @@
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/models/recargas/promotions_model.dart';
 import 'package:detooo_recargas/services/network/api_users.dart';
-import 'package:detooo_recargas/services/providers/profile_provider.dart';
 import 'package:detooo_recargas/services/providers/recargas_provider.dart';
 import 'package:detooo_recargas/services/providers/subscriptions_provider.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
