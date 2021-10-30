@@ -105,7 +105,7 @@ class _HomeViewState extends State<HomeView> {
         GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 1,
-            mainAxisExtent: 500.0,
+            // mainAxisExtent: 500.0,
             crossAxisCount: ScreenHelper.isPortrait(context) ? 1 : 2,
           ),
           primary: false,
@@ -125,7 +125,7 @@ class _HomeViewState extends State<HomeView> {
       padding: EdgeInsets.symmetric(
         vertical: 8.0,
         horizontal: ScreenHelper.isPortrait(context)
-            ? ScreenHelper.screenWidth(context) * .2
+            ? ScreenHelper.screenWidth(context) * .225
             : ScreenHelper.screenWidth(context) * .1,
       ),
       child: Container(
@@ -139,57 +139,51 @@ class _HomeViewState extends State<HomeView> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
-              // mainAxisSize: MainAxisSize.min,
+              mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 if (data.dest == 'cubacel')
-                  SizedBox(
-                    width: ScreenHelper.isPortrait(context)
-                        ? ScreenHelper.screenWidth(context) * .3
-                        : ScreenHelper.screenWidth(context) * .1,
-                    height: ScreenHelper.isPortrait(context)
-                        ? ScreenHelper.screenWidth(context) * .3
-                        : ScreenHelper.screenWidth(context) * .1,
-                    child: SvgPicture.asset('assets/images/oferta3.svg'),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: SizedBox(
+                      width: 100,
+                      height: 100,
+                      child: SvgPicture.asset('assets/images/oferta3.svg'),
+                    ),
                   ),
                 if (data.dest == 'nauta')
-                  SizedBox(
-                    width: ScreenHelper.isPortrait(context)
-                        ? ScreenHelper.screenWidth(context) * .3
-                        : ScreenHelper.screenWidth(context) * .1,
-                    height: ScreenHelper.isPortrait(context)
-                        ? ScreenHelper.screenWidth(context) * .3
-                        : ScreenHelper.screenWidth(context) * .1,
-                    child: SvgPicture.asset('assets/images/oferta2.svg'),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: SizedBox(
+                      width: 100,
+                      height: 100,
+                      child: SvgPicture.asset('assets/images/oferta2.svg'),
+                    ),
                   ),
                 if (data.dest != 'nauta' && data.dest != 'cubacel')
-                  SizedBox(
-                    width: ScreenHelper.isPortrait(context)
-                        ? ScreenHelper.screenWidth(context) * .3
-                        : ScreenHelper.screenWidth(context) * .1,
-                    height: ScreenHelper.isPortrait(context)
-                        ? ScreenHelper.screenWidth(context) * .3
-                        : ScreenHelper.screenWidth(context) * .1,
-                    child: SvgPicture.asset('assets/images/oferta2.svg'),
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: SizedBox(
+                      width: 100,
+                      height: 100,
+                      child: SvgPicture.asset('assets/images/oferta2.svg'),
+                    ),
                   ),
-                // _buildSeparation(),
                 Text(
                   data.titulo!,
-                  style: Theme.of(context).textTheme.headline5,
+                  style: Theme.of(context).textTheme.headline6,
                 ),
-                // _buildSeparation(),
                 _buildCaracteristicas(data.caracteristicas!, context),
-                // _buildSeparation(),
+                _buildSeparation(),
+                _buildSeparation(),
                 Text(
                   data.amount!.toString(),
-                  style: Theme.of(context).textTheme.headline2,
+                  style: Theme.of(context).textTheme.headline5,
                 ),
-                // _buildSeparation(),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    // Expanded(child: Container()),
                     CustomTextButton(
                       color: primaryColor,
                       label: locale.read('recharge'),
@@ -200,7 +194,6 @@ class _HomeViewState extends State<HomeView> {
                         );
                       },
                     ),
-                    // Expanded(child: Container()),
                   ],
                 ),
               ],
@@ -221,9 +214,27 @@ class _HomeViewState extends State<HomeView> {
     for (var caracteristica in caracteristicas) {
       caracteristicasString = '$caracteristicasString $caracteristica \n';
     }
-    return Text(
-      caracteristicasString,
-      style: Theme.of(context).textTheme.bodyText2,
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        const Expanded(
+          child: Padding(
+            padding: EdgeInsets.all(2.0),
+            child: Icon(
+              Icons.check_circle,
+              // size: 16.0,
+              color: primaryColor,
+            ),
+          ),
+        ),
+        Expanded(
+          flex: 4,
+          child: Text(
+            caracteristicasString.trim(),
+            style: Theme.of(context).textTheme.subtitle1,
+          ),
+        ),
+      ],
     );
   }
 
@@ -253,7 +264,7 @@ class _HomeViewState extends State<HomeView> {
           _buildSeparation(),
           Text(
             locale.read('promotions'),
-            style: Theme.of(context).textTheme.headline4,
+            style: Theme.of(context).textTheme.headline5,
             textAlign: TextAlign.center,
           ),
           Text(

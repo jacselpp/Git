@@ -12,71 +12,74 @@ class MainDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    return Drawer(
-      child: Material(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        child: ListView(
-          children: [
-            _buildHeader(context),
-            _buildItem(
-              Icons.home,
-              locale.read('home'),
-              context,
-              () {
-                Navigator.of(context).pushNamed(Routes.HOME);
-              },
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                locale.read('recharges'),
-                style: Theme.of(context).textTheme.headline6,
+    return SizedBox(
+      width: ScreenHelper.screenWidth(context) * .5,
+      child: Drawer(
+        child: Material(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: ListView(
+            children: [
+              _buildHeader(context),
+              _buildItem(
+                Icons.home,
+                locale.read('home'),
+                context,
+                () {
+                  Navigator.of(context).pushNamed(Routes.HOME);
+                },
               ),
-            ),
-            _buildItem(
-              Icons.phone_android,
-              locale.read('cubacel'),
-              context,
-              () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const RecargasCubacelView(),
-                  ),
-                );
-              },
-            ),
-            _buildItem(
-              Icons.wifi,
-              locale.read('nauta'),
-              context,
-              () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const RecargasNautaView(),
-                  ),
-                );
-              },
-            ),
-            _buildItem(
-              Icons.history,
-              locale.read('history'),
-              context,
-              () {
-                // Navigator.of(context).pushNamed(Routes.HOME);
-              },
-            ),
-            const Divider(
-              thickness: 2.0,
-            ),
-            // _buildItem(
-            //   Icons.dashboard,
-            //   locale.read('dashboard'),
-            //   context,
-            //   () {
-            //     // 3 Navigator.of(context).pushNamed(Routes.DASHBOARD);
-            //   },
-            // ),
-          ],
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  locale.read('recharges'),
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+              ),
+              _buildItem(
+                Icons.phone_android,
+                locale.read('cubacel'),
+                context,
+                () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const RecargasCubacelView(),
+                    ),
+                  );
+                },
+              ),
+              _buildItem(
+                Icons.wifi,
+                locale.read('nauta'),
+                context,
+                () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const RecargasNautaView(),
+                    ),
+                  );
+                },
+              ),
+              _buildItem(
+                Icons.history,
+                locale.read('history'),
+                context,
+                () {
+                  // Navigator.of(context).pushNamed(Routes.HOME);
+                },
+              ),
+              const Divider(
+                thickness: 2.0,
+              ),
+              // _buildItem(
+              //   Icons.dashboard,
+              //   locale.read('dashboard'),
+              //   context,
+              //   () {
+              //     // 3 Navigator.of(context).pushNamed(Routes.DASHBOARD);
+              //   },
+              // ),
+            ],
+          ),
         ),
       ),
     );
@@ -84,7 +87,7 @@ class MainDrawer extends StatelessWidget {
 
   Widget _buildHeader(BuildContext context) {
     return SizedBox(
-      height: 130.0,
+      height: 100.0,
       child: Stack(
         children: [
           Container(
@@ -100,16 +103,14 @@ class MainDrawer extends StatelessWidget {
             ),
             child: SizedBox(
               width: ScreenHelper.screenWidth(context),
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  top: 15.0,
-                  left: 15.0,
-                  right: 15.0,
-                  bottom: 15.0,
-                ),
-                child: SvgPicture.asset(
-                  'assets/images/Recargas_Imagotipo.svg',
-                  fit: BoxFit.fitHeight,
+              child: Center(
+                child: SizedBox(
+                  // width: 50.0,
+                  height: 50.0,
+                  child: SvgPicture.asset(
+                    'assets/images/Recargas_Imagotipo.svg',
+                    fit: BoxFit.fitHeight,
+                  ),
                 ),
               ),
             ),
@@ -122,7 +123,10 @@ class MainDrawer extends StatelessWidget {
   Widget _buildItem(IconData icon, String value, BuildContext context,
       Null Function() onTap) {
     return ListTile(
-      title: Text(value),
+      title: Text(
+        value,
+        style: Theme.of(context).textTheme.bodyText1,
+      ),
       leading: Icon(
         icon,
         color: Theme.of(context).appBarTheme.iconTheme!.color,
