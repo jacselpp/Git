@@ -1,6 +1,9 @@
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/models/recargas/promotions_model.dart';
+import 'package:detooo_recargas/services/network/api_users.dart';
+import 'package:detooo_recargas/services/providers/profile_provider.dart';
 import 'package:detooo_recargas/services/providers/recargas_provider.dart';
+import 'package:detooo_recargas/services/providers/subscriptions_provider.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:detooo_recargas/ui/layouts/home_layout.dart';
 import 'package:detooo_recargas/ui/views/auth/profile_view.dart';
@@ -45,9 +48,10 @@ class _HomeViewState extends State<HomeView> {
                 Column(
                   children: [
                     _buildTestimonials(),
-                    Container(
-                      height: ScreenHelper.isPortrait(context) ? 150.0 : 75.0,
-                    ),
+                    if (!context.read<SubscriptionsProvider>().subscribed)
+                      Container(
+                        height: ScreenHelper.isPortrait(context) ? 150.0 : 75.0,
+                      ),
                   ],
                 ),
                 _buildSubscribe(),
@@ -385,6 +389,8 @@ class _HomeViewState extends State<HomeView> {
   }
 
   Widget _buildSubscribe() {
+    bool subscribed = context.watch<SubscriptionsProvider>().subscribed;
+
     final locale = AppLocalizations.of(context)!;
     var column = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -408,38 +414,52 @@ class _HomeViewState extends State<HomeView> {
       child: CustomTextButton(
         color: Theme.of(context).scaffoldBackgroundColor,
         label: locale.read('subscribe_now'),
-        onPressed: () {},
+        textColor: Theme.of(context).textTheme.bodyText1!.color,
+        onPressed: () {
+          APIUsers.common().userSubscribe(
+            {"subscription": "promo_recargas"},
+          ).then((_) {
+            showMessage(
+                context, locale.read('subscribed_message'), TypeMessage.INFO);
+            context.read<SubscriptionsProvider>().setSubscribed(true);
+          });
+          context
+              .read<SubscriptionsProvider>()
+              .setSubscribed(context.read<SubscriptionsProvider>().subscribed);
+        },
       ),
     );
-    return Positioned(
-      bottom: 20.0,
-      child: Padding(
-        padding: EdgeInsets.all(ScreenHelper.screenWidth(context) * .02),
-        child: Container(
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(5.0),
-            color: primaryColor,
-          ),
-          width: ScreenHelper.screenWidth(context) * .96,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: ScreenHelper.isPortrait(context)
-                ? Column(
-                    children: [
-                      column,
-                      buttom,
-                    ],
-                  )
-                : Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(flex: 3, child: column),
-                      Expanded(child: buttom),
-                    ],
-                  ),
-          ),
-        ),
-      ),
-    );
+    return !subscribed
+        ? Positioned(
+            bottom: 20.0,
+            child: Padding(
+              padding: EdgeInsets.all(ScreenHelper.screenWidth(context) * .02),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5.0),
+                  color: primaryColor,
+                ),
+                width: ScreenHelper.screenWidth(context) * .96,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: ScreenHelper.isPortrait(context)
+                      ? Column(
+                          children: [
+                            column,
+                            buttom,
+                          ],
+                        )
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Expanded(flex: 3, child: column),
+                            Expanded(child: buttom),
+                          ],
+                        ),
+                ),
+              ),
+            ),
+          )
+        : Container();
   }
 }
