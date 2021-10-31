@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -11,7 +12,6 @@ import 'package:detooo_recargas/services/providers/recargas_provider.dart';
 import 'package:detooo_recargas/services/providers/subscriptions_provider.dart';
 import 'package:detooo_recargas/ui/views/recargas/recargas_cubacel_view.dart';
 import 'package:detooo_recargas/ui/views/recargas/recargas_nauta_view.dart';
-import 'package:detooo_recargas/ui/widgets/testimonials_widget.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -28,6 +28,7 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     return HomeLayout(
       child: SingleChildScrollView(
         primary: true,
@@ -56,6 +57,8 @@ class _HomeViewState extends State<HomeView> {
                 _buildSubscribe(),
               ],
             ),
+            const DetoooInfo(),
+            _buildFooter(locale.read('designed_by_exeditec')),
           ],
         ),
       ),
@@ -105,7 +108,8 @@ class _HomeViewState extends State<HomeView> {
         GridView.builder(
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 1,
-            // mainAxisExtent: 500.0,
+            crossAxisSpacing: 0,
+            mainAxisExtent: 400,
             crossAxisCount: ScreenHelper.isPortrait(context) ? 1 : 2,
           ),
           primary: false,
@@ -125,8 +129,8 @@ class _HomeViewState extends State<HomeView> {
       padding: EdgeInsets.symmetric(
         vertical: 8.0,
         horizontal: ScreenHelper.isPortrait(context)
-            ? ScreenHelper.screenWidth(context) * .225
-            : ScreenHelper.screenWidth(context) * .1,
+            ? ScreenHelper.screenWidth(context) * .2
+            : ScreenHelper.screenHeight(context) * .1,
       ),
       child: Container(
         decoration: const BoxDecoration(
@@ -140,43 +144,22 @@ class _HomeViewState extends State<HomeView> {
             padding: const EdgeInsets.all(8.0),
             child: Column(
               mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                if (data.dest == 'cubacel')
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: SvgPicture.asset('assets/images/oferta3.svg'),
-                    ),
-                  ),
-                if (data.dest == 'nauta')
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: SvgPicture.asset('assets/images/oferta2.svg'),
-                    ),
-                  ),
-                if (data.dest != 'nauta' && data.dest != 'cubacel')
-                  Padding(
-                    padding: const EdgeInsets.all(20.0),
-                    child: SizedBox(
-                      width: 100,
-                      height: 100,
-                      child: SvgPicture.asset('assets/images/oferta2.svg'),
-                    ),
-                  ),
-                Text(
+                _buildPackageImage(data.dest),
+                _buildSeparation(),
+                AutoSizeText(
                   data.titulo!,
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.headline6!,
+                  maxLines: 1,
+                  textAlign: TextAlign.center,
+                  minFontSize: 12,
+                  maxFontSize: Theme.of(context).textTheme.headline6!.fontSize!,
+                  overflow: TextOverflow.visible,
                 ),
                 _buildCaracteristicas(data.caracteristicas!, context),
-                _buildSeparation(),
-                _buildSeparation(),
+                Expanded(child: Container()),
                 Text(
                   data.amount!.toString(),
                   style: Theme.of(context).textTheme.headline5,
@@ -196,6 +179,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ],
                 ),
+                _buildSeparation(),
               ],
             ),
           ),
@@ -229,9 +213,11 @@ class _HomeViewState extends State<HomeView> {
         ),
         Expanded(
           flex: 4,
-          child: Text(
+          child: AutoSizeText(
             caracteristicasString.trim(),
             style: Theme.of(context).textTheme.subtitle1,
+            maxLines: caracteristicasString.split('\n').length - 1,
+            overflow: TextOverflow.visible,
           ),
         ),
       ],
@@ -291,6 +277,7 @@ class _HomeViewState extends State<HomeView> {
               locale.read('somewhere_recharge'),
               style: Theme.of(context).textTheme.headline5,
               textAlign: TextAlign.center,
+              maxLines: 2,
             ),
             SizedBox(
               height: ScreenHelper.screenWidth(context) * .05,
@@ -479,5 +466,50 @@ class _HomeViewState extends State<HomeView> {
             ),
           )
         : Container();
+  }
+
+  Widget _buildPackageImage(String? dest) {
+    Widget image = Container();
+
+    switch (dest) {
+      case 'cubacel':
+        image = _buildImage('assets/images/oferta3.svg');
+        break;
+      case 'nauta':
+        image = _buildImage('assets/images/oferta2.svg');
+        break;
+      default:
+        image = _buildImage('assets/images/oferta1.svg');
+    }
+    return image;
+  }
+
+  Widget _buildImage(String s) {
+    return Padding(
+      padding: const EdgeInsets.all(1.0),
+      child: SizedBox(
+        width: 100,
+        height: 100,
+        child: SvgPicture.asset(s),
+      ),
+    );
+  }
+
+  Widget _buildFooter(String read) {
+    return Builder(builder: (context) {
+      return Container(
+        width: ScreenHelper.screenWidth(context),
+        height: 35.0,
+        color: primaryColor,
+        child: Center(
+          child: Text(
+            read,
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  color: Colors.white,
+                ),
+          ),
+        ),
+      );
+    });
   }
 }

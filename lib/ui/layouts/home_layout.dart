@@ -34,11 +34,17 @@ class _HomeLayoutState extends State<HomeLayout> {
         toolbarHeight: 50.0,
         title: Row(
           children: [
-            SizedBox(
-              height: 50.0,
-              width:
-                  ScreenHelper.screenWidthPercentage(context, percentage: 0.35),
-              child: SvgPicture.asset('assets/images/Recargas_Identidad_H.svg'),
+            Padding(
+              padding: const EdgeInsets.all(2.0),
+              child: Builder(builder: (context) {
+                return SizedBox(
+                  height: Scaffold.of(context).appBarMaxHeight! - 4,
+                  width: ScreenHelper.screenWidthPercentage(context,
+                      percentage: 0.35),
+                  child: SvgPicture.asset(
+                      'assets/images/Recargas_Identidad_H.svg'),
+                );
+              }),
             ),
           ],
         ),

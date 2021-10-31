@@ -3,8 +3,8 @@ import 'package:detooo_recargas/ui/views/recargas/recargas_cubacel_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../app_ui.dart';
-import '../screen_helper.dart';
+import '../../app_ui.dart';
+import '../../screen_helper.dart';
 
 class BuildSuggestions extends StatelessWidget {
   const BuildSuggestions({Key? key}) : super(key: key);

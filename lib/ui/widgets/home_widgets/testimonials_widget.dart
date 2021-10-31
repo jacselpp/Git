@@ -7,7 +7,7 @@ import 'package:detooo_recargas/services/providers/users_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../app_ui.dart';
+import '../../app_ui.dart';
 
 class TestimonialsWidget extends StatefulWidget {
   final double? height;
