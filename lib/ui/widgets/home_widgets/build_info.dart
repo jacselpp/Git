@@ -125,9 +125,12 @@ class DetoooInfo extends StatelessWidget {
   Widget _buildItem(String name) {
     return Builder(builder: (context) {
       return GestureDetector(
-        child: Text(
-          name,
-          style: Theme.of(context).textTheme.bodyText1,
+        child: Padding(
+          padding: const EdgeInsets.all(2.0),
+          child: Text(
+            name,
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
         ),
       );
     });
@@ -183,14 +186,17 @@ class DetoooInfo extends StatelessWidget {
     return Builder(builder: (context) {
       return Container(
         width: ScreenHelper.screenWidth(context),
-        height: 35.0,
         color: primaryColor,
-        child: Center(
-          child: Text(
-            read,
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                  color: Colors.white,
-                ),
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Center(
+            child: Text(
+              read,
+              style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                    color: Colors.white,
+                  ),
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
       );

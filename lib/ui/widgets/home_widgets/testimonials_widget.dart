@@ -195,6 +195,7 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
     );
   }
 
+  // ignore: unused_element
   List<Widget> _buildRating(int cant) {
     List<Widget> rating = [];
     for (var i = 1; i <= 5; ++i) {

@@ -13,7 +13,7 @@ class MainDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
     return SizedBox(
-      width: ScreenHelper.screenWidth(context) * .5,
+      width: ScreenHelper.screenWidth(context) * .6,
       child: Drawer(
         child: Material(
           color: Theme.of(context).scaffoldBackgroundColor,

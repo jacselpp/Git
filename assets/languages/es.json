@@ -34,6 +34,7 @@
     "fullname": "Nombre Completo",
     "country": "País",
     "email": "E-mail",
+    "phone": "Teléfono",
     "movil": "Teléfono Móvil",
     "update_profile": "Actualizar Perfil",
     "dialog_profile": "Actualizar Avatar",

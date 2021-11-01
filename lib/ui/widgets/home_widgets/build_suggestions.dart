@@ -117,23 +117,19 @@ class BuildSuggestions extends StatelessWidget {
             height: 50.0,
           ),
           Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Expanded(child: Container()),
-              Expanded(
-                flex: 2,
-                child: CustomTextButton(
-                  color: ScreenHelper.isPortrait(context)
-                      ? primaryColor
-                      : Theme.of(context).appBarTheme.backgroundColor!,
-                  label: locale.read('top_up_now'),
-                  onPressed: () {
-                    Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const RecargasCubacelView(),
-                    ));
-                  },
-                ),
+              CustomTextButton(
+                color: ScreenHelper.isPortrait(context)
+                    ? primaryColor
+                    : Theme.of(context).appBarTheme.backgroundColor!,
+                label: locale.read('top_up_now'),
+                onPressed: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const RecargasCubacelView(),
+                  ));
+                },
               ),
-              Expanded(child: Container()),
             ],
           ),
           const SizedBox(
