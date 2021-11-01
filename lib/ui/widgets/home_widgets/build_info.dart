@@ -1,4 +1,10 @@
 import 'package:detooo_recargas/app/app_localizations.dart';
+import 'package:detooo_recargas/ui/app_ui.dart';
+import 'package:detooo_recargas/ui/views/home/about_us_view.dart';
+import 'package:detooo_recargas/ui/views/home/contact_view.dart';
+import 'package:detooo_recargas/ui/views/home/privacy_view.dart';
+import 'package:detooo_recargas/ui/views/home/refund_view.dart';
+import 'package:detooo_recargas/ui/views/home/terms_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -7,22 +13,28 @@ class DetoooInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(
-        horizontal: 20.0,
-        vertical: 50.0,
-      ),
-      child: Column(
-        children: [
-          _buildDetooo(context),
-          _buildSeparation(),
-          _buildInfo(context),
-          _buildSeparation(),
-          _buildContactUs(),
-          _buildSeparation(),
-          _buildOters(),
-        ],
-      ),
+    final locale = AppLocalizations.of(context)!;
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(
+            horizontal: 20.0,
+            vertical: 50.0,
+          ),
+          child: Column(
+            children: [
+              _buildDetooo(context),
+              _buildSeparation(),
+              _buildInfo(context),
+              _buildSeparation(),
+              _buildContactUs(),
+              _buildSeparation(),
+              _buildOters(),
+            ],
+          ),
+        ),
+        _buildFooter(locale.read('designed_by_exeditec')),
+      ],
     );
   }
 
@@ -30,11 +42,14 @@ class DetoooInfo extends StatelessWidget {
     final locale = AppLocalizations.of(context)!;
     return Column(
       children: [
-        SizedBox(
-          height: 50.0,
-          child: SvgPicture.asset(
-            'assets/images/Recargas_Imagotipo.svg',
-            fit: BoxFit.fitHeight,
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SizedBox(
+            height: 50.0,
+            child: SvgPicture.asset(
+              'assets/images/Recargas_Imagotipo.svg',
+              fit: BoxFit.fitHeight,
+            ),
           ),
         ),
         Text(
@@ -53,11 +68,56 @@ class DetoooInfo extends StatelessWidget {
           locale.read('info'),
           style: Theme.of(context).textTheme.headline6,
         ),
-        _buildItem(locale.read('about_us')),
-        _buildItem(locale.read('contact_us')),
-        _buildItem(locale.read('terms')),
-        _buildItem(locale.read('policy')),
-        _buildItem(locale.read('refund')),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const AboutUsView(),
+              ),
+            );
+          },
+          child: _buildItem(locale.read('about_us')),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const ContactView(),
+              ),
+            );
+          },
+          child: _buildItem(locale.read('contact_us')),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const TermsView(),
+              ),
+            );
+          },
+          child: _buildItem(locale.read('terms')),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const PrivacyView(),
+              ),
+            );
+          },
+          child: _buildItem(locale.read('policy')),
+        ),
+        GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) => const RefundView(),
+              ),
+            );
+          },
+          child: _buildItem(locale.read('refund')),
+        ),
       ],
     );
   }
@@ -117,5 +177,23 @@ class DetoooInfo extends StatelessWidget {
         child: SvgPicture.asset('assets/images/$app'),
       ),
     );
+  }
+
+  Widget _buildFooter(String read) {
+    return Builder(builder: (context) {
+      return Container(
+        width: ScreenHelper.screenWidth(context),
+        height: 35.0,
+        color: primaryColor,
+        child: Center(
+          child: Text(
+            read,
+            style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                  color: Colors.white,
+                ),
+          ),
+        ),
+      );
+    });
   }
 }

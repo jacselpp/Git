@@ -28,39 +28,33 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    final locale = AppLocalizations.of(context)!;
     return HomeLayout(
-      child: SingleChildScrollView(
-        primary: true,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            const BuildSuggestions(),
-            _buildPromotions(),
-            _buildBody(context),
-            _buildSeparation(),
-            _buildMap(),
-            _buildSeparation(),
-            _buildSponsors(),
-            _buildSeparation(),
-            Stack(
-              children: [
-                Column(
-                  children: [
-                    _buildTestimonials(),
-                    if (!context.read<SubscriptionsProvider>().subscribed)
-                      Container(
-                        height: ScreenHelper.isPortrait(context) ? 150.0 : 75.0,
-                      ),
-                  ],
-                ),
-                _buildSubscribe(),
-              ],
-            ),
-            const DetoooInfo(),
-            _buildFooter(locale.read('designed_by_exeditec')),
-          ],
-        ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const BuildSuggestions(),
+          _buildPromotions(),
+          _buildBody(context),
+          _buildSeparation(),
+          _buildMap(),
+          _buildSeparation(),
+          _buildSponsors(),
+          _buildSeparation(),
+          Stack(
+            children: [
+              Column(
+                children: [
+                  _buildTestimonials(),
+                  if (!context.read<SubscriptionsProvider>().subscribed)
+                    Container(
+                      height: ScreenHelper.isPortrait(context) ? 150.0 : 75.0,
+                    ),
+                ],
+              ),
+              _buildSubscribe(),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -493,23 +487,5 @@ class _HomeViewState extends State<HomeView> {
         child: SvgPicture.asset(s),
       ),
     );
-  }
-
-  Widget _buildFooter(String read) {
-    return Builder(builder: (context) {
-      return Container(
-        width: ScreenHelper.screenWidth(context),
-        height: 35.0,
-        color: primaryColor,
-        child: Center(
-          child: Text(
-            read,
-            style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                  color: Colors.white,
-                ),
-          ),
-        ),
-      );
-    });
   }
 }
