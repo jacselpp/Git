@@ -47,3 +47,5 @@ app.*.map.json
 
 # settings
 /.vscode/settings.json
+
+key.properties
