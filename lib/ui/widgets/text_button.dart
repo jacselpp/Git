@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 
 class CustomTextButton extends StatelessWidget {
   final Color color;
+  final Color? textColor;
   final String label;
   final VoidCallback onPressed;
 
-  const CustomTextButton(
-      {Key? key,
-      required this.color,
-      required this.label,
-      required this.onPressed})
-      : super(key: key);
+  const CustomTextButton({
+    Key? key,
+    required this.color,
+    required this.label,
+    required this.onPressed,
+    this.textColor,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,9 +28,9 @@ class CustomTextButton extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(15.0),
         child: Text(
-          label,
-          style: const TextStyle(
-            color: Colors.white,
+          label.toUpperCase(),
+          style: TextStyle(
+            color: textColor ?? Colors.white,
             fontSize: 14.0,
             fontWeight: FontWeight.bold,
           ),

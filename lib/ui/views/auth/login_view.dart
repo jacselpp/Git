@@ -51,6 +51,7 @@ class _LoginViewState extends State<LoginView> {
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             locale.read('start_session'),

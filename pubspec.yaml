@@ -60,9 +60,6 @@ dependencies:
   firebase_core: ^1.6.0
   firebase_messaging: ^10.0.7
 
-  # TV and Video
-  # chewie: ^1.2.2
-
   # Connectivity
   connectivity_plus: ^1.1.0
 
@@ -86,19 +83,13 @@ dependencies:
 
   #svg Images
   flutter_svg: ^0.22.0
-  lottie: ^1.1.0
-
-  # Slidable
-  flutter_slidable: ^0.6.0
-
-  #Slider
-  carousel_slider: ^4.0.0
 
   #payments
   flutter_stripe: ^2.0.1
 
-  #pieChart
-  pie_chart: ^5.0.1
+  #auto font size
+  auto_size_text: ^3.0.0
+
   
 dev_dependencies:
   flutter_test:

@@ -1,3 +1,5 @@
+import 'package:detooo_recargas/models/auth/municipios_model.dart';
+import 'package:detooo_recargas/models/auth/provincias_model.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 
@@ -57,4 +59,13 @@ abstract class APIUsers {
 
   @GET("auth/verify/{id}")
   Future<void> verifyCreateUser(@Path("id") String id);
+
+  @GET("provincias")
+  Future<List<Provincias>> fetchProvincias();
+
+  @GET("municipios")
+  Future<List<Municipios>> fetchMunicipios();
+
+  @GET("municipios/provincia/{id}")
+  Future<List<Municipios>> fetchMunicipiosProvincia(@Path('id') String id);
 }

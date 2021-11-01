@@ -75,6 +75,7 @@ class _RegisterViewState extends State<RegisterView> {
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
         children: [
           Text(
             locale.read('register'),

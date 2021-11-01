@@ -15,7 +15,7 @@ class AddTestimonials extends StatefulWidget {
 }
 
 class _AddTestimonialsState extends State<AddTestimonials> {
-  int _rating = 0;
+  int _rating = 3;
   int _length = 0;
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _testimonialController = TextEditingController();
@@ -49,22 +49,31 @@ class _AddTestimonialsState extends State<AddTestimonials> {
       key: _formKey,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisSize: MainAxisSize.max,
         children: [
+          Text(
+            locale.read('add_new_testimony'),
+            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.headline5,
+          ),
           const Divider(),
           const SizedBox(
             height: 10.0,
           ),
-          CustomTextFormField(
-            minLines: 5,
-            label: locale.read('testimonial'),
+          TextFormField(
+            maxLines: 5,
+            keyboardType: TextInputType.multiline,
+            decoration: InputDecoration(
+              labelText: locale.read('testimonial'),
+              border: const OutlineInputBorder(),
+              helperText: (_length > 0) ? '$_length > 20' : '',
+              alignLabelWithHint: true,
+            ),
             controller: _testimonialController,
             validator: (value) {
               if (value!.trim().isEmpty || value.length < 20) {
                 return locale.read('testimonial_too_short');
               }
             },
-            helperText: (_length > 0) ? '$_length > 20' : '',
           ),
           const SizedBox(
             height: 10.0,
@@ -80,26 +89,14 @@ class _AddTestimonialsState extends State<AddTestimonials> {
           const SizedBox(
             height: 10.0,
           ),
+          const Divider(),
           Row(
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              Expanded(
-                child: CustomTextButton(
-                  color: primaryColor,
-                  label: locale.read('send_testimonial'),
-                  onPressed: _handleTestimonial,
-                ),
-              ),
-              const SizedBox(
-                width: 10.0,
-              ),
-              Expanded(
-                child: CustomTextButton(
-                  color: Colors.redAccent,
-                  label: locale.read('cancel'),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
+              CustomTextButton(
+                color: primaryColor,
+                label: locale.read('send_testimonial'),
+                onPressed: _handleTestimonial,
               ),
             ],
           ),
@@ -148,9 +145,14 @@ class _AddTestimonialsState extends State<AddTestimonials> {
     showMessage(context, locale.read('loading'), TypeMessage.LOADING);
     APIRecargas.common().createTestimonials(_userTestimonial).then((value) {
       context.read<TestimonialsProvider>().fetchTestimonials();
-      Navigator.of(context).pop();
+      // Navigator.of(context).pop();
       showMessage(
-          context, locale.read('success_testimonial'), TypeMessage.INFO);
+        context,
+        locale.read('success_testimonial'),
+        TypeMessage.INFO,
+      );
+      _testimonialController.value = TextEditingValue.empty;
+      // _rating = 3;
     }).catchError(
       (e) => HandleError.logError(context, e),
     );
