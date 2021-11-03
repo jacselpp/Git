@@ -28,13 +28,15 @@ class TermsView extends StatelessWidget {
     final locale = AppLocalizations.of(context)!;
     int counter = 1;
 
-    termsItems.add(
-      Text(
-        locale.read('service_terms'),
-        style: Theme.of(context).textTheme.headline4,
-        textAlign: TextAlign.center,
-      ),
-    );
+    termsItems
+      ..add(
+        Text(
+          locale.read('service_terms'),
+          style: Theme.of(context).textTheme.headline5,
+          textAlign: TextAlign.center,
+        ),
+      )
+      ..add(_buildSeparation());
 
     while (
         locale.read('terms_s${counter}_title') != 'terms_s${counter}_title') {

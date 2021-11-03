@@ -28,13 +28,15 @@ class PrivacyView extends StatelessWidget {
     final locale = AppLocalizations.of(context)!;
     int counter = 1;
 
-    termsItems.add(
-      Text(
-        locale.read('privacy_policy'),
-        style: Theme.of(context).textTheme.headline4,
-        textAlign: TextAlign.center,
-      ),
-    );
+    termsItems
+      ..add(
+        Text(
+          locale.read('privacy_policy'),
+          style: Theme.of(context).textTheme.headline5,
+          textAlign: TextAlign.center,
+        ),
+      )
+      ..add(_buildSeparation());
 
     while (locale.read('privacy_policy_s${counter}_title') !=
         'privacy_policy_s${counter}_title') {

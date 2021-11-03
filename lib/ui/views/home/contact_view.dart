@@ -34,7 +34,7 @@ class ContactView extends StatelessWidget {
         Center(
           child: Text(
             locale.read('contact_us'),
-            style: Theme.of(context).textTheme.headline4,
+            style: Theme.of(context).textTheme.headline5,
             textAlign: TextAlign.center,
           ),
         ),

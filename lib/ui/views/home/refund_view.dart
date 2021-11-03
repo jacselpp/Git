@@ -31,7 +31,7 @@ class RefundView extends StatelessWidget {
       ..add(
         Text(
           locale.read('refund'),
-          style: Theme.of(context).textTheme.headline4,
+          style: Theme.of(context).textTheme.headline5,
           textAlign: TextAlign.center,
         ),
       )

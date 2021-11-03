@@ -7,6 +7,7 @@ import 'package:detooo_recargas/ui/views/home/refund_view.dart';
 import 'package:detooo_recargas/ui/views/home/terms_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetoooInfo extends StatelessWidget {
   const DetoooInfo({Key? key}) : super(key: key);
@@ -52,9 +53,13 @@ class DetoooInfo extends StatelessWidget {
             ),
           ),
         ),
-        Text(
-          locale.read('detooo_recargas'),
-          style: Theme.of(context).textTheme.subtitle1,
+        SizedBox(
+          width: ScreenHelper.screenWidth(context),
+          child: Text(
+            locale.read('detooo_recargas'),
+            style: Theme.of(context).textTheme.subtitle1,
+            textAlign: TextAlign.justify,
+          ),
         ),
       ],
     );
@@ -164,20 +169,46 @@ class DetoooInfo extends StatelessWidget {
     return Builder(builder: (context) {
       return Column(
         children: [
-          _buildItemApp('Anuncios_Identidad_H.svg'),
-          _buildItemApp('Combos_Identidad_H.svg'),
-          _buildItemApp('Envios_Identidad_H.svg'),
+          _buildItemApp(
+              'Anuncios_Identidad_H.svg', 'https://anuncios.detooo.com'),
+          _buildItemApp('Combos_Identidad_H.svg', 'https://shop.detooo.com'),
+          _buildItemApp('Envios_Identidad_H.svg', 'https://www.exeditec.com'),
+          Container(
+            decoration: BoxDecoration(
+              color: const Color(0x22BBDEFB),
+              borderRadius: BorderRadius.circular(50.0),
+            ),
+            child: IconButton(
+              icon: const Center(
+                child: Icon(
+                  Icons.facebook_sharp,
+                  color: primaryColor,
+                ),
+              ),
+              iconSize: 50.0,
+              onPressed: () {
+                launch('https://www.facebook.com/detooopp');
+              },
+              padding: const EdgeInsets.all(0),
+              splashRadius: 25.0,
+            ),
+          ),
         ],
       );
     });
   }
 
-  Widget _buildItemApp(String app) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        height: 30.0,
-        child: SvgPicture.asset('assets/images/$app'),
+  Widget _buildItemApp(String app, String url) {
+    return GestureDetector(
+      onTap: () {
+        launch(url);
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: SizedBox(
+          height: 30.0,
+          child: SvgPicture.asset('assets/images/$app'),
+        ),
       ),
     );
   }

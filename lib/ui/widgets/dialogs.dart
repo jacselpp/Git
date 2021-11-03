@@ -47,7 +47,7 @@ void showMessage(BuildContext context, String message, TypeMessage type) {
             strokeWidth: 4.0,
           ),
         ),
-        10,
+        30,
       );
       break;
     default:
