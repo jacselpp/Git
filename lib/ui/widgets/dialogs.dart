@@ -72,26 +72,32 @@ SnackBar messageSnack(String text, Color color, Widget icon, int duration) {
     duration: Duration(seconds: duration),
     backgroundColor: Colors.transparent,
     padding: const EdgeInsets.symmetric(horizontal: 1.0),
-    content: Card(
-      elevation: 5.0,
-      margin: const EdgeInsets.all(0.0),
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10.0),
-          topRight: Radius.circular(10.0),
-        ),
+    content: ClipRRect(
+      borderRadius: const BorderRadius.only(
+        topLeft: Radius.circular(10.0),
+        topRight: Radius.circular(10.0),
       ),
-      color: color,
-      child: Padding(
-        padding: const EdgeInsets.all(4.0),
-        child: Row(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(right: 6.00),
-              child: icon,
-            ),
-            Text(text, style: const TextStyle(color: Colors.white)),
-          ],
+      child: Card(
+        elevation: 5.0,
+        margin: const EdgeInsets.all(0.0),
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10.0),
+            topRight: Radius.circular(10.0),
+          ),
+        ),
+        color: color,
+        child: Padding(
+          padding: const EdgeInsets.all(4.0),
+          child: Row(
+            children: [
+              Container(
+                margin: const EdgeInsets.only(right: 6.00),
+                child: icon,
+              ),
+              Text(text, style: const TextStyle(color: Colors.white)),
+            ],
+          ),
         ),
       ),
     ),

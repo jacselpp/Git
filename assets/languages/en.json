@@ -45,6 +45,8 @@
     "cancel": "Cancel",
     "rating": "Rating:",
     "me": "You",
+    "subscribed_message": "Successfully Subscribed",
+    "unsubscribed_message": "Successfully Unsubscribed",
 
     "phone_email": "Phone / Email",
     "repeat_password": "Confirm password",
