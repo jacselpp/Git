@@ -16,10 +16,17 @@ import '../screen_helper.dart';
 class MainAppBar {
   Profile? _profile;
 
-  AppBar appBar(BuildContext context, {TabBar? tabBar}) {
+  AppBar appBar(BuildContext context, {TabBar? tabBar, bool showBcak = false}) {
     _profile ??= context.watch<ProfileProvider>().profile;
 
     return AppBar(
+      leading: showBcak
+          ? IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(Routes.HOME);
+              },
+              icon: const Icon(Icons.arrow_back))
+          : null,
       toolbarHeight: 50.0,
       title: Row(
         children: [

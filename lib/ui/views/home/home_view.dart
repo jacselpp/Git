@@ -29,6 +29,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return HomeLayout(
+      mainDrawer: true,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

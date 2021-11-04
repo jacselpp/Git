@@ -6,8 +6,14 @@ import 'package:flutter/material.dart';
 class HomeLayout extends StatefulWidget {
   final Widget child;
   final TabBar? tabBar;
-  const HomeLayout({Key? key, required this.child, this.tabBar})
-      : super(key: key);
+  final bool mainDrawer;
+
+  const HomeLayout({
+    Key? key,
+    required this.child,
+    this.tabBar,
+    this.mainDrawer = false,
+  }) : super(key: key);
 
   @override
   State<HomeLayout> createState() => _HomeLayoutState();
@@ -17,8 +23,8 @@ class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MainAppBar().appBar(context),
-      drawer: const MainDrawer(),
+      appBar: MainAppBar().appBar(context, showBcak: !widget.mainDrawer),
+      drawer: widget.mainDrawer ? const MainDrawer() : null,
       body: SingleChildScrollView(
         primary: true,
         child: Column(

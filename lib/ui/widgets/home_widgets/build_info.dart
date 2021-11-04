@@ -44,7 +44,7 @@ class DetoooInfo extends StatelessWidget {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.all(20.0),
           child: SizedBox(
             height: 50.0,
             child: SvgPicture.asset(
