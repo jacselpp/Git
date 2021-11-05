@@ -20,7 +20,7 @@ abstract class APIRecargas {
   Future<Paginated<Item>> readOffers();
 
   @GET("promotions")
-  Future<Paginated<Promotions>> readPromotions();
+  Future<List<Promotions>> readPromotions();
 
   @GET("testimonials/list")
   Future<List<Testimonials>> fetchTestimonials();

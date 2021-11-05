@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:detooo_recargas/models/recargas/promotions_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:detooo_recargas/models/auth/municipios_model.dart';
@@ -159,4 +160,27 @@ class SharedPreference {
 
   static String? get userId => _preference.getString('USERID');
   static void get removeUserId => _preference.remove('USERID');
+
+  //! list promotions
+  static void setPackages(List<Promotions> promotions) {
+    List<String> municipiosListString = [];
+    for (var promotion in promotions) {
+      municipiosListString.add(jsonEncode(promotion.toJson()));
+    }
+    _preference.setStringList('PROMOTIONS', municipiosListString);
+  }
+
+  static List<Promotions>? get promotions {
+    List<String>? promotionsString = _preference.getStringList('PROMOTIONS');
+    List<Promotions>? municipiosList = [];
+
+    if (promotionsString != null) {
+      for (var promotion in promotionsString) {
+        municipiosList.add(Promotions.fromJson(jsonDecode(promotion)));
+      }
+    }
+    return municipiosList;
+  }
+
+  static void get removePromotions => _preference.remove('PROMOTIONS');
 }
