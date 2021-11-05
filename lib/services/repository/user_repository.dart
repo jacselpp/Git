@@ -65,6 +65,7 @@ class UserRepository {
     _handleLocale(context);
     _handleNetwork(
         APIUsers.common().register(userRegister).then((value) {
+          SharedPreference.setUserId(value.id!);
           Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
               builder: (_) => ActivateUserView(value.id!),
@@ -116,6 +117,20 @@ class UserRepository {
         showMessage(
           context,
           _locale!.read('success_password_reset'),
+          TypeMessage.ERROR,
+        );
+      }).catchError((e) => HandleError.logError(context, e)),
+      context,
+    );
+  }
+
+  void resendMovileCode(UserVerifyMovil userVerifyMovil, BuildContext context) {
+    _handleLocale(context);
+    _handleNetwork(
+      APIUsers.common().resendMovileCode(userVerifyMovil).then((value) {
+        showMessage(
+          context,
+          _locale!.read('success_resend_code'),
           TypeMessage.ERROR,
         );
       }).catchError((e) => HandleError.logError(context, e)),

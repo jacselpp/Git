@@ -11,6 +11,7 @@ import 'package:detooo_recargas/services/providers/profile_provider.dart';
 import 'package:detooo_recargas/services/shared_preference.dart';
 
 import '../screen_helper.dart';
+import 'auth/activate_view.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({Key? key}) : super(key: key);
@@ -45,6 +46,8 @@ class _SplashViewState extends State<SplashView> {
   void navigate() {
     String? token = SharedPreference.readUserKey;
     String? _key = SharedPreference.readUserKey;
+    String? uid = SharedPreference.userId;
+
     if (_key != null) {
       context.read<ProfileProvider>().fetchProfile();
       context.read<SubscriptionsProvider>().fetchSubscribed();
@@ -53,9 +56,12 @@ class _SplashViewState extends State<SplashView> {
     context.read<ProvinciasProvider>().fetchAllProvincias();
     context.read<MunicipiosProvider>().fetchAllMunicipios();
 
-    (token == null || token.isEmpty)
-        ? Navigator.of(context).pushReplacementNamed(Routes.LOGIN)
-        : Navigator.of(context).pushReplacementNamed(Routes.HOME);
+    (uid != null)
+        ? Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => ActivateUserView(uid)))
+        : (token == null || token.isEmpty)
+            ? Navigator.of(context).pushReplacementNamed(Routes.LOGIN)
+            : Navigator.of(context).pushReplacementNamed(Routes.HOME);
     // }
   }
 

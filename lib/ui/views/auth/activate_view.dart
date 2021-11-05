@@ -1,6 +1,10 @@
+import 'dart:async';
+
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/network/api_users.dart';
+import 'package:detooo_recargas/services/repository/user_repository.dart';
+import 'package:detooo_recargas/services/shared_preference.dart';
 import 'package:detooo_recargas/ui/views/auth/login_view.dart';
 import 'package:detooo_recargas/utils/handle_errors.dart';
 import 'package:detooo_recargas/utils/validators.dart';
@@ -19,6 +23,8 @@ class ActivateUserView extends StatefulWidget {
 class _ActivateUserViewState extends State<ActivateUserView> {
   final TextEditingController _codeController = TextEditingController();
   bool _loading = false;
+  int countDown = 0;
+
   @override
   void dispose() {
     _codeController.dispose();
@@ -26,9 +32,19 @@ class _ActivateUserViewState extends State<ActivateUserView> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    _startCountDown();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return AuthLayout(
-      child: _buildBody(context),
+      child: Column(
+        children: [
+          _buildBody(context),
+        ],
+      ),
     );
   }
 
@@ -39,7 +55,23 @@ class _ActivateUserViewState extends State<ActivateUserView> {
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Text(
+                locale.read('confirm_account'),
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Text(
+                  locale.read('phone_message_sent'),
+                  style: Theme.of(context).textTheme.subtitle1,
+                ),
+              ),
+              const Divider(),
+              const SizedBox(
+                height: 20.0,
+              ),
               CustomTextFormField(
                 controller: _codeController,
                 label: locale.read('confirmation_code'),
@@ -68,7 +100,17 @@ class _ActivateUserViewState extends State<ActivateUserView> {
                     ),
                   ),
                 ],
-              )
+              ),
+              const Divider(),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _buildCountDown(context),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -92,6 +134,7 @@ class _ActivateUserViewState extends State<ActivateUserView> {
       code: _codeController.text,
     ))
         .then((value) {
+      SharedPreference.removeUserId;
       Navigator.of(context)
           .pushAndRemoveUntil(
             MaterialPageRoute(
@@ -104,5 +147,48 @@ class _ActivateUserViewState extends State<ActivateUserView> {
     setState(() {
       _loading = false;
     });
+  }
+
+  Widget _buildCountDown(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+    return CustomTextButton(
+      color: (countDown == 0) ? primaryColor75 : Colors.grey,
+      onPressed: (countDown == 0)
+          ? () {
+              _resendSMS(context);
+            }
+          : () {},
+      label:
+          '${!(countDown > 0) ? locale.read('resend_sms') : ''} ${countDown > 0 ? '0${(countDown / 60).floor()}:${countDown % 60 > 9 ? (countDown % 60) : '0${(countDown % 60)}'}' : ''} ',
+    );
+  }
+
+  _resendSMS(BuildContext context) {
+    _startCountDown();
+
+    UserRepository().resendMovileCode(
+      UserVerifyMovil(
+        userId: widget.id,
+      ),
+      context,
+    );
+  }
+
+  void _startCountDown() {
+    setState(() {
+      countDown = 11;
+    });
+
+    Timer.periodic(const Duration(seconds: 1), _handleTimer);
+  }
+
+  void _handleTimer(Timer timer) {
+    setState(() {
+      --countDown;
+    });
+
+    if (countDown == 0) {
+      timer.cancel();
+    }
   }
 }

@@ -151,4 +151,12 @@ class SharedPreference {
 
   static void setTestimonials(bool testimonial) =>
       _preference.setBool('TESTIMONIALS', testimonial);
+
+  //! user Id for register
+  static void setUserId(String s) {
+    _preference.setString('USERID', s);
+  }
+
+  static String? get userId => _preference.getString('USERID');
+  static void get removeUserId => _preference.remove('USERID');
 }
