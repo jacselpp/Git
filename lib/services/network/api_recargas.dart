@@ -22,7 +22,7 @@ abstract class APIRecargas {
   @GET("promotions")
   Future<Paginated<Promotions>> readPromotions();
 
-  @GET("testimonials/user_list")
+  @GET("testimonials/list")
   Future<List<Testimonials>> fetchTestimonials();
 
   @POST("testimonials")

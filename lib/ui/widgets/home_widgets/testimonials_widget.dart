@@ -97,7 +97,7 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
       scrollDirection: Axis.horizontal,
       itemCount: data.length,
       itemBuilder: (BuildContext context, int index) {
-        if (!data[index].isVisible!) {
+        if (data[index].isVisible!) {
           return _buildListItem(data[index], context);
         } else {
           return Container();

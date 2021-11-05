@@ -59,7 +59,7 @@ class _APIRecargas implements APIRecargas {
     final _result = await _dio.fetch<List<dynamic>>(
         _setStreamType<List<Testimonials>>(
             Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, 'testimonials/user_list',
+                .compose(_dio.options, 'testimonials/list',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     var value = _result.data!
