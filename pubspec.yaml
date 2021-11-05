@@ -52,7 +52,7 @@ dependencies:
 
   # Network
   retrofit: ^2.0.1
-  dio: ^4.0.0
+  dio: ^4.0.1
 
   #Firebase Messaging
   # firebase_auth:

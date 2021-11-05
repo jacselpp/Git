@@ -24,6 +24,7 @@ class _ActivateUserViewState extends State<ActivateUserView> {
   final TextEditingController _codeController = TextEditingController();
   bool _loading = false;
   int countDown = 0;
+  final _formKey = GlobalKey<FormState>();
 
   @override
   void dispose() {
@@ -52,6 +53,7 @@ class _ActivateUserViewState extends State<ActivateUserView> {
     final locale = AppLocalizations.of(context)!;
     return Card(
       child: Form(
+        key: _formKey,
         child: Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
@@ -75,15 +77,22 @@ class _ActivateUserViewState extends State<ActivateUserView> {
               CustomTextFormField(
                 controller: _codeController,
                 label: locale.read('confirmation_code'),
+                keyboardType: const TextInputType.numberWithOptions(),
                 onChanged: (value) {
                   if (value != null && value.length == 6) {
+                    FocusScope.of(context).requestFocus(FocusNode());
                     _handleConfirm(locale, context);
                   }
                 },
-                validator: (value) => validateIsNumeric(
-                  context: context,
-                  value: value,
-                ),
+                validator: (value) {
+                  if (value != null && value.length != 6) {
+                    return locale.read('only_6_digits');
+                  }
+                  return validateIsNumeric(
+                    context: context,
+                    value: value,
+                  );
+                },
               ),
               const SizedBox(
                 height: 20.0,
@@ -119,6 +128,7 @@ class _ActivateUserViewState extends State<ActivateUserView> {
   }
 
   _handleConfirm(AppLocalizations locale, BuildContext context) async {
+    if (!_formKey.currentState!.validate()) return;
     setState(() {
       _loading = true;
     });
@@ -129,21 +139,21 @@ class _ActivateUserViewState extends State<ActivateUserView> {
     );
 
     await APIUsers.common()
-        .verifyMovil(UserVerifyMovil(
-      userId: widget.id,
-      code: _codeController.text,
-    ))
+        .verifyMovil(
+      UserVerifyMovil(
+        userId: widget.id,
+        code: _codeController.text,
+      ),
+    )
         .then((value) {
       SharedPreference.removeUserId;
-      Navigator.of(context)
-          .pushAndRemoveUntil(
-            MaterialPageRoute(
-              builder: (_) => const LoginView(),
-            ),
-            (route) => false,
-          )
-          .catchError((e) => HandleError.logError(context, e));
-    });
+      Navigator.of(context).pushAndRemoveUntil(
+        MaterialPageRoute(
+          builder: (_) => const LoginView(),
+        ),
+        (route) => false,
+      );
+    }).catchError((e) => HandleError.logError(context, e));
     setState(() {
       _loading = false;
     });
@@ -159,7 +169,7 @@ class _ActivateUserViewState extends State<ActivateUserView> {
             }
           : () {},
       label:
-          '${!(countDown > 0) ? locale.read('resend_sms') : ''} ${countDown > 0 ? '0${(countDown / 60).floor()}:${countDown % 60 > 9 ? (countDown % 60) : '0${(countDown % 60)}'}' : ''} ',
+          '${!(countDown > 0) ? locale.read('resend_code') : ''} ${countDown > 0 ? '0${(countDown / 60).floor()}:${countDown % 60 > 9 ? (countDown % 60) : '0${(countDown % 60)}'}' : ''} ',
     );
   }
 
