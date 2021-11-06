@@ -31,30 +31,46 @@ class _HistoryViewState extends State<HistoryView> {
 
   @override
   Widget build(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
     _context ??= context;
     return HomeLayout(
       scrollController: _scrollController,
-      child: FutureBuilder(
-        future: context.watch<HistoryProvider>().fetchOrdersPage(),
-        initialData: const <Orders>[],
-        builder: (BuildContext context, AsyncSnapshot<List<Orders>> snapshot) {
-          if (snapshot.connectionState == ConnectionState.done &&
-              snapshot.hasData) {
-            return _buildItems(snapshot.data);
-          }
+      child: Container(
+        color: Theme.of(context).cardColor,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Text(
+                locale.read('history'),
+                style: Theme.of(context).textTheme.headline5,
+              ),
+            ),
+            FutureBuilder(
+              future: context.watch<HistoryProvider>().fetchOrdersPage(),
+              initialData: const <Orders>[],
+              builder:
+                  (BuildContext context, AsyncSnapshot<List<Orders>> snapshot) {
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData) {
+                  return _buildItems(snapshot.data);
+                }
 
-          if (snapshot.connectionState == ConnectionState.waiting &&
-              context.read<HistoryProvider>().orders.isNotEmpty) {
-            return Column(
-              children: [
-                _buildItems(snapshot.data),
-                _buildLoading(),
-              ],
-            );
-          } else {
-            return _buildLoading();
-          }
-        },
+                if (snapshot.connectionState == ConnectionState.waiting &&
+                    context.read<HistoryProvider>().orders.isNotEmpty) {
+                  return Column(
+                    children: [
+                      _buildItems(snapshot.data),
+                      _buildLoading(),
+                    ],
+                  );
+                } else {
+                  return _buildLoading();
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -80,6 +96,7 @@ class _HistoryViewState extends State<HistoryView> {
         width: ScreenHelper.screenWidth(context),
         // color: Colors.lime,
         child: Card(
+          color: Theme.of(context).scaffoldBackgroundColor,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
@@ -98,7 +115,7 @@ class _HistoryViewState extends State<HistoryView> {
                             style: Theme.of(context).textTheme.headline6,
                           ),
                           Text(
-                            item.items![0].item!.description!.subtitle!,
+                            '${item.items![0].item!.description!.subtitle}: ${item.dest}',
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context).textTheme.subtitle1,
