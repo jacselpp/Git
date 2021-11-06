@@ -16,19 +16,20 @@ class _ApiOrders implements ApiOrders {
   String? baseUrl;
 
   @override
-  Future<List<Orders>> userOrders() async {
+  Future<Paginated<Orders>> userOrders(page) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch<List<dynamic>>(
-        _setStreamType<List<Orders>>(
+    final _result = await _dio.fetch<Map<String, dynamic>>(
+        _setStreamType<Paginated<Orders>>(
             Options(method: 'GET', headers: <String, dynamic>{}, extra: _extra)
-                .compose(_dio.options, 'orders/user',
+                .compose(_dio.options, 'orders/user?app=recargas&page=$page',
                     queryParameters: queryParameters, data: _data)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-    var value = _result.data!
-        .map((dynamic i) => Orders.fromJson(i as Map<String, dynamic>))
-        .toList();
+    final value = Paginated<Orders>.fromJson(
+      _result.data!,
+      (json) => Orders.fromJson(json as Map<String, dynamic>),
+    );
     return value;
   }
 

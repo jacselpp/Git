@@ -1,5 +1,4 @@
 import 'package:json_annotation/json_annotation.dart';
-
 part 'orders_model.g.dart';
 
 @JsonSerializable()
@@ -9,53 +8,80 @@ class Orders {
     this.dest,
     this.discount,
     this.shippingDate,
+    this.id,
     this.app,
     this.amount,
+    this.payment,
     this.currency,
     this.status,
-    this.items = const [],
+    this.items,
     this.description,
-    this.shippingAddress,
     this.user,
     this.userType,
-    this.payment,
     this.createdAt,
     this.updatedAt,
-    this.v,
   });
 
   String? type;
   String? dest;
   int? discount;
   String? shippingDate;
+  @JsonKey(name: '_id')
+  String? id;
   String? app;
-  int? amount;
+  double? amount;
+  String? payment;
   String? currency;
   String? status;
-  List<ItemElement> items = [];
-  Description? description;
-  ShippingAddress? shippingAddress;
+  List<ItemElement>? items;
+  OrdersDescription? description;
   String? user;
   @JsonKey(name: 'user_type')
   String? userType;
-  String? payment;
   String? createdAt;
   String? updatedAt;
-  int? v;
-  factory Orders.fromJson(Map<String, dynamic> json) => _$OrdersFromJson(json);
+
+  factory Orders.fromJson(Map<String, dynamic> json) =>
+      _$OrdersFromJson(json);
   Map<String, dynamic> toJson() => _$OrdersToJson(this);
 }
 
 @JsonSerializable()
-class Description {
-  Description({
+class OrdersDescription {
+  OrdersDescription({
     this.short,
+    this.serverResponse,
+    this.merchantTransactionId,
   });
 
   String? short;
-  factory Description.fromJson(Map<String, dynamic> json) =>
-      _$DescriptionFromJson(json);
-  Map<String, dynamic> toJson() => _$DescriptionToJson(this);
+  ServerResponse? serverResponse;
+  String? merchantTransactionId;
+  factory OrdersDescription.fromJson(Map<String, dynamic> json) =>
+      _$OrdersDescriptionFromJson(json);
+  Map<String, dynamic> toJson() => _$OrdersDescriptionToJson(this);
+}
+
+@JsonSerializable()
+class ServerResponse {
+  ServerResponse({
+    this.transactionId,
+    this.provisionStatus,
+    this.description,
+    this.apiDescription,
+    this.noRecargado,
+    this.reTryFailedTopUp,
+  });
+
+  String? transactionId;
+  String? provisionStatus;
+  String? description;
+  String? apiDescription;
+  String? noRecargado;
+  bool? reTryFailedTopUp;
+  factory ServerResponse.fromJson(Map<String, dynamic> json) =>
+      _$ServerResponseFromJson(json);
+  Map<String, dynamic> toJson() => _$ServerResponseToJson(this);
 }
 
 @JsonSerializable()
@@ -68,7 +94,7 @@ class ItemElement {
 
   int? qty;
   @JsonKey(name: '_id')
-  Id? id;
+  String? id;
   ItemItem? item;
   factory ItemElement.fromJson(Map<String, dynamic> json) =>
       _$ItemElementFromJson(json);
@@ -76,90 +102,56 @@ class ItemElement {
 }
 
 @JsonSerializable()
-class Id {
-  Id({
-    this.oid,
-  });
-
-  String? oid;
-
-  factory Id.fromJson(Map<String, dynamic> json) => _$IdFromJson(json);
-  Map<String, dynamic> toJson() => _$IdToJson(this);
-}
-
-@JsonSerializable()
 class ItemItem {
   ItemItem({
-    this.name,
-    this.price,
     this.description,
+    this.currency,
+    this.isOffer,
+    this.isActive,
+    this.id,
+    this.price,
+    this.toSend,
+    this.type,
+    this.topDay,
+    this.topMonth,
+    this.dest,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  String? name;
-  int? price;
-  String? description;
+  ItemDescription? description;
+  String? currency;
+  bool? isOffer;
+  bool? isActive;
+  @JsonKey(name: '_id')
+  String? id;
+  double? price;
+  int? toSend;
+  String? type;
+  int? topDay;
+  int? topMonth;
+  String? dest;
+  String? createdAt;
+  String? updatedAt;
+
   factory ItemItem.fromJson(Map<String, dynamic> json) =>
       _$ItemItemFromJson(json);
   Map<String, dynamic> toJson() => _$ItemItemToJson(this);
 }
 
 @JsonSerializable()
-class ShippingAddress {
-  ShippingAddress({
-    this.alternative,
-    this.id,
-    this.user,
-    this.nombre,
-    this.apellidos,
-    this.direccion,
-    this.provincia,
-    this.municipio,
-    this.telefono,
-    this.noIdentificacion,
-    this.shippingAddressDefault,
-    this.createdAt,
-    this.updatedAt,
-    this.v,
-    this.nombreCompleto,
-    this.shippingAddressId,
+class ItemDescription {
+  ItemDescription({
+    this.title,
+    this.subtitle,
+    this.description,
   });
 
-  Alternative? alternative;
-  @JsonKey(name: '_id')
-  String? id;
-  String? user;
-  String? nombre;
-  String? apellidos;
-  String? direccion;
-  String? provincia;
-  String? municipio;
-  String? telefono;
-  String? noIdentificacion;
-  bool? shippingAddressDefault;
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  int? v;
-  String? nombreCompleto;
-  String? shippingAddressId;
+  String? title;
+  String? subtitle;
+  String? description;
 
-  factory ShippingAddress.fromJson(Map<String, dynamic> json) =>
-      _$ShippingAddressFromJson(json);
-  Map<String, dynamic> toJson() => _$ShippingAddressToJson(this);
-}
-
-@JsonSerializable()
-class Alternative {
-  Alternative({
-    this.nombre,
-    this.apellidos,
-    this.noIdentificacion,
-  });
-
-  String? nombre;
-  String? apellidos;
-  String? noIdentificacion;
-
-  factory Alternative.fromJson(Map<String, dynamic> json) =>
-      _$AlternativeFromJson(json);
-  Map<String, dynamic> toJson() => _$AlternativeToJson(this);
+  factory ItemDescription.fromJson(Map<String, dynamic> json) =>
+      _$ItemDescriptionFromJson(json);
+  Map<String, dynamic> toJson() => _$ItemDescriptionToJson(this);
 }

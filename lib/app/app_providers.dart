@@ -1,10 +1,11 @@
-import 'package:detooo_recargas/services/providers/dashboard_provider.dart';
-import 'package:detooo_recargas/services/providers/municipios_provider.dart';
-import 'package:detooo_recargas/services/providers/provincias_provider.dart';
-import 'package:detooo_recargas/services/providers/subscriptions_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import 'package:detooo_recargas/services/providers/dashboard_provider.dart';
+import 'package:detooo_recargas/services/providers/history_provider.dart';
+import 'package:detooo_recargas/services/providers/municipios_provider.dart';
+import 'package:detooo_recargas/services/providers/provincias_provider.dart';
+import 'package:detooo_recargas/services/providers/subscriptions_provider.dart';
 import 'package:detooo_recargas/services/providers/countries_provider.dart';
 import 'package:detooo_recargas/services/providers/language_provider.dart';
 import 'package:detooo_recargas/services/providers/profile_provider.dart';
@@ -50,6 +51,9 @@ class AppProvider extends StatelessWidget {
         ),
         ChangeNotifierProvider<MunicipiosProvider>(
           create: (context) => MunicipiosProvider(),
+        ),
+        ChangeNotifierProvider<HistoryProvider>(
+          create: (context) => HistoryProvider(),
         ),
       ],
       child: DismissKeyboard(child: child),

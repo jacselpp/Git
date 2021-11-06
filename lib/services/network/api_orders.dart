@@ -1,5 +1,6 @@
 import 'package:detooo_recargas/models/auth/dashboard_model.dart';
 import 'package:detooo_recargas/models/recargas/orders_model.dart';
+import 'package:detooo_recargas/models/recargas/paginated_model.dart';
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';
 import 'package:detooo_recargas/services/network/dio_instances.dart';
@@ -13,8 +14,8 @@ abstract class ApiOrders {
 
   static ApiOrders common() => ApiOrders(dioCommon());
 
-  @GET("orders/user")
-  Future<List<Orders>> userOrders();
+  @GET("orders/user?app=recargas&page={page}")
+  Future<Paginated<Orders>> userOrders(@Path('page') int page);
 
   @GET("orders/{id}")
   Future<Orders> orderDetail(@Path('id') String id);

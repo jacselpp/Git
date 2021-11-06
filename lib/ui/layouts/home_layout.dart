@@ -7,11 +7,13 @@ class HomeLayout extends StatefulWidget {
   final Widget child;
   final TabBar? tabBar;
   final bool mainDrawer;
+  final ScrollController? scrollController;
 
   const HomeLayout({
     Key? key,
     required this.child,
     this.tabBar,
+    this.scrollController,
     this.mainDrawer = false,
   }) : super(key: key);
 
@@ -26,7 +28,8 @@ class _HomeLayoutState extends State<HomeLayout> {
       appBar: MainAppBar().appBar(context, showBcak: !widget.mainDrawer),
       drawer: widget.mainDrawer ? const MainDrawer() : null,
       body: SingleChildScrollView(
-        primary: true,
+        controller: widget.scrollController,
+        // primary: true,
         child: Column(
           children: [
             widget.child,

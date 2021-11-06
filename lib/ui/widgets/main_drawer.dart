@@ -1,3 +1,4 @@
+import 'package:detooo_recargas/ui/views/home/history_view.dart';
 import 'package:detooo_recargas/ui/views/recargas/recargas_cubacel_view.dart';
 import 'package:detooo_recargas/ui/views/recargas/recargas_nauta_view.dart';
 import 'package:flutter/material.dart';
@@ -20,14 +21,14 @@ class MainDrawer extends StatelessWidget {
           child: ListView(
             children: [
               _buildHeader(context),
-              _buildItem(
-                Icons.home,
-                locale.read('home'),
-                context,
-                () {
-                  Navigator.of(context).pushNamed(Routes.HOME);
-                },
-              ),
+              // _buildItem(
+              //   Icons.home,
+              //   locale.read('home'),
+              //   context,
+              //   () {
+              //     Navigator.of(context).pushNamed(Routes.HOME);
+              //   },
+              // ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
@@ -64,7 +65,8 @@ class MainDrawer extends StatelessWidget {
                 locale.read('history'),
                 context,
                 () {
-                  // Navigator.of(context).pushNamed(Routes.HOME);
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const HistoryView()));
                 },
               ),
               const Divider(
