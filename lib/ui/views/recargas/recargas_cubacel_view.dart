@@ -1,4 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
@@ -21,6 +24,7 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
   String? _dropDownValue;
   Promotions? _selectedPromotion;
   bool _accept = false;
+  PhoneContact? _phoneContact;
 
   void _handleAccept() {
     setState(() {
@@ -40,6 +44,9 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
 
   Widget _buildBody(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
+    if (_phoneContact != null) {
+      _phoneController.value = TextEditingValue(text: _handlePhone());
+    }
     return Form(
       key: _formKey,
       child: Container(
@@ -71,6 +78,31 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
                     context: context,
                     value: value,
                   ),
+                  suffixIcon: IconButton(
+                    onPressed: () async {
+                      final bool granted = !kIsWeb
+                          ? await FlutterContactPicker.requestPermission()
+                          : false;
+                      if (granted) {
+                        final PhoneContact? contact =
+                            await FlutterContactPicker.pickPhoneContact();
+                        if (contact != null) {
+                          setState(() {
+                            _phoneContact = contact;
+                          });
+                        }
+                      }
+                    },
+                    icon: const Icon(
+                      Icons.contact_phone_rounded,
+                      color: primaryColor,
+                    ),
+                  ),
+                  onChanged: (v) {
+                    setState(() {
+                      _phoneContact = null;
+                    });
+                  },
                 ),
                 const SizedBox(
                   height: 20.0,
@@ -226,5 +258,20 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
       showMessage(context, locale.read('should_accept'), TypeMessage.ERROR);
       return;
     }
+  }
+
+  String _handlePhone() {
+    String? phone = _phoneContact?.phoneNumber?.number;
+
+    if (phone != null) {
+      if (phone.startsWith('+53')) {
+        phone = phone.splitMapJoin(
+          '+53',
+          onMatch: (m) => '',
+          onNonMatch: (n) => n,
+        );
+      }
+    }
+    return phone ?? '';
   }
 }

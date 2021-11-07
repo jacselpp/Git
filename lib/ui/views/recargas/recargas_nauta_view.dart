@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
@@ -20,6 +22,7 @@ class _RecargasNautaViewState extends State<RecargasNautaView> {
   String? _dropDownValue;
   Promotions? _selectedPromotion;
   bool _accept = false;
+  EmailContact? _emailContact;
 
   void _handleAccept() {
     setState(() {
@@ -29,6 +32,11 @@ class _RecargasNautaViewState extends State<RecargasNautaView> {
 
   @override
   Widget build(BuildContext context) {
+    if (_emailContact != null) {
+      _nautaAccountController.value = TextEditingValue(
+        text: _emailContact!.email!.email!,
+      );
+    }
     return HomeLayout(
       child: Padding(
         padding: const EdgeInsets.only(top: 50.0),
@@ -69,6 +77,31 @@ class _RecargasNautaViewState extends State<RecargasNautaView> {
                     context: context,
                     value: value,
                   ),
+                  suffixIcon: IconButton(
+                    onPressed: () async {
+                      final bool granted = !kIsWeb
+                          ? await FlutterContactPicker.requestPermission()
+                          : false;
+                      if (granted) {
+                        final EmailContact? contact =
+                            await FlutterContactPicker.pickEmailContact();
+                        if (contact != null) {
+                          setState(() {
+                            _emailContact = contact;
+                          });
+                        }
+                      }
+                    },
+                    icon: const Icon(
+                      Icons.contact_mail_rounded,
+                      color: primaryColor,
+                    ),
+                  ),
+                  onChanged: (v) {
+                    setState(() {
+                      _emailContact = null;
+                    });
+                  },
                 ),
                 const SizedBox(
                   height: 20.0,

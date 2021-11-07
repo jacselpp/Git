@@ -93,6 +93,9 @@ dependencies:
   #url Launcher
   url_launcher: ^6.0.12
 
+  #select contact
+  fluttercontactpicker: ^4.5.1
+
   
 dev_dependencies:
   flutter_test:
