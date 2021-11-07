@@ -120,8 +120,8 @@ class _HistoryViewState extends State<HistoryView> {
                             style: Theme.of(context).textTheme.headline6,
                           ),
                           Text(
-                            '${item.items![0].item!.description!.subtitle}: ${item.dest}',
-                            maxLines: 1,
+                            '${item.items![0].item!.description!.subtitle}:\n${item.dest}',
+                            maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: Theme.of(context).textTheme.subtitle1,
                           ),
