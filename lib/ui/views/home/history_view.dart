@@ -65,7 +65,11 @@ class _HistoryViewState extends State<HistoryView> {
                     ],
                   );
                 } else {
-                  return _buildLoading();
+                  return SizedBox(
+                    width: ScreenHelper.screenWidth(context),
+                    height: ScreenHelper.screenWidth(context) * .5,
+                    child: _buildLoading(),
+                  );
                 }
               },
             ),
@@ -100,6 +104,7 @@ class _HistoryViewState extends State<HistoryView> {
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -132,6 +137,11 @@ class _HistoryViewState extends State<HistoryView> {
                   ],
                 ),
                 const Divider(),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(
+                      '${locale.read('transaction_id')}: ${item.description?.serverResponse?.transactionId}'),
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
