@@ -52,8 +52,15 @@ class _HistoryViewState extends State<HistoryView> {
               builder:
                   (BuildContext context, AsyncSnapshot<List<Orders>> snapshot) {
                 if (snapshot.connectionState == ConnectionState.done &&
-                    snapshot.hasData) {
+                    snapshot.hasData &&
+                    snapshot.data!.isNotEmpty) {
                   return _buildItems(snapshot.data);
+                }
+
+                if (snapshot.connectionState == ConnectionState.done &&
+                    snapshot.hasData &&
+                    snapshot.data!.isEmpty) {
+                  return _buildEmpty(context);
                 }
 
                 if (snapshot.connectionState == ConnectionState.waiting &&
@@ -67,7 +74,7 @@ class _HistoryViewState extends State<HistoryView> {
                 } else {
                   return SizedBox(
                     width: ScreenHelper.screenWidth(context),
-                    height: ScreenHelper.screenWidth(context) * .5,
+                    height: ScreenHelper.screenHeight(context) - 50.0,
                     child: _buildLoading(),
                   );
                 }
@@ -192,5 +199,29 @@ class _HistoryViewState extends State<HistoryView> {
         );
     }
     return icon;
+  }
+
+  Widget _buildEmpty(BuildContext context) {
+    final locale = AppLocalizations.of(context)!;
+    return SizedBox(
+      width: ScreenHelper.screenWidth(context),
+      height: ScreenHelper.screenHeight(context) - 100.0,
+      child: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.warning_amber_outlined,
+              size: 48.0,
+              color: Colors.yellow,
+            ),
+            Text(
+              locale.read('no_history_to_show'),
+              style: Theme.of(context).textTheme.headline6,
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
