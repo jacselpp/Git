@@ -25,7 +25,7 @@ class HistoryProvider extends ChangeNotifier {
 
   Future<List<Orders>>? fetchOrdersPage() async {
     if (_ordersPaginated != null &&
-        _ordersPaginated!.currentPage! != _ordersPaginated!.totalPages!) {
+        _ordersPaginated!.currentPage! < _ordersPaginated!.totalPages!) {
       await fetchOrders(page: _ordersPaginated!.currentPage! + 1);
     } else if (_ordersPaginated == null) {
       await fetchOrders();
