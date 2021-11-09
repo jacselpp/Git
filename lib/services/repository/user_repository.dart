@@ -1,4 +1,5 @@
 import 'package:detooo_recargas/app/app_connectivity.dart';
+import 'package:detooo_recargas/services/providers/history_provider.dart';
 import 'package:detooo_recargas/services/providers/testimonials_provider.dart';
 import 'package:detooo_recargas/ui/views/auth/activate_view.dart';
 import 'package:detooo_recargas/ui/views/auth/login_view.dart';
@@ -53,6 +54,7 @@ class UserRepository {
     _handleNetwork(
       APIUsers.common().login(userLogin).then((value) {
         SharedPreference.saveUserKey(value.accessToken!);
+        context.read<HistoryProvider>().fetchOrders();
         context.read<ProfileProvider>().fetchProfile();
         showMessage(context, _locale!.read('done_login'), TypeMessage.INFO);
         context.read<TestimonialsProvider>().fetchTestimonials();
