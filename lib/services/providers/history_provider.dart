@@ -47,6 +47,13 @@ class HistoryProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void clearHistory() {
+    _ordersPaginated = null;
+    _orders = [];
+
+    notifyListeners();
+  }
+
   void _setOrders(List<Orders> list) {
     int l = _orders.length;
     if (list.isNotEmpty && _orders.isNotEmpty) {
