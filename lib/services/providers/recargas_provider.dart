@@ -1,8 +1,8 @@
-import 'package:detooo_recargas/models/recargas/paginated_model.dart';
-import 'package:detooo_recargas/models/recargas/promotions_model.dart';
-import 'package:detooo_recargas/services/network/api_recargas.dart';
+import 'package:flutter/material.dart';
+
 import 'package:detooo_recargas/services/shared_preference.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:detooo_recargas/services/network/api_recargas.dart';
+import 'package:detooo_recargas/models/recargas/promotions_model.dart';
 
 class PackagesProvider extends ChangeNotifier {
   List<Promotions>? _packages;

@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:detooo_recargas/app/app_connectivity.dart';
 import 'package:detooo_recargas/services/providers/municipios_provider.dart';
 import 'package:detooo_recargas/services/providers/provincias_provider.dart';
 import 'package:detooo_recargas/services/providers/subscriptions_provider.dart';
@@ -62,7 +63,6 @@ class _SplashViewState extends State<SplashView> {
         : (token == null || token.isEmpty)
             ? Navigator.of(context).pushReplacementNamed(Routes.LOGIN)
             : Navigator.of(context).pushReplacementNamed(Routes.HOME);
-    // }
   }
 
   Widget _buildBackground(BuildContext context) {

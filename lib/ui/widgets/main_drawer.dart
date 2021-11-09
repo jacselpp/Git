@@ -1,10 +1,10 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+
+import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/ui/views/home/history_view.dart';
 import 'package:detooo_recargas/ui/views/recargas/recargas_cubacel_view.dart';
 import 'package:detooo_recargas/ui/views/recargas/recargas_nauta_view.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:detooo_recargas/app/app_routes.dart';
-import 'package:detooo_recargas/app/app_localizations.dart';
 
 import '../app_ui.dart';
 
