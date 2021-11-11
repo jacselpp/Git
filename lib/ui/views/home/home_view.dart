@@ -21,6 +21,7 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  DateTime timeBackPressed = DateTime.now();
   @override
   void initState() {
     super.initState();
@@ -28,34 +29,38 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
-    return HomeLayout(
-      mainDrawer: true,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const BuildSuggestions(),
-          _buildPromotions(),
-          _buildBody(context),
-          _buildSeparation(),
-          _buildMap(),
-          _buildSeparation(),
-          _buildSponsors(),
-          _buildSeparation(),
-          Stack(
-            children: [
-              Column(
-                children: [
-                  _buildTestimonials(),
-                  if (!context.read<SubscriptionsProvider>().subscribed)
-                    Container(
-                      height: ScreenHelper.isPortrait(context) ? 150.0 : 75.0,
-                    ),
-                ],
-              ),
-              _buildSubscribe(),
-            ],
-          ),
-        ],
+    final locale = AppLocalizations.of(context)!;
+    return WillPopScope(
+      onWillPop: () => _onBackPressed(locale),
+      child: HomeLayout(
+        mainDrawer: true,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const BuildSuggestions(),
+            _buildPromotions(),
+            _buildBody(context),
+            _buildSeparation(),
+            _buildMap(),
+            _buildSeparation(),
+            _buildSponsors(),
+            _buildSeparation(),
+            Stack(
+              children: [
+                Column(
+                  children: [
+                    _buildTestimonials(),
+                    if (!context.read<SubscriptionsProvider>().subscribed)
+                      Container(
+                        height: ScreenHelper.isPortrait(context) ? 150.0 : 75.0,
+                      ),
+                  ],
+                ),
+                _buildSubscribe(),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -489,5 +494,22 @@ class _HomeViewState extends State<HomeView> {
         child: SvgPicture.asset(s),
       ),
     );
+  }
+
+  Future<bool> _onBackPressed(AppLocalizations locale) async {
+    final difference = DateTime.now().difference(timeBackPressed);
+    final isExitWarning = difference >= const Duration(seconds: 2);
+    timeBackPressed = DateTime.now();
+
+    if (isExitWarning) {
+      showMessage(
+        context,
+        locale.read('press_back_again'),
+        TypeMessage.INFO,
+      );
+      return false;
+    } else {
+      return true;
+    }
   }
 }
