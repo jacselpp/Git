@@ -80,7 +80,8 @@ class MainAppBar {
             child: CircleAvatar(
               maxRadius: 15.0,
               backgroundColor: Colors.transparent,
-              backgroundImage: NetworkImage(_profile!.avatar!, scale: 20.0),
+              backgroundImage:
+                  NetworkImage(_profile?.avatar ?? '', scale: 20.0),
             ),
           ),
           itemBuilder: (context) => [

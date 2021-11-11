@@ -100,7 +100,11 @@ class _HistoryViewState extends State<HistoryView> {
 
   Widget _buildItem(List<Orders?> list, int index) {
     final locale = AppLocalizations.of(context)!;
+
     Orders item = list[index]!;
+
+    final DateTime _date = DateTime.parse(item.createdAt ?? "");
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
@@ -154,9 +158,9 @@ class _HistoryViewState extends State<HistoryView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                        '${locale.read('date')}: ${item.createdAt!.split('T')[0]}'),
+                        '${locale.read('date')}: ${_date.year}-${_date.month}-${_date.day}'),
                     Text(
-                        '${locale.read('time')}: ${item.createdAt!.split('T')[1].split('Z')[0]}'),
+                        '${locale.read('time')}: ${_date.hour}:${_date.minute}'),
                   ],
                 )
               ],
