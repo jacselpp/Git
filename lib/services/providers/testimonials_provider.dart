@@ -34,7 +34,7 @@ class TestimonialsProvider extends ChangeNotifier {
 
   Future<void> fetchTestimonials() async {
     await APIRecargas.common().fetchTestimonials().then((value) {
-      setTestimonials(value);
+      if (_testimonials == null) setTestimonials(value);
     });
   }
 }

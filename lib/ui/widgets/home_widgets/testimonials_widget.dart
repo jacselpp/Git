@@ -41,10 +41,12 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
                 );
               }
               if (snapshot.hasData) {
-                for (var item in snapshot.data!) {
-                  _usersId.add("\"${item.user!}\"");
+                if (context.read<UsersProvider>().getUsers.isEmpty) {
+                  for (var item in snapshot.data!) {
+                    _usersId.add("\"${item.user!}\"");
+                  }
+                  context.read<UsersProvider>().fetchUser(_usersId.toString());
                 }
-                context.read<UsersProvider>().fetchUser(_usersId.toString());
                 return _buildList(snapshot.data!);
               }
               return Container();
@@ -145,7 +147,7 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
 
   Widget _buildUser(String userId, BuildContext context, int rating) {
     final locale = AppLocalizations.of(context)!;
-    List<Profile?> _profiles = context.watch<UsersProvider>().getProfile;
+    List<Profile?> _profiles = context.watch<UsersProvider>().getUsers;
     Profile? _profile = context.watch<ProfileProvider>().profile;
     Profile? _user;
     for (var profile in _profiles) {

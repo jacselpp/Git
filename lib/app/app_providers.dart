@@ -1,3 +1,4 @@
+import 'package:detooo_recargas/services/providers/user_cards_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -54,6 +55,9 @@ class AppProvider extends StatelessWidget {
         ),
         ChangeNotifierProvider<HistoryProvider>(
           create: (context) => HistoryProvider(),
+        ),
+        ChangeNotifierProvider<UserCardsProvider>(
+          create: (context) => UserCardsProvider(),
         ),
       ],
       child: DismissKeyboard(child: child),

@@ -1,3 +1,5 @@
+import 'package:detooo_recargas/models/recargas/cards_model.dart';
+import 'package:detooo_recargas/services/providers/user_cards_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -25,6 +27,7 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
   Promotions? _selectedPromotion;
   bool _accept = false;
   PhoneContact? _phoneContact;
+  UserCards? _userCards;
 
   void _handleAccept() {
     setState(() {
@@ -47,166 +50,160 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
     if (_phoneContact != null) {
       _phoneController.value = TextEditingValue(text: _handlePhone());
     }
+
+    _setUserCards(context);
+
     return Form(
       key: _formKey,
-      child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-        ),
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  locale.read('cubacel_recharge'),
-                  textAlign: TextAlign.left,
-                  style: Theme.of(context).textTheme.headline5,
+      child: Card(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                locale.read('cubacel_recharge'),
+                textAlign: TextAlign.left,
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              const Divider(),
+              const SizedBox(
+                height: 20.0,
+              ),
+              CustomTextFormField(
+                controller: _phoneController,
+                icon: const Text('+53'),
+                label: locale.read('movil'),
+                validator: (value) => validatePhoneCubacel(
+                  context: context,
+                  value: value,
                 ),
-                const Divider(),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                CustomTextFormField(
-                  controller: _phoneController,
-                  icon: const Text('+53'),
-                  label: locale.read('movil'),
-                  validator: (value) => validatePhoneCubacel(
-                    context: context,
-                    value: value,
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () async {
-                      final bool granted = !kIsWeb
-                          ? await FlutterContactPicker.requestPermission()
-                          : false;
-                      if (granted) {
-                        final PhoneContact? contact =
-                            await FlutterContactPicker.pickPhoneContact();
-                        if (contact != null) {
-                          setState(() {
-                            _phoneContact = contact;
-                          });
-                        }
+                suffixIcon: IconButton(
+                  onPressed: () async {
+                    final bool granted = !kIsWeb
+                        ? await FlutterContactPicker.requestPermission()
+                        : false;
+                    if (granted) {
+                      final PhoneContact? contact =
+                          await FlutterContactPicker.pickPhoneContact();
+                      if (contact != null) {
+                        setState(() {
+                          _phoneContact = contact;
+                        });
                       }
-                    },
-                    icon: const Icon(
-                      Icons.contact_phone_rounded,
-                      color: primaryColor,
-                    ),
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.contact_phone_rounded,
+                    color: primaryColor,
                   ),
-                  onChanged: (v) {
+                ),
+                onChanged: (v) {
+                  setState(() {
+                    _phoneContact = null;
+                  });
+                },
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              SizedBox(
+                height: 45.0,
+                child: CustomDropdown(
+                  items: _handleResults(context.watch<PackagesProvider>().pack),
+                  label: locale.read('package'),
+                  onChanged: (String? value) {
+                    _handlePromotion(
+                      context.read<PackagesProvider>().pack,
+                      value!,
+                    );
                     setState(() {
-                      _phoneContact = null;
+                      _dropDownValue = value;
                     });
                   },
+                  value: _dropDownValue,
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                SizedBox(
-                  height: 45.0,
-                  child: CustomDropdown(
-                    items:
-                        _handleResults(context.watch<PackagesProvider>().pack),
-                    label: locale.read('package'),
-                    onChanged: (String? value) {
-                      _handlePromotion(
-                        context.read<PackagesProvider>().pack,
-                        value!,
-                      );
-                      setState(() {
-                        _dropDownValue = value;
-                      });
-                    },
-                    value: _dropDownValue,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Card(
-                  margin: const EdgeInsets.all(0.0),
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child:
-                                  SvgPicture.asset('assets/images/Icon_5.svg'),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                _selectedPromotion!.titulo!,
-                                style: Theme.of(context).textTheme.headline5,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                              const Divider(),
-                              _buildCaracteristicas(
-                                _selectedPromotion!.caracteristicas!,
-                                context,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Row(
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              Card(
+                margin: const EdgeInsets.all(0.0),
+                color: Theme.of(context).scaffoldBackgroundColor,
+                child: Row(
                   children: [
                     Expanded(
-                      child: Switch(
-                        activeColor: primaryColor,
-                        value: _accept,
-                        onChanged: (e) => _handleAccept(),
+                      child: Center(
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SizedBox(
+                            width: 50.0,
+                            height: 50.0,
+                            child: SvgPicture.asset('assets/images/Icon_5.svg'),
+                          ),
+                        ),
                       ),
                     ),
                     Expanded(
                       flex: 4,
-                      child: Text(
-                        locale.read('accept_therms_recharge'),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              _selectedPromotion!.titulo!,
+                              style: Theme.of(context).textTheme.headline5,
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                            const Divider(),
+                            _buildCaracteristicas(
+                              _selectedPromotion!.caracteristicas!,
+                              context,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ],
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomTextButton(
-                        color: primaryColor,
-                        label: locale.read('recharge'),
-                        onPressed: _handleSubmit,
-                      ),
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: Switch(
+                      activeColor: primaryColor,
+                      value: _accept,
+                      onChanged: (e) => _handleAccept(),
                     ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Text(
+                      locale.read('accept_therms_recharge'),
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              Row(
+                children: [
+                  Expanded(
+                    child: CustomTextButton(
+                      color: primaryColor,
+                      label: locale.read('recharge'),
+                      onPressed: _handleSubmit,
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ),
       ),
@@ -273,5 +270,10 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
       }
     }
     return phone ?? '';
+  }
+
+  void _setUserCards(BuildContext context) async {
+    _userCards ??= await Future.delayed(const Duration(milliseconds: 100),
+        () => context.read<UserCardsProvider>().userCards);
   }
 }

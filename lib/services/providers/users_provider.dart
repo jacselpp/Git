@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class UsersProvider extends ChangeNotifier {
   List<Profile?> _users = [];
 
-  List<Profile?> get getProfile => _users;
+  List<Profile?> get getUsers => _users;
 
   void fetchUser(String id) async {
     await APIUsers.common().fetchUserById(id).then((value) {

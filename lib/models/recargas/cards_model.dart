@@ -39,7 +39,7 @@ class Data {
   String? object;
   @JsonKey(name: 'billing_details')
   BillingDetails? billingDetails;
-  Card? card;
+  CardS? card;
   int? created;
   String? customer;
   bool? livemode;
@@ -91,8 +91,8 @@ class Address {
 }
 
 @JsonSerializable()
-class Card {
-  Card({
+class CardS {
+  CardS({
     this.brand,
     this.checks,
     this.country,
@@ -124,7 +124,7 @@ class Card {
   ThreeDSecureUsage? threeDSecureUsage;
   String? wallet;
 
-  factory Card.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
+  factory CardS.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
   Map<String, dynamic> toJson() => _$CardToJson(this);
 }
 

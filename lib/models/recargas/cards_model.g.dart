@@ -32,7 +32,7 @@ Data _$DataFromJson(Map<String, dynamic> json) => Data(
               json['billing_details'] as Map<String, dynamic>),
       card: json['card'] == null
           ? null
-          : Card.fromJson(json['card'] as Map<String, dynamic>),
+          : CardS.fromJson(json['card'] as Map<String, dynamic>),
       created: json['created'] as int?,
       customer: json['customer'] as String?,
       livemode: json['livemode'] as bool?,
@@ -86,7 +86,7 @@ Map<String, dynamic> _$AddressToJson(Address instance) => <String, dynamic>{
       'state': instance.state,
     };
 
-Card _$CardFromJson(Map<String, dynamic> json) => Card(
+CardS _$CardFromJson(Map<String, dynamic> json) => CardS(
       brand: json['brand'] as String?,
       checks: json['checks'] == null
           ? null
@@ -108,7 +108,7 @@ Card _$CardFromJson(Map<String, dynamic> json) => Card(
       wallet: json['wallet'] as String?,
     );
 
-Map<String, dynamic> _$CardToJson(Card instance) => <String, dynamic>{
+Map<String, dynamic> _$CardToJson(CardS instance) => <String, dynamic>{
       'brand': instance.brand,
       'checks': instance.checks,
       'country': instance.country,

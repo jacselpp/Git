@@ -1,3 +1,5 @@
+import 'package:detooo_recargas/models/recargas/cards_model.dart';
+import 'package:detooo_recargas/services/providers/user_cards_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercontactpicker/fluttercontactpicker.dart';
@@ -23,6 +25,7 @@ class _RecargasNautaViewState extends State<RecargasNautaView> {
   Promotions? _selectedPromotion;
   bool _accept = false;
   EmailContact? _emailContact;
+  UserCards? _userCards;
 
   void _handleAccept() {
     setState(() {
@@ -37,6 +40,9 @@ class _RecargasNautaViewState extends State<RecargasNautaView> {
         text: _emailContact!.email!.email!,
       );
     }
+
+    _setUserCards(context);
+
     return HomeLayout(
       child: Padding(
         padding: const EdgeInsets.only(top: 50.0),
@@ -257,5 +263,10 @@ class _RecargasNautaViewState extends State<RecargasNautaView> {
       showMessage(context, locale.read('should_accept'), TypeMessage.ERROR);
       return;
     }
+  }
+
+  void _setUserCards(BuildContext context) async {
+    _userCards ??= await Future.delayed(const Duration(milliseconds: 100),
+        () => context.read<UserCardsProvider>().userCards);
   }
 }
