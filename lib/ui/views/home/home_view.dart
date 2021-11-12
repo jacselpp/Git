@@ -313,6 +313,7 @@ class _HomeViewState extends State<HomeView> {
   Widget _buildTestimonials() {
     final locale = AppLocalizations.of(context)!;
     return Container(
+      padding: const EdgeInsets.only(top: 50.0),
       color: Theme.of(context).cardColor,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -367,7 +368,7 @@ class _HomeViewState extends State<HomeView> {
     ];
     return SizedBox(
       width: ScreenHelper.screenWidth(context),
-      height: 150.0,
+      height: 100.0,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,

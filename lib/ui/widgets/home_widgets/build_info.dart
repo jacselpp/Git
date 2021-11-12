@@ -48,7 +48,7 @@ class DetoooInfo extends StatelessWidget {
           child: SizedBox(
             height: 50.0,
             child: SvgPicture.asset(
-              'assets/images/Recargas_Imagotipo.svg',
+              'assets/images/Recargas_Identidad_H.svg',
               fit: BoxFit.fitHeight,
             ),
           ),
@@ -175,7 +175,7 @@ class DetoooInfo extends StatelessWidget {
           _buildItemApp('Envios_Identidad_H.svg', 'https://www.exeditec.com'),
           Container(
             decoration: BoxDecoration(
-              color: const Color(0x22BBDEFB),
+              // color: const Color(0x22BBDEFB),
               borderRadius: BorderRadius.circular(50.0),
             ),
             child: IconButton(
@@ -189,8 +189,8 @@ class DetoooInfo extends StatelessWidget {
               onPressed: () {
                 launch('https://www.facebook.com/detooopp');
               },
-              padding: const EdgeInsets.all(0),
-              splashRadius: 25.0,
+              padding: const EdgeInsets.all(0.01),
+              splashRadius: 0.01,
             ),
           ),
         ],

@@ -26,7 +26,7 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.height ?? 150.0,
+      height: widget.height ?? 200.0,
       child: Stack(
         children: [
           FutureBuilder(
@@ -108,7 +108,7 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
 
   Widget _buildListItem(Testimonials data, BuildContext context) {
     return SizedBox(
-      width: 250,
+      width: 300,
       child: Card(
         color: Theme.of(context).scaffoldBackgroundColor,
         child: Padding(
