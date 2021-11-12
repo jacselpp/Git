@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:detooo_recargas/models/recargas/promotions_model.dart';
+import 'package:detooo_recargas/models/recargas/testimonials_model.dart';
 import 'package:flutter/material.dart';
 
 import 'package:detooo_recargas/models/auth/municipios_model.dart';
@@ -145,14 +146,6 @@ class SharedPreference {
     _preference.setString('LANGUAGE', language.toString());
   }
 
-  //! Testimonials ----------------------------------------------------
-  static bool get testimonials => _preference.getBool("TESTIMONIALS") ?? true;
-
-  static void deleteTestimonials() => _preference.remove("TESTIMONIALS");
-
-  static void setTestimonials(bool testimonial) =>
-      _preference.setBool('TESTIMONIALS', testimonial);
-
   //! user Id for register
   static void setUserId(String s) {
     _preference.setString('USERID', s);
@@ -183,4 +176,47 @@ class SharedPreference {
   }
 
   static void get removePromotions => _preference.remove('PROMOTIONS');
+
+  //! list testimonials
+  static void setTestimonials(List<Testimonials> testimonials) {
+    List<String> testimonialsListString = [];
+    for (var testimonial in testimonials) {
+      testimonialsListString.add(jsonEncode(testimonial.toJson()));
+    }
+    _preference.setStringList('TESTIMONIALS', testimonialsListString);
+  }
+
+  static List<Testimonials>? get testimonials {
+    List<String>? testimonialsString =
+        _preference.getStringList('TESTIMONIALS');
+    List<Testimonials>? testimonialsList = [];
+
+    if (testimonialsString != null) {
+      for (var testimonial in testimonialsString) {
+        testimonialsList.add(Testimonials.fromJson(jsonDecode(testimonial)));
+      }
+    }
+    return testimonialsList;
+  }
+
+  //! list Users
+  static void setUsers(List<Profile> users) {
+    List<String> usersListString = [];
+    for (var user in users) {
+      usersListString.add(jsonEncode(user.toJson()));
+    }
+    _preference.setStringList('USERS', usersListString);
+  }
+
+  static List<Profile>? get users {
+    List<String>? usersString = _preference.getStringList('USERS');
+    List<Profile>? testimonialsList = [];
+
+    if (usersString != null) {
+      for (var user in usersString) {
+        testimonialsList.add(Profile.fromJson(jsonDecode(user)));
+      }
+    }
+    return testimonialsList;
+  }
 }

@@ -41,7 +41,6 @@ class UserRepository {
   void logout() {
     SharedPreference.deleteUserKey;
     SharedPreference.deleteProfile;
-    SharedPreference.deleteTestimonials();
     NavigatorProvider().navigatorKeyState.pushAndRemoveUntil(
           MaterialPageRoute<void>(
               builder: (BuildContext context) => const LoginView()),

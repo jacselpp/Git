@@ -30,7 +30,8 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
       child: Stack(
         children: [
           FutureBuilder(
-            future: context.watch<TestimonialsProvider>().testimonialsFuture,
+            future: Future.delayed(const Duration(milliseconds: 500),
+                () => context.read<TestimonialsProvider>().testimonialsFuture),
             builder: (BuildContext context,
                 AsyncSnapshot<List<Testimonials>> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
@@ -45,7 +46,11 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
                   for (var item in snapshot.data!) {
                     _usersId.add("\"${item.user!}\"");
                   }
-                  context.read<UsersProvider>().fetchUser(_usersId.toString());
+                  Future.delayed(const Duration(milliseconds: 100), () {
+                    context
+                        .read<UsersProvider>()
+                        .fetchUser(_usersId.toString());
+                  });
                 }
                 return _buildList(snapshot.data!);
               }
