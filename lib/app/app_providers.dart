@@ -1,3 +1,4 @@
+import 'package:detooo_recargas/services/providers/stripe_key_provider.dart';
 import 'package:detooo_recargas/services/providers/user_cards_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -58,6 +59,9 @@ class AppProvider extends StatelessWidget {
         ),
         ChangeNotifierProvider<UserCardsProvider>(
           create: (context) => UserCardsProvider(),
+        ),
+        ChangeNotifierProvider<StripeKeyProvider>(
+          create: (context) => StripeKeyProvider(),
         ),
       ],
       child: DismissKeyboard(child: child),
