@@ -32,7 +32,7 @@ class HandleError extends Error {
         });
       });
     } catch (e) {
-      message = res['message'];
+      message = res?['message'] ?? "";
     }
     return message;
   }

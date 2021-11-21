@@ -19,3 +19,4 @@ export 'widgets/home_widgets/build_suggestions.dart';
 export 'widgets/home_widgets/build_helper.dart';
 export 'widgets/home_widgets/testimonials_widget.dart';
 export 'widgets/home_widgets/build_info.dart';
+export 'widgets/separation.dart';

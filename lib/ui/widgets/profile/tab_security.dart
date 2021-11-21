@@ -1,5 +1,6 @@
 import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/repository/user_repository.dart';
+import 'package:detooo_recargas/ui/widgets/profile/tab_avatar.dart';
 import 'package:detooo_recargas/utils/validators.dart';
 import 'package:flutter/material.dart';
 
@@ -50,6 +51,7 @@ class _TabSecurityState extends State<TabSecurity> {
     return SingleChildScrollView(
       child: Column(
         children: [
+          const AvatarTab(canChange: false),
           Form(
             key: _formKey,
             child: Padding(

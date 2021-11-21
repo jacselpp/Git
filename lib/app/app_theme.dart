@@ -34,7 +34,7 @@ class AppTheme {
     appBarTheme: const AppBarTheme(
       elevation: 0,
       color: Color(0XFF282c34),
-      iconTheme: IconThemeData(color: Colors.white),
+      iconTheme: IconThemeData(color: primaryColor),
       toolbarTextStyle: TextStyle(color: primaryColor),
       titleTextStyle: TextStyle(
         color: Colors.white,

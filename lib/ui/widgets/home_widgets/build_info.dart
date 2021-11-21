@@ -129,13 +129,11 @@ class DetoooInfo extends StatelessWidget {
 
   Widget _buildItem(String name) {
     return Builder(builder: (context) {
-      return GestureDetector(
-        child: Padding(
-          padding: const EdgeInsets.all(2.0),
-          child: Text(
-            name,
-            style: Theme.of(context).textTheme.bodyText1,
-          ),
+      return Padding(
+        padding: const EdgeInsets.all(2.0),
+        child: Text(
+          name,
+          style: Theme.of(context).textTheme.bodyText1,
         ),
       );
     });

@@ -1,5 +1,6 @@
 // ignore_for_file: constant_identifier_names
 
+import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:detooo_recargas/ui/views/splash_view.dart';
 import 'package:detooo_recargas/ui/views/home/home_view.dart';
@@ -33,7 +34,13 @@ class Routes {
       case PROFILE:
         return MaterialPageRoute(builder: (_) => const ProfileView());
       case SECURITY:
-        return MaterialPageRoute(builder: (_) => const TabSecurity());
+        return MaterialPageRoute(
+          builder: (context) => const HomeLayout(
+            child: TabSecurity(),
+          ),
+        );
+
+      // return MaterialPageRoute(builder: (_) => );
       case FORGOTPASSWORD:
         return MaterialPageRoute(builder: (_) => const ForgotPasswordView());
 

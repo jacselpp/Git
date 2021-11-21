@@ -5,11 +5,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/ui/layouts/home_layout.dart';
-import 'package:detooo_recargas/ui/views/auth/profile_view.dart';
-import 'package:detooo_recargas/services/network/api_users.dart';
 import 'package:detooo_recargas/models/recargas/promotions_model.dart';
 import 'package:detooo_recargas/services/providers/recargas_provider.dart';
-import 'package:detooo_recargas/services/providers/subscriptions_provider.dart';
 import 'package:detooo_recargas/ui/views/recargas/recargas_cubacel_view.dart';
 import 'package:detooo_recargas/ui/views/recargas/recargas_nauta_view.dart';
 
@@ -37,28 +34,23 @@ class _HomeViewState extends State<HomeView> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const BuildSuggestions(),
             _buildPromotions(),
             _buildBody(context),
-            _buildSeparation(),
-            _buildMap(),
-            _buildSeparation(),
-            _buildSponsors(),
-            _buildSeparation(),
-            Stack(
-              children: [
-                Column(
-                  children: [
-                    _buildTestimonials(),
-                    if (!context.read<SubscriptionsProvider>().subscribed)
-                      Container(
-                        height: ScreenHelper.isPortrait(context) ? 150.0 : 75.0,
-                      ),
-                  ],
-                ),
-                _buildSubscribe(),
-              ],
-            ),
+            const Separation(),
+            // Stack(
+            //   children: [
+            //     Column(
+            //       children: [
+            //         _buildTestimonials(),
+            //         if (!context.read<SubscriptionsProvider>().subscribed)
+            //           Container(
+            //             height: ScreenHelper.isPortrait(context) ? 150.0 : 75.0,
+            //           ),
+            //       ],
+            //     ),
+            //     _buildSubscribe(),
+            //   ],
+            // ),
           ],
         ),
       ),
@@ -149,7 +141,7 @@ class _HomeViewState extends State<HomeView> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 _buildPackageImage(data.dest),
-                _buildSeparation(),
+                const Separation(),
                 AutoSizeText(
                   data.titulo!,
                   style: Theme.of(context).textTheme.headline6!,
@@ -180,7 +172,7 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ],
                 ),
-                _buildSeparation(),
+                const Separation(),
               ],
             ),
           ),
@@ -188,8 +180,6 @@ class _HomeViewState extends State<HomeView> {
       ),
     );
   }
-
-  Widget _buildSeparation() => const SizedBox(height: 20.0);
 
   Widget _buildCaracteristicas(
     List<String> caracteristicas,
@@ -248,7 +238,7 @@ class _HomeViewState extends State<HomeView> {
       padding: const EdgeInsets.all(8.0),
       child: Column(
         children: [
-          _buildSeparation(),
+          const Separation(),
           Text(
             locale.read('promotions'),
             style: Theme.of(context).textTheme.headline5,
@@ -259,215 +249,10 @@ class _HomeViewState extends State<HomeView> {
             style: Theme.of(context).textTheme.subtitle1,
             textAlign: TextAlign.center,
           ),
-          _buildSeparation(),
+          const Separation(),
         ],
       ),
     );
-  }
-
-  Widget _buildMap() {
-    final locale = AppLocalizations.of(context)!;
-    return Container(
-      color: Theme.of(context).cardColor,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            _buildSeparation(),
-            Text(
-              locale.read('somewhere_recharge'),
-              style: Theme.of(context).textTheme.headline5,
-              textAlign: TextAlign.center,
-              maxLines: 2,
-            ),
-            SizedBox(
-              height: ScreenHelper.screenWidth(context) * .05,
-              width: ScreenHelper.screenWidth(context) * .1,
-              child: SvgPicture.asset(
-                'assets/images/Deto_Identidad_H.svg',
-                fit: BoxFit.contain,
-              ),
-            ),
-            _buildSeparation(),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: ScreenHelper.isPortrait(context)
-                    ? ScreenHelper.screenWidth(context) * .1
-                    : ScreenHelper.screenHeight(context) * .2,
-              ),
-              child: SizedBox(
-                height: ScreenHelper.screenWidth(context) * .5,
-                width: ScreenHelper.screenWidth(context),
-                child: SvgPicture.asset(
-                  'assets/images/mapa.svg',
-                  fit: BoxFit.contain,
-                ),
-              ),
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildTestimonials() {
-    final locale = AppLocalizations.of(context)!;
-    return Container(
-      padding: const EdgeInsets.only(top: 50.0),
-      color: Theme.of(context).cardColor,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                locale.read('with_the_trust'),
-                style: Theme.of(context).textTheme.headline5,
-                textAlign: TextAlign.center,
-              ),
-            ),
-            Text(
-              locale.read('with_the_trust_subtitle'),
-              style: Theme.of(context).textTheme.subtitle1,
-              textAlign: TextAlign.center,
-            ),
-            _buildSeparation(),
-            CustomTextButton(
-                color: primaryColor,
-                label: locale.read('write_testimonial'),
-                onPressed: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const ProfileView(
-                      initialIndex: 1,
-                    ),
-                  ));
-                }),
-            _buildSeparation(),
-            const Padding(
-              padding: EdgeInsets.symmetric(vertical: 50.0),
-              child: Padding(
-                padding: EdgeInsets.only(top: 16.0),
-                child: TestimonialsWidget(),
-              ),
-            ),
-            _buildSeparation(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSponsors() {
-    final List<String> _items = [
-      'marca1.svg',
-      'marca2.svg',
-      'marca3.svg',
-      'marca4.svg',
-      'marca5.svg',
-    ];
-    return SizedBox(
-      width: ScreenHelper.screenWidth(context),
-      height: 100.0,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        shrinkWrap: true,
-        primary: false,
-        itemCount: _items.length,
-        itemBuilder: (BuildContext context, int index) {
-          return _buildSponsorItem(_items[index]);
-        },
-      ),
-    );
-  }
-
-  Widget _buildSponsorItem(String s) {
-    return SizedBox(
-      width: 150.0,
-      height: 150.0,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: SvgPicture.asset(
-          'assets/images/$s',
-          fit: BoxFit.contain,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildSubscribe() {
-    bool subscribed = context.watch<SubscriptionsProvider>().subscribed;
-
-    final locale = AppLocalizations.of(context)!;
-    var column = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          locale.read('last_promotions'),
-          style: Theme.of(context).textTheme.headline5!.copyWith(
-                color: Theme.of(context).scaffoldBackgroundColor,
-              ),
-        ),
-        Text(
-          locale.read('last_promotions_subtitle'),
-          style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                color: Theme.of(context).scaffoldBackgroundColor,
-              ),
-        ),
-      ],
-    );
-    var buttom = Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: CustomTextButton(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        label: locale.read('subscribe_now'),
-        textColor: Theme.of(context).textTheme.bodyText1!.color,
-        onPressed: () {
-          APIUsers.common().userSubscribe(
-            {"subscription": "promo_recargas"},
-          ).then((_) {
-            showMessage(
-                context, locale.read('subscribed_message'), TypeMessage.INFO);
-            context.read<SubscriptionsProvider>().setSubscribed(true);
-          });
-          context
-              .read<SubscriptionsProvider>()
-              .setSubscribed(context.read<SubscriptionsProvider>().subscribed);
-        },
-      ),
-    );
-    return !subscribed
-        ? Positioned(
-            bottom: 20.0,
-            child: Padding(
-              padding: EdgeInsets.all(ScreenHelper.screenWidth(context) * .02),
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(5.0),
-                  color: primaryColor,
-                ),
-                width: ScreenHelper.screenWidth(context) * .96,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: ScreenHelper.isPortrait(context)
-                      ? Column(
-                          children: [
-                            column,
-                            buttom,
-                          ],
-                        )
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Expanded(flex: 3, child: column),
-                            Expanded(child: buttom),
-                          ],
-                        ),
-                ),
-              ),
-            ),
-          )
-        : Container();
   }
 
   Widget _buildPackageImage(String? dest) {

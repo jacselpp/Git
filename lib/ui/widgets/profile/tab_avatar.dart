@@ -9,7 +9,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
 class AvatarTab extends StatefulWidget {
-  const AvatarTab({Key? key}) : super(key: key);
+  final bool canChange;
+  const AvatarTab({Key? key, this.canChange = true}) : super(key: key);
 
   @override
   _AvatarTabState createState() => _AvatarTabState();
@@ -33,7 +34,7 @@ class _AvatarTabState extends State<AvatarTab> {
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: GestureDetector(
-                  onTap: _handleAvatar,
+                  onTap: widget.canChange ? _handleAvatar : null,
                   child: Stack(
                     children: [
                       CircleAvatar(
@@ -44,33 +45,36 @@ class _AvatarTabState extends State<AvatarTab> {
                         backgroundImage: NetworkImage(
                             context.watch<ProfileProvider>().profile!.avatar!),
                       ),
-                      SizedBox(
-                        width: ScreenHelper.isPortrait(context)
-                            ? ScreenHelper.screenHeight(context) * .2
-                            : ScreenHelper.screenWidth(context) * .2,
-                        height: ScreenHelper.isPortrait(context)
-                            ? ScreenHelper.screenHeight(context) * .2
-                            : ScreenHelper.screenWidth(context) * .2,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                Icon(
-                                  Icons.camera_alt_rounded,
-                                  color: primaryColor,
-                                  size: ScreenHelper.isPortrait(context)
-                                      ? ScreenHelper.screenHeight(context) * .05
-                                      : ScreenHelper.screenWidth(context) * .05,
-                                ),
-                              ],
-                            )
-                          ],
+                      if (widget.canChange)
+                        SizedBox(
+                          width: ScreenHelper.isPortrait(context)
+                              ? ScreenHelper.screenHeight(context) * .2
+                              : ScreenHelper.screenWidth(context) * .2,
+                          height: ScreenHelper.isPortrait(context)
+                              ? ScreenHelper.screenHeight(context) * .2
+                              : ScreenHelper.screenWidth(context) * .2,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  Icon(
+                                    Icons.camera_alt_rounded,
+                                    color: primaryColor,
+                                    size: ScreenHelper.isPortrait(context)
+                                        ? ScreenHelper.screenHeight(context) *
+                                            .05
+                                        : ScreenHelper.screenWidth(context) *
+                                            .05,
+                                  ),
+                                ],
+                              )
+                            ],
+                          ),
                         ),
-                      ),
                     ],
                   ),
                 ),
