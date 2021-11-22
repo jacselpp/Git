@@ -1,6 +1,7 @@
 import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:detooo_recargas/ui/widgets/main_appbar.dart';
 import 'package:detooo_recargas/ui/widgets/profile/tab_general.dart';
+import 'package:detooo_recargas/ui/widgets/profile/tab_security.dart';
 import 'package:detooo_recargas/ui/widgets/profile/tab_testimonial.dart';
 import 'package:flutter/material.dart';
 
@@ -18,12 +19,13 @@ class _ProfileViewState extends State<ProfileView> {
     final locale = AppLocalizations.of(context)!;
     return DefaultTabController(
       initialIndex: widget.initialIndex,
-      length: 2,
+      length: 3,
       child: Scaffold(
         body: const TabBarView(
           children: [
             TabGeneral(),
             TabTestimonials(),
+            TabSecurity(),
           ],
         ),
         appBar: MainAppBar().appBar(
@@ -35,6 +37,7 @@ class _ProfileViewState extends State<ProfileView> {
                 text: locale.read('tab_general').toUpperCase(),
               ),
               Tab(text: locale.read('tab_testimony').toUpperCase()),
+              Tab(text: locale.read('tab_security').toUpperCase()),
             ],
           ),
         ),

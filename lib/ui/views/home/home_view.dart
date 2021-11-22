@@ -34,23 +34,11 @@ class _HomeViewState extends State<HomeView> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildPromotions(),
+            const BuildSuggestions(),
+            const Separation(),
             _buildBody(context),
             const Separation(),
-            // Stack(
-            //   children: [
-            //     Column(
-            //       children: [
-            //         _buildTestimonials(),
-            //         if (!context.read<SubscriptionsProvider>().subscribed)
-            //           Container(
-            //             height: ScreenHelper.isPortrait(context) ? 150.0 : 75.0,
-            //           ),
-            //       ],
-            //     ),
-            //     _buildSubscribe(),
-            //   ],
-            // ),
+            const BuildHelp(),
           ],
         ),
       ),
@@ -102,7 +90,7 @@ class _HomeViewState extends State<HomeView> {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 1,
             crossAxisSpacing: 0,
-            mainAxisExtent: 400,
+            mainAxisExtent: 500.0,
             crossAxisCount: ScreenHelper.isPortrait(context) ? 1 : 2,
           ),
           primary: false,
@@ -119,11 +107,9 @@ class _HomeViewState extends State<HomeView> {
   Widget _buildItem(Promotions data, BuildContext context) {
     final locale = AppLocalizations.of(context)!;
     return Padding(
-      padding: EdgeInsets.symmetric(
-        vertical: 8.0,
-        horizontal: ScreenHelper.isPortrait(context)
-            ? ScreenHelper.screenWidth(context) * .2
-            : ScreenHelper.screenHeight(context) * .1,
+      padding: const EdgeInsets.symmetric(
+        vertical: 20.0,
+        horizontal: 20.0,
       ),
       child: Container(
         decoration: const BoxDecoration(
@@ -144,11 +130,11 @@ class _HomeViewState extends State<HomeView> {
                 const Separation(),
                 AutoSizeText(
                   data.titulo!,
-                  style: Theme.of(context).textTheme.headline6!,
+                  style: Theme.of(context).textTheme.headline5!,
                   maxLines: 1,
                   textAlign: TextAlign.center,
                   minFontSize: 12,
-                  maxFontSize: Theme.of(context).textTheme.headline6!.fontSize!,
+                  maxFontSize: Theme.of(context).textTheme.headline5!.fontSize!,
                   overflow: TextOverflow.visible,
                 ),
                 _buildCaracteristicas(data.caracteristicas!, context),
@@ -156,6 +142,9 @@ class _HomeViewState extends State<HomeView> {
                 Text(
                   data.amount!.toString(),
                   style: Theme.of(context).textTheme.headline5,
+                ),
+                const SizedBox(
+                  height: 20.0,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -232,41 +221,41 @@ class _HomeViewState extends State<HomeView> {
     }
   }
 
-  Widget _buildPromotions() {
-    final locale = AppLocalizations.of(context)!;
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        children: [
-          const Separation(),
-          Text(
-            locale.read('promotions'),
-            style: Theme.of(context).textTheme.headline5,
-            textAlign: TextAlign.center,
-          ),
-          Text(
-            locale.read('promotions_subtitle'),
-            style: Theme.of(context).textTheme.subtitle1,
-            textAlign: TextAlign.center,
-          ),
-          const Separation(),
-        ],
-      ),
-    );
-  }
+  // Widget _buildPromotions() {
+  //   final locale = AppLocalizations.of(context)!;
+  //   return Padding(
+  //     padding: const EdgeInsets.all(8.0),
+  //     child: Column(
+  //       children: [
+  //         const Separation(),
+  //         Text(
+  //           locale.read('promotions'),
+  //           style: Theme.of(context).textTheme.headline5,
+  //           textAlign: TextAlign.center,
+  //         ),
+  //         Text(
+  //           locale.read('promotions_subtitle'),
+  //           style: Theme.of(context).textTheme.subtitle1,
+  //           textAlign: TextAlign.center,
+  //         ),
+  //         const Separation(),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Widget _buildPackageImage(String? dest) {
     Widget image = Container();
 
     switch (dest) {
       case 'cubacel':
-        image = _buildImage('assets/images/oferta3.svg');
+        image = _buildImage('assets/images/09.svg');
         break;
       case 'nauta':
-        image = _buildImage('assets/images/oferta2.svg');
+        image = _buildImage('assets/images/08.svg');
         break;
       default:
-        image = _buildImage('assets/images/oferta1.svg');
+        image = _buildImage('assets/images/07.svg');
     }
     return image;
   }
@@ -275,8 +264,8 @@ class _HomeViewState extends State<HomeView> {
     return Padding(
       padding: const EdgeInsets.all(1.0),
       child: SizedBox(
-        width: 100,
-        height: 100,
+        width: 200.0,
+        height: 200.0,
         child: SvgPicture.asset(s),
       ),
     );

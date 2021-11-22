@@ -6,6 +6,7 @@ import 'package:detooo_recargas/models/auth/user_model.dart';
 import 'package:detooo_recargas/services/repository/user_repository.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:detooo_recargas/utils/validators.dart';
+import 'package:flutter_svg/svg.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
@@ -53,29 +54,57 @@ class _LoginViewState extends State<LoginView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Text(
-            locale.read('start_session'),
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+          Row(
+            children: [
+              Expanded(
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      locale.read('start_session'),
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      locale.read('start_session_subtitle'),
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w100,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                ),
+              ),
+              Expanded(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    SizedBox(
+                      height: 50.0,
+                      child: SvgPicture.asset(
+                        'assets/images/01.svg',
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
           ),
           const SizedBox(
-            height: 10,
-          ),
-          Text(
-            locale.read('start_session_subtitle'),
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w100,
-            ),
-          ),
-          const SizedBox(
-            height: 10,
+            height: 10.0,
           ),
           const Divider(),
           const SizedBox(
-            height: 10,
+            height: 20.0,
           ),
           CustomTextFormField(
             controller: _usernameController,
@@ -92,7 +121,7 @@ class _LoginViewState extends State<LoginView> {
             },
           ),
           const SizedBox(
-            height: 10,
+            height: 20.0,
           ),
           CustomTextFormField(
             controller: _passwordController,
@@ -110,7 +139,7 @@ class _LoginViewState extends State<LoginView> {
             ),
           ),
           const SizedBox(
-            height: 10,
+            height: 20.0,
           ),
           Row(
             mainAxisSize: MainAxisSize.max,
@@ -127,11 +156,11 @@ class _LoginViewState extends State<LoginView> {
             ],
           ),
           const SizedBox(
-            height: 5,
+            height: 20.0,
           ),
           const Divider(),
           const SizedBox(
-            height: 10,
+            height: 20.0,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

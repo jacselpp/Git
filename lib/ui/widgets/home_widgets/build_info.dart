@@ -48,7 +48,7 @@ class DetoooInfo extends StatelessWidget {
           child: SizedBox(
             height: 50.0,
             child: SvgPicture.asset(
-              'assets/images/Recargas_Identidad_H.svg',
+              'assets/images/02.svg',
               fit: BoxFit.fitHeight,
             ),
           ),
@@ -167,10 +167,9 @@ class DetoooInfo extends StatelessWidget {
     return Builder(builder: (context) {
       return Column(
         children: [
-          _buildItemApp(
-              'Anuncios_Identidad_H.svg', 'https://anuncios.detooo.com'),
-          _buildItemApp('Combos_Identidad_H.svg', 'https://shop.detooo.com'),
-          _buildItemApp('Envios_Identidad_H.svg', 'https://www.exeditec.com'),
+          _buildItemApp('04.svg', 'https://anuncios.detooo.com'),
+          _buildItemApp('05.svg', 'https://shop.detooo.com'),
+          _buildItemApp('06.svg', 'https://www.exeditec.com'),
           Container(
             decoration: BoxDecoration(
               // color: const Color(0x22BBDEFB),

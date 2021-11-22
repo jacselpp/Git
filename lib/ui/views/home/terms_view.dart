@@ -7,18 +7,9 @@ class TermsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomeLayout(
-      child: Container(
-        color: Theme.of(context).cardColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20.0,
-            vertical: 50.0,
-          ),
-          child: Column(
-            children: _buildTerms(context),
-          ),
-        ),
+    return AlternativeHomeLayout(
+      child: Column(
+        children: _buildTerms(context),
       ),
     );
   }
@@ -29,6 +20,16 @@ class TermsView extends StatelessWidget {
     int counter = 1;
 
     termsItems
+      ..add(
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Icon(
+            Icons.error_outline,
+            color: primaryColor,
+            size: 50.0,
+          ),
+        ),
+      )
       ..add(
         Text(
           locale.read('service_terms'),

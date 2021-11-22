@@ -32,6 +32,7 @@ class _HomeLayoutState extends State<HomeLayout> {
       drawer: widget.mainDrawer ? const MainDrawer() : null,
       body: SingleChildScrollView(
         controller: widget.scrollController,
+        primary: false,
         child: Column(
           children: [
             widget.child,

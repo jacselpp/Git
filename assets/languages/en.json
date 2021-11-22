@@ -9,8 +9,8 @@
 
     "home": "Home",
     "recharges": "Recharges",
-    "cubacel": "CUBACEL",
-    "nauta": "NAUTA",
+    "cubacel": "Cubacel",
+    "nauta": "Nauta",
     "history": "History",
     "profile": "Profile",
     "tab_general":"General",
@@ -64,9 +64,9 @@
     "send": "Send",
     "package": "Package",
     "recharge": "Recharge",
-    "cubacel_recharge": "Recharge CUBACEL",
-    "nauta_recharge": "Recharge NAUTA",
-    "nauta_account": "NAUTA Account",
+    "cubacel_recharge": "Recharge Cubacel",
+    "nauta_recharge": "Recharge Nauta",
+    "nauta_account": "Nauta Account",
     "query_empty": "Empty query",
     "query_load_error": "Query error",
     "query_no_match": "The query does not match",
@@ -81,8 +81,8 @@
     "activate_account": "Activate account",
 
     "should_accept": "To pay you must accept the service",
-    "invalid_nauta_email_error": "Invalid NAUTA account",
-    "invalid_cubacel_phone_error": "Invalid CUBACEL phone",
+    "invalid_nauta_email_error": "Invalid Nauta account",
+    "invalid_cubacel_phone_error": "Invalid Cubacel phone",
 
     "public_info": "Public Info",
     "subscribe": "Subscribe",
@@ -186,5 +186,5 @@
     "refund_policy":"No habrá reembolsos después de que el día de la compra haya finalizado. En casos especiales, si se decide realizar un reembolso, este se emitirá en un plazo de 24 a 72 horas desde el momento de la compra por errores razonables. Sí califica para un reembolso, una vez que se haya procesado su reembolso, puede demorar hasta 15 días hábiles para reflejarse en su estado financiero. i. Política de Reembolso y Devoluciones - EXEDITEC analizará cada caso. Luego de haber investigado internamente y corroborado con el proveedor correspondiente que el usuario tiene la razón y que ha sido una falla del sistema. En el caso de las Recargas, una vez enviadas, EXEDITEC no hará devolución de dicha transacción a menos que haya pruebas de errores cometidos directamente por la empresa. Si el servicio de entrega se procesó exitosamente con la información provista por el dueño de la cuenta, no califica como un error directo, siendo el usuario el máximo responsable por cualquier error cometido durante el envío de recargas al número destinatario. Los usuarios son responsables de confirmar que el número al que están enviando una recarga sea válido. Cuando se envíen recargas y estas no hayan podido ser entregadas, siendo su estatus fallido, el usuario podrá optar por una de las siguientes opciones: Opción 1: Recargar otro número. Opción 2: Recargar otra cuenta.",
 
     "detooo_recargas":"DETÓ Recargas es una sucursal de negocios pertenecientes a la empresa DETÓ. Nos especializamos en el envío de recargas de celulares hacia Cuba. Compre en línea las ofertas de su preferencia y nosotros le hacemos llegar las recargas con garantía.",
-    "accept_therms_recharge": "I confirm that I have reviewed the NAUTA numbers and / or accounts and I accept that this service does not allow reimbursement."
+    "accept_therms_recharge": "I confirm that I have reviewed the Nauta numbers and / or accounts and I accept that this service does not allow reimbursement."
 }

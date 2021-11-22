@@ -38,8 +38,7 @@ class MainAppBar {
                 height: Scaffold.of(context).appBarMaxHeight! - 4,
                 width: ScreenHelper.screenWidthPercentage(context,
                     percentage: 0.35),
-                child:
-                    SvgPicture.asset('assets/images/Recargas_Identidad_H.svg'),
+                child: SvgPicture.asset('assets/images/02.svg'),
               );
             }),
           ),
@@ -58,8 +57,8 @@ class MainAppBar {
               ThemeSwitcher.of(context)!.changeTheme(theme: themeName);
             },
             icon: ThemeProvider.of(context)!.brightness == Brightness.light
-                ? const Icon(Icons.dark_mode)
-                : const Icon(Icons.light_mode),
+                ? const Icon(Icons.dark_mode_outlined)
+                : const Icon(Icons.flare),
           ),
         ),
         IconButton(

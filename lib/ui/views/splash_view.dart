@@ -10,7 +10,6 @@ import 'package:detooo_recargas/app/app_routes.dart';
 import 'package:detooo_recargas/services/providers/profile_provider.dart';
 import 'package:detooo_recargas/services/shared_preference.dart';
 
-import '../screen_helper.dart';
 import 'auth/activate_view.dart';
 
 class SplashView extends StatefulWidget {
@@ -36,12 +35,12 @@ class _SplashViewState extends State<SplashView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).cardColor,
       body: _buildBackground(context),
     );
   }
 
-  void showSplash() => Timer(const Duration(milliseconds: 500), navigate);
+  void showSplash() => Timer(const Duration(milliseconds: 1000), navigate);
 
   void navigate() {
     String? token = SharedPreference.readUserKey;
@@ -65,10 +64,13 @@ class _SplashViewState extends State<SplashView> {
   }
 
   Widget _buildBackground(BuildContext context) {
-    return SvgPicture.asset(
-      'assets/images/1_Imagen_Recargas.svg',
-      fit:
-          ScreenHelper.isPortrait(context) ? BoxFit.fitHeight : BoxFit.fitWidth,
+    return Center(
+      child: SizedBox(
+        height: 100.0,
+        child: SvgPicture.asset(
+          'assets/images/01.svg',
+        ),
+      ),
     );
   }
 }

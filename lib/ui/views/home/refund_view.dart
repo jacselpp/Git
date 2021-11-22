@@ -7,18 +7,9 @@ class RefundView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomeLayout(
-      child: Container(
-        color: Theme.of(context).cardColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20.0,
-            vertical: 50.0,
-          ),
-          child: Column(
-            children: _buildTerms(context),
-          ),
-        ),
+    return AlternativeHomeLayout(
+      child: Column(
+        children: _buildTerms(context),
       ),
     );
   }
@@ -28,6 +19,16 @@ class RefundView extends StatelessWidget {
     final locale = AppLocalizations.of(context)!;
 
     termsItems
+      ..add(
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Icon(
+            Icons.attach_money,
+            color: primaryColor,
+            size: 50.0,
+          ),
+        ),
+      )
       ..add(
         Text(
           locale.read('refund'),

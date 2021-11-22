@@ -28,7 +28,7 @@ class BuildMap extends StatelessWidget {
               height: ScreenHelper.screenWidth(context) * .05,
               width: ScreenHelper.screenWidth(context) * .1,
               child: SvgPicture.asset(
-                'assets/images/Deto_Identidad_H.svg',
+                'assets/images/06.svg',
                 fit: BoxFit.contain,
               ),
             ),

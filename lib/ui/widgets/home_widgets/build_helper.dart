@@ -10,28 +10,24 @@ class BuildHelp extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Container(
-          color: primaryColor,
-          child: Row(
-            children: [
-              Expanded(
-                child: Builder(
-                  builder: (ctx) {
-                    return Image.asset(
-                      'assets/images/Promo_2.png',
-                      width: ScreenHelper.screenWidth(ctx),
-                    );
-                  },
-                ),
+        Row(
+          children: [
+            Expanded(
+              child: Builder(
+                builder: (ctx) {
+                  return Image.asset(
+                    'assets/images/102.png',
+                    width: ScreenHelper.screenWidth(ctx),
+                  );
+                },
               ),
-              if (!ScreenHelper.isPortrait(context))
-                Expanded(
-                  child: _buildHelp(context),
-                ),
-            ],
-          ),
+            ),
+            // if (!ScreenHelper.isPortrait(context))
+            //   Expanded(
+            //     child: _buildHelp(context),
+            //   ),
+          ],
         ),
-        if (ScreenHelper.isPortrait(context)) _buildHelp(context),
       ],
     );
   }
@@ -87,8 +83,8 @@ class BuildHelp extends StatelessWidget {
                 context,
                 locale,
                 asset: isPortrait
-                    ? 'assets/images/Icon_5.svg'
-                    : 'assets/images/Icon_5.2.svg',
+                    ? 'assets/images/11.svg'
+                    : 'assets/images/11.svg',
                 value: 'order',
               ),
               Padding(

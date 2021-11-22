@@ -145,8 +145,7 @@ class _RecargasNautaViewState extends State<RecargasNautaView> {
                             child: SizedBox(
                               width: 50.0,
                               height: 50.0,
-                              child:
-                                  SvgPicture.asset('assets/images/Icon_5.svg'),
+                              child: SvgPicture.asset('assets/images/11.svg'),
                             ),
                           ),
                         ),

@@ -7,20 +7,10 @@ class ContactView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return HomeLayout(
-      child: Container(
-        width: ScreenHelper.screenWidth(context),
-        color: Theme.of(context).cardColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            horizontal: 20.0,
-            vertical: 50.0,
-          ),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: _buildTerms(context),
-          ),
-        ),
+    return AlternativeHomeLayout(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: _buildTerms(context),
       ),
     );
   }
@@ -30,6 +20,16 @@ class ContactView extends StatelessWidget {
     final locale = AppLocalizations.of(context)!;
 
     termsItems
+      ..add(
+        const Padding(
+          padding: EdgeInsets.all(8.0),
+          child: Icon(
+            Icons.call,
+            color: primaryColor,
+            size: 50.0,
+          ),
+        ),
+      )
       ..add(
         Center(
           child: Text(
@@ -42,7 +42,7 @@ class ContactView extends StatelessWidget {
       ..add(_buildSeparation())
       ..add(
         Text(
-          '${locale.read('phone')}: +1 (786) 203 7678, +1 (702) 290 8661',
+          '+1 (786) 203 7678\n +1 (702) 290 8661',
           style: Theme.of(context).textTheme.bodyText1,
           textAlign: TextAlign.justify,
         ),

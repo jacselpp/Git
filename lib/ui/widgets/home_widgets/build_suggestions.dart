@@ -17,10 +17,7 @@ class BuildSuggestions extends StatelessWidget {
   Widget _buildSuggestions(BuildContext context) {
     return Container(
       color: Theme.of(context).cardColor,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: _buildSuggestionsItems(context),
-      ),
+      child: _buildSuggestionsItems(context),
     );
   }
 
@@ -28,60 +25,25 @@ class BuildSuggestions extends StatelessWidget {
     return Column(
       children: [
         _topUpstoCuba(context),
-        const BuildHelp(),
       ],
     );
   }
 
   Widget _topUpstoCuba(BuildContext context) {
-    final locale = AppLocalizations.of(context)!;
     return Column(
       children: [
-        Container(
-          color: !ScreenHelper.isPortrait(context) ? primaryColor : null,
-          child: Row(
-            children: [
-              if (!ScreenHelper.isPortrait(context))
-                Expanded(
-                  child: Container(
-                    color: primaryColor,
-                    child: _buildHeaderTopUp(locale, context),
-                  ),
-                ),
-              Expanded(
-                child: Column(
-                  children: [
-                    if (ScreenHelper.isPortrait(context))
-                      _buildHeaderTopUp(locale, context),
-                    Builder(
-                      builder: (ctx) {
-                        return Container(
-                          width: ScreenHelper.screenWidth(context),
-                          // height: 250.0,
-                          color: Theme.of(ctx).cardColor,
-                          alignment: Alignment.topLeft,
-                          child: Image.asset(
-                            'assets/images/Promo_1.png',
-                            fit: BoxFit.cover,
-                            // height: 250.0,
-                            width: ScreenHelper.screenWidth(context),
-                          ),
-                        );
-                      },
-                    ),
-                  ],
-                ),
+        Row(
+          children: [
+            Container(
+              width: ScreenHelper.screenWidth(context),
+              color: Theme.of(context).cardColor,
+              alignment: Alignment.topLeft,
+              child: Image.asset(
+                'assets/images/101.png',
+                fit: BoxFit.cover,
               ),
-            ],
-          ),
-        ),
-        Center(
-          child: Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: (!ScreenHelper.isPortrait(context))
-                ? _buildIconsRow(context)
-                : _buildIconsRowColumn(context),
-          ),
+            ),
+          ],
         ),
       ],
     );

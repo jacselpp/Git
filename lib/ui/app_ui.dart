@@ -9,6 +9,7 @@ export './styles/colors.dart';
 //Layouts
 export './layouts/auth_layout.dart';
 export './layouts/home_layout.dart';
+export './layouts/alternative_home_layout.dart';
 
 //Widgets
 export './widgets/text_button.dart';
