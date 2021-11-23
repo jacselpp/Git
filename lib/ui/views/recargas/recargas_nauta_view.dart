@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:detooo_recargas/models/recargas/cards_model.dart';
 import 'package:detooo_recargas/services/providers/user_cards_provider.dart';
 import 'package:flutter/foundation.dart';
@@ -22,7 +23,7 @@ class _RecargasNautaViewState extends State<RecargasNautaView> {
   final _formKey = GlobalKey<FormState>();
   final TextEditingController _nautaAccountController = TextEditingController();
   String? _dropDownValue;
-  Promotions? _selectedPromotion;
+  Promotions _selectedPromotion = Promotions();
   bool _accept = false;
   EmailContact? _emailContact;
   UserCards? _userCards;
@@ -41,13 +42,17 @@ class _RecargasNautaViewState extends State<RecargasNautaView> {
       );
     }
 
+    if (context.watch<PackagesProvider>().pack.isNotEmpty) {
+      _handlePromotion(context.watch<PackagesProvider>().pack,
+          context.watch<PackagesProvider>().pack[0].amount.toString());
+    } else {
+      return const CircularProgressIndicator();
+    }
+
     _setUserCards(context);
 
-    return HomeLayout(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 50.0),
-        child: _buildBody(context),
-      ),
+    return AlternativeHomeLayout(
+      child: _buildBody(context),
     );
   }
 
@@ -55,163 +60,145 @@ class _RecargasNautaViewState extends State<RecargasNautaView> {
     final locale = AppLocalizations.of(context)!;
     return Form(
       key: _formKey,
-      child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-        ),
-        child: Card(
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  locale.read('nauta_recharge'),
-                  textAlign: TextAlign.left,
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                const Divider(),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                CustomTextFormField(
-                  controller: _nautaAccountController,
-                  label: locale.read('nauta_account'),
-                  validator: (value) => validateEmailNauta(
-                    context: context,
-                    value: value,
-                  ),
-                  suffixIcon: IconButton(
-                    onPressed: () async {
-                      final bool granted = !kIsWeb
-                          ? await FlutterContactPicker.requestPermission()
-                          : false;
-                      if (granted) {
-                        final EmailContact? contact =
-                            await FlutterContactPicker.pickEmailContact();
-                        if (contact != null) {
-                          setState(() {
-                            _emailContact = contact;
-                          });
-                        }
-                      }
-                    },
-                    icon: const Icon(
-                      Icons.contact_mail_rounded,
-                      color: primaryColor,
+                Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SizedBox(
+                      width: 50.0,
+                      height: 50.0,
+                      child: SvgPicture.asset('assets/images/11.svg'),
                     ),
                   ),
-                  onChanged: (v) {
-                    setState(() {
-                      _emailContact = null;
-                    });
-                  },
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                SizedBox(
-                  height: 45.0,
-                  child: CustomDropdown(
-                    items:
-                        _handleResults(context.watch<PackagesProvider>().pack),
-                    label: locale.read('package'),
-                    onChanged: (String? value) {
-                      _handlePromotion(
-                        context.read<PackagesProvider>().pack,
-                        value!,
-                      );
-                      setState(() {
-                        _dropDownValue = value;
-                      });
-                    },
-                    value: _dropDownValue,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Card(
-                  margin: const EdgeInsets.all(0.0),
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  child: Row(
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: Center(
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SizedBox(
-                              width: 50.0,
-                              height: 50.0,
-                              child: SvgPicture.asset('assets/images/11.svg'),
-                            ),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                _selectedPromotion!.titulo!,
-                                style: Theme.of(context).textTheme.headline5,
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 1,
-                              ),
-                              const Divider(),
-                              _buildCaracteristicas(
-                                _selectedPromotion!.caracteristicas!,
-                                context,
-                              ),
-                            ],
-                          ),
-                        ),
+                      AutoSizeText(
+                        locale.read('nauta_recharge'),
+                        style: Theme.of(context).textTheme.headline5!,
+                        maxLines: 1,
+                        textAlign: TextAlign.center,
+                        minFontSize: 12,
+                        maxFontSize:
+                            Theme.of(context).textTheme.headline4!.fontSize!,
+                        overflow: TextOverflow.visible,
                       ),
                     ],
                   ),
                 ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: Switch(
-                        activeColor: primaryColor,
-                        value: _accept,
-                        onChanged: (e) => _handleAccept(),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: Text(
-                        locale.read('accept_therms_recharge'),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: CustomTextButton(
-                        color: primaryColor,
-                        label: locale.read('recharge'),
-                        onPressed: _handleSubmit,
-                      ),
-                    ),
-                  ],
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                _buildCaracteristicas(
+                  _selectedPromotion.caracteristicas,
+                  context,
                 ),
               ],
             ),
-          ),
+            const Divider(),
+            const SizedBox(
+              height: 20.0,
+            ),
+            CustomTextFormField(
+              controller: _nautaAccountController,
+              label: locale.read('nauta_account'),
+              validator: (value) => validateEmailNauta(
+                context: context,
+                value: value,
+              ),
+              suffixIcon: IconButton(
+                onPressed: () async {
+                  final bool granted = !kIsWeb
+                      ? await FlutterContactPicker.requestPermission()
+                      : false;
+                  if (granted) {
+                    final EmailContact? contact =
+                        await FlutterContactPicker.pickEmailContact();
+                    if (contact != null) {
+                      setState(() {
+                        _emailContact = contact;
+                      });
+                    }
+                  }
+                },
+                icon: const Icon(
+                  Icons.contact_mail_rounded,
+                  color: primaryColor,
+                ),
+              ),
+              onChanged: (v) {
+                setState(() {
+                  _emailContact = null;
+                });
+              },
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            SizedBox(
+              height: 45.0,
+              child: CustomDropdown(
+                items: _handleResults(context.watch<PackagesProvider>().pack),
+                label: locale.read('package'),
+                onChanged: (String? value) {
+                  _handlePromotion(
+                    context.read<PackagesProvider>().pack,
+                    value!,
+                  );
+                  setState(() {
+                    _dropDownValue = value;
+                  });
+                },
+                value: _dropDownValue,
+              ),
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: Switch(
+                    activeColor: primaryColor,
+                    value: _accept,
+                    onChanged: (e) => _handleAccept(),
+                  ),
+                ),
+                Expanded(
+                  flex: 4,
+                  child: Text(
+                    locale.read('accept_therms_recharge'),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: CustomTextButton(
+                    color: primaryColor,
+                    label: locale.read('recharge'),
+                    onPressed: _handleSubmit,
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -225,7 +212,7 @@ class _RecargasNautaViewState extends State<RecargasNautaView> {
       }
     }
     _dropDownValue ??= packages[0];
-    if (_selectedPromotion == null) {
+    if (_selectedPromotion.amount == null) {
       _handlePromotion(
         pack,
         packages[0],
@@ -236,21 +223,29 @@ class _RecargasNautaViewState extends State<RecargasNautaView> {
 
   void _handlePromotion(List<Promotions> pack, String value) {
     for (var promotion in pack) {
-      if (promotion.amount.toString() == value) {
+      if (promotion.amount.toString() == value && promotion.dest == 'nauta') {
         _selectedPromotion = promotion;
       }
     }
   }
 
   Widget _buildCaracteristicas(
-      List<String> caracteristicas, BuildContext context) {
-    String caracteristicasString = '';
-    for (var caracteristica in caracteristicas) {
-      caracteristicasString = '$caracteristicasString $caracteristica \n';
+    List<String>? caracteristicas,
+    BuildContext context,
+  ) {
+    String caracteristicasString = '          ';
+    if (caracteristicas != null) {
+      for (var caracteristica in caracteristicas) {
+        caracteristicasString = '$caracteristicasString $caracteristica +';
+      }
     }
     return Text(
-      caracteristicasString,
+      caracteristicasString
+          .replaceRange(caracteristicasString.length - 1,
+              caracteristicasString.length, '')
+          .trim(),
       style: Theme.of(context).textTheme.bodyText2,
+      textAlign: TextAlign.justify,
       overflow: TextOverflow.ellipsis,
     );
   }

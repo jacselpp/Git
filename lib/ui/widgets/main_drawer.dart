@@ -93,23 +93,38 @@ class MainDrawer extends StatelessWidget {
                       builder: (context) => const HistoryView()));
                 },
               ),
-              // _buildItem(
-              //   Icons.add_reaction,
-              //   locale.read('tab_testimony'),
-              //   context,
-              //   () {
-              //     Navigator.of(context).push(
-              //       MaterialPageRoute(
-              //         builder: (context) => HomeLayout(
-              //           floatingActionButton: _addTestimonialsButton(context),
-              //           child: const TestimonialsWidget(
-              //             vertical: true,
-              //           ),
-              //         ),
-              //       ),
-              //     );
-              //   },
-              // ),
+              _buildItem(
+                Stack(
+                  children: const [
+                    Icon(
+                      Icons.circle_outlined,
+                      color: primaryColor,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(4.0),
+                      child: Icon(
+                        Icons.format_quote,
+                        color: primaryColor,
+                        size: 16.0,
+                      ),
+                    ),
+                  ],
+                ),
+                locale.read('tab_testimony'),
+                context,
+                () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => HomeLayout(
+                        floatingActionButton: _addTestimonialsButton(context),
+                        child: const TestimonialsWidget(
+                          vertical: true,
+                        ),
+                      ),
+                    ),
+                  );
+                },
+              ),
               const Divider(
                 thickness: 2.0,
               ),
@@ -207,6 +222,23 @@ class MainDrawer extends StatelessWidget {
                     _buildItemApp('06.svg', 'https://www.exeditec.com'),
                   ],
                 ),
+              ),
+              const Divider(
+                thickness: 2.0,
+              ),
+              _buildItem(
+                const Icon(
+                  Icons.power_settings_new,
+                  color: primaryColor,
+                ),
+                locale.read('dialog_accept'),
+                context,
+                () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => dialogExit(context),
+                  );
+                },
               ),
             ],
           ),

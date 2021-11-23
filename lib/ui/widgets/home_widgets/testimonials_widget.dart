@@ -32,91 +32,93 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
   @override
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
-    return SizedBox(
-      height: widget.vertical ? widget.height ?? 200.0 : null,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(
-              locale.read('tab_testimony'),
-              style: Theme.of(context).textTheme.headline5,
-            ),
-          ),
-          Stack(
-            children: [
-              FutureBuilder(
-                future: Future.delayed(
-                    const Duration(milliseconds: 500),
-                    () => context
-                        .read<TestimonialsProvider>()
-                        .testimonialsFuture),
-                builder: (BuildContext context,
-                    AsyncSnapshot<List<Testimonials>> snapshot) {
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const Center(
-                      child: CircularProgressIndicator(
-                        strokeWidth: 4.0,
-                      ),
-                    );
-                  }
-                  if (snapshot.hasData) {
-                    if (context.read<UsersProvider>().getUsers.isEmpty) {
-                      for (var item in snapshot.data!) {
-                        _usersId.add("\"${item.user!}\"");
-                      }
-                      Future.delayed(const Duration(milliseconds: 100), () {
-                        context
-                            .read<UsersProvider>()
-                            .fetchUser(_usersId.toString());
-                      });
-                    }
-                    return _buildList(snapshot.data!);
-                  }
-                  return Container();
-                },
+    return SingleChildScrollView(
+      child: SizedBox(
+        height: !widget.vertical ? widget.height ?? 200.0 : null,
+        child: Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Text(
+                locale.read('tab_testimony'),
+                style: Theme.of(context).textTheme.headline5,
               ),
-              if (widget.handleClose != null)
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        IconButton(
-                          color: Colors.redAccent,
-                          onPressed: widget.handleClose,
-                          icon: const Icon(Icons.close),
+            ),
+            Stack(
+              children: [
+                FutureBuilder(
+                  future: Future.delayed(
+                      const Duration(milliseconds: 500),
+                      () => context
+                          .read<TestimonialsProvider>()
+                          .testimonialsFuture),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<List<Testimonials>> snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return const Center(
+                        child: CircularProgressIndicator(
+                          strokeWidth: 4.0,
                         ),
-                      ],
-                    ),
-                  ],
+                      );
+                    }
+                    if (snapshot.hasData) {
+                      if (context.read<UsersProvider>().getUsers.isEmpty) {
+                        for (var item in snapshot.data!) {
+                          _usersId.add("\"${item.user!}\"");
+                        }
+                        Future.delayed(const Duration(milliseconds: 100), () {
+                          context
+                              .read<UsersProvider>()
+                              .fetchUser(_usersId.toString());
+                        });
+                      }
+                      return _buildList(snapshot.data!);
+                    }
+                    return Container();
+                  },
                 ),
-              if (widget.handleClose != null)
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        IconButton(
-                          color: primaryColor,
-                          onPressed: () {
-                            showDialog(
-                              context: context,
-                              builder: (context) =>
-                                  showTestimonialsDialog(context),
-                            );
-                          },
-                          icon: const Icon(Icons.add),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-            ],
-          ),
-        ],
+                if (widget.handleClose != null)
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          IconButton(
+                            color: Colors.redAccent,
+                            onPressed: widget.handleClose,
+                            icon: const Icon(Icons.close),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                if (widget.handleClose != null)
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          IconButton(
+                            color: primaryColor,
+                            onPressed: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) =>
+                                    showTestimonialsDialog(context),
+                              );
+                            },
+                            icon: const Icon(Icons.add),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -138,39 +140,45 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
   }
 
   Widget _buildListItem(Testimonials data, BuildContext context) {
-    return SizedBox(
-      width: 300,
-      child: Card(
-        // color: Theme.of(context).scaffoldBackgroundColor,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: ScreenHelper.screenWidth(context),
-                child: Column(
-                  children: [
-                    _buildUser(data.user!, context, data.rating!),
-                    const SizedBox(
-                      height: 10.0,
-                    ),
-                  ],
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: 4.0,
+        horizontal: 8.0,
+      ),
+      child: SizedBox(
+        width: 300,
+        child: Card(
+          // color: Theme.of(context).scaffoldBackgroundColor,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  width: ScreenHelper.screenWidth(context),
+                  child: Column(
+                    children: [
+                      _buildUser(data.user!, context, data.rating!),
+                      const SizedBox(
+                        height: 10.0,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const Divider(),
-              Text(
-                data.text!,
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-                style: Theme.of(context).textTheme.bodyText2,
-              ),
-              // Row(
-              //   mainAxisAlignment: MainAxisAlignment.center,
-              //   children: _buildRating(data.rating!),
-              // ),
-            ],
+                const Divider(),
+                Text(
+                  data.text!,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyText2,
+                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   children: _buildRating(data.rating!),
+                // ),
+              ],
+            ),
           ),
         ),
       ),

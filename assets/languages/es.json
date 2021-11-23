@@ -25,6 +25,11 @@
     "create_account": "Crear Cuenta",
     "forgot_password": "Olvidé mi contraseña",
 
+    "dialog_exit_title":"¿Salir?",
+    "dialog_exit_message":"¿Seguro que quieres cerrar la aplicación?",
+    "dialog_cancel":"Cancelar",
+    "dialog_accept":"Salir",
+
     "password": "Contraseña",
     "old_password": "Contraseña Actual",
     "new_password": "Nueva Contraseña",

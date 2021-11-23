@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:detooo_recargas/models/recargas/cards_model.dart';
 import 'package:detooo_recargas/services/providers/user_cards_provider.dart';
 import 'package:flutter/foundation.dart';
@@ -24,7 +25,7 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
   final TextEditingController _phoneController = TextEditingController();
 
   String? _dropDownValue;
-  Promotions? _selectedPromotion;
+  Promotions _selectedPromotion = Promotions();
   bool _accept = false;
   PhoneContact? _phoneContact;
   UserCards? _userCards;
@@ -37,11 +38,16 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
 
   @override
   Widget build(BuildContext context) {
-    return HomeLayout(
-      child: Padding(
-        padding: const EdgeInsets.only(top: 50.0),
-        child: _buildBody(context),
-      ),
+    if (context.watch<PackagesProvider>().pack.isNotEmpty) {
+      List<String> l = _handleResults(context.watch<PackagesProvider>().pack);
+      if (_selectedPromotion.amount == null) {
+        _handlePromotion(context.watch<PackagesProvider>().pack, l[0]);
+      }
+    } else {
+      return const CircularProgressIndicator();
+    }
+    return AlternativeHomeLayout(
+      child: _buildBody(context),
     );
   }
 
@@ -55,157 +61,145 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
 
     return Form(
       key: _formKey,
-      child: Card(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
-                locale.read('cubacel_recharge'),
-                textAlign: TextAlign.left,
-                style: Theme.of(context).textTheme.headline5,
-              ),
-              const Divider(),
-              const SizedBox(
-                height: 20.0,
-              ),
-              CustomTextFormField(
-                controller: _phoneController,
-                icon: const Text('+53'),
-                label: locale.read('movil'),
-                validator: (value) => validatePhoneCubacel(
-                  context: context,
-                  value: value,
-                ),
-                suffixIcon: IconButton(
-                  onPressed: () async {
-                    final bool granted = !kIsWeb
-                        ? await FlutterContactPicker.requestPermission()
-                        : false;
-                    if (granted) {
-                      final PhoneContact? contact =
-                          await FlutterContactPicker.pickPhoneContact();
-                      if (contact != null) {
-                        setState(() {
-                          _phoneContact = contact;
-                        });
-                      }
-                    }
-                  },
-                  icon: const Icon(
-                    Icons.contact_phone_rounded,
-                    color: primaryColor,
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: SizedBox(
+                    width: 50.0,
+                    height: 50.0,
+                    child: SvgPicture.asset('assets/images/11.svg'),
                   ),
                 ),
-                onChanged: (v) {
-                  setState(() {
-                    _phoneContact = null;
-                  });
-                },
               ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              SizedBox(
-                height: 45.0,
-                child: CustomDropdown(
-                  items: _handleResults(context.watch<PackagesProvider>().pack),
-                  label: locale.read('package'),
-                  onChanged: (String? value) {
-                    _handlePromotion(
-                      context.read<PackagesProvider>().pack,
-                      value!,
-                    );
-                    setState(() {
-                      _dropDownValue = value;
-                    });
-                  },
-                  value: _dropDownValue,
-                ),
-              ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              Card(
-                margin: const EdgeInsets.all(0.0),
-                color: Theme.of(context).scaffoldBackgroundColor,
-                child: Row(
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Expanded(
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: SizedBox(
-                            width: 50.0,
-                            height: 50.0,
-                            child: SvgPicture.asset('assets/images/11.svg'),
-                          ),
-                        ),
-                      ),
-                    ),
-                    Expanded(
-                      flex: 4,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              _selectedPromotion!.titulo!,
-                              style: Theme.of(context).textTheme.headline5,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 1,
-                            ),
-                            const Divider(),
-                            _buildCaracteristicas(
-                              _selectedPromotion!.caracteristicas!,
-                              context,
-                            ),
-                          ],
-                        ),
-                      ),
+                    AutoSizeText(
+                      locale.read('cubacel_recharge'),
+                      style: Theme.of(context).textTheme.headline5!,
+                      maxLines: 1,
+                      textAlign: TextAlign.center,
+                      minFontSize: 12,
+                      maxFontSize:
+                          Theme.of(context).textTheme.headline4!.fontSize!,
+                      overflow: TextOverflow.visible,
                     ),
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 20.0,
+            ],
+          ),
+          _buildCaracteristicas(
+            _selectedPromotion.caracteristicas,
+            context,
+          ),
+          const SizedBox(
+            height: 20.0,
+          ),
+          const Divider(),
+          const SizedBox(
+            height: 20.0,
+          ),
+          CustomTextFormField(
+            controller: _phoneController,
+            icon: const Text('+53'),
+            label: locale.read('movil'),
+            validator: (value) => validatePhoneCubacel(
+              context: context,
+              value: value,
+            ),
+            suffixIcon: IconButton(
+              onPressed: () async {
+                final bool granted = !kIsWeb
+                    ? await FlutterContactPicker.requestPermission()
+                    : false;
+                if (granted) {
+                  final PhoneContact? contact =
+                      await FlutterContactPicker.pickPhoneContact();
+                  if (contact != null) {
+                    setState(() {
+                      _phoneContact = contact;
+                    });
+                  }
+                }
+              },
+              icon: const Icon(
+                Icons.contact_phone_rounded,
+                color: primaryColor,
               ),
-              Row(
-                children: [
-                  Expanded(
-                    child: Switch(
-                      activeColor: primaryColor,
-                      value: _accept,
-                      onChanged: (e) => _handleAccept(),
-                    ),
-                  ),
-                  Expanded(
-                    flex: 4,
-                    child: Text(
-                      locale.read('accept_therms_recharge'),
-                    ),
-                  ),
-                ],
+            ),
+            onChanged: (v) {
+              setState(() {
+                _phoneContact = null;
+              });
+            },
+          ),
+          const SizedBox(
+            height: 20.0,
+          ),
+          SizedBox(
+            height: 45.0,
+            child: CustomDropdown(
+              items: _handleResults(context.watch<PackagesProvider>().pack),
+              label: locale.read('package'),
+              onChanged: (String? value) {
+                _handlePromotion(
+                  context.read<PackagesProvider>().pack,
+                  value!,
+                );
+                setState(() {
+                  _dropDownValue = value;
+                });
+              },
+              value: _dropDownValue,
+            ),
+          ),
+          const SizedBox(
+            height: 20.0,
+          ),
+          const SizedBox(
+            height: 20.0,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Switch(
+                  activeColor: primaryColor,
+                  value: _accept,
+                  onChanged: (e) => _handleAccept(),
+                ),
               ),
-              const SizedBox(
-                height: 20.0,
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: CustomTextButton(
-                      color: primaryColor,
-                      label: locale.read('recharge'),
-                      onPressed: _handleSubmit,
-                    ),
-                  ),
-                ],
+              Expanded(
+                flex: 4,
+                child: Text(
+                  locale.read('accept_therms_recharge'),
+                ),
               ),
             ],
           ),
-        ),
+          const SizedBox(
+            height: 20.0,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: CustomTextButton(
+                  color: primaryColor,
+                  label: locale.read('recharge'),
+                  onPressed: _handleSubmit,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
@@ -218,7 +212,7 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
       }
     }
     _dropDownValue ??= packages[0];
-    if (_selectedPromotion == null) {
+    if (_selectedPromotion.amount == null) {
       _handlePromotion(
         pack,
         packages[0],
@@ -231,19 +225,28 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
     for (var promotion in pack) {
       if (promotion.amount.toString() == value) {
         _selectedPromotion = promotion;
+        setState(() {});
       }
     }
   }
 
   Widget _buildCaracteristicas(
-      List<String> caracteristicas, BuildContext context) {
-    String caracteristicasString = '';
-    for (var caracteristica in caracteristicas) {
-      caracteristicasString = '$caracteristicasString $caracteristica \n';
+    List<String>? caracteristicas,
+    BuildContext context,
+  ) {
+    String caracteristicasString = '          ';
+    if (caracteristicas != null) {
+      for (var caracteristica in caracteristicas) {
+        caracteristicasString = '$caracteristicasString $caracteristica +';
+      }
     }
     return Text(
-      caracteristicasString,
+      caracteristicasString
+          .replaceRange(caracteristicasString.length - 1,
+              caracteristicasString.length, '')
+          .trim(),
       style: Theme.of(context).textTheme.bodyText2,
+      textAlign: TextAlign.justify,
       overflow: TextOverflow.ellipsis,
     );
   }
