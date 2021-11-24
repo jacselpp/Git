@@ -77,9 +77,9 @@ class CustomTextFormField extends StatelessWidget {
       onChanged: onChanged,
       onEditingComplete: onEditingComplete,
       readOnly: readOnly ?? false,
-      // style: const TextStyle(
-      //   color: primaryColor,
-      // ),
+      style: const TextStyle(
+        color: primaryColor,
+      ),
       validator: validator,
     );
   }

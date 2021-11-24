@@ -128,7 +128,7 @@ class SharedPreference {
         municipiosList.add(Municipios.fromJson(jsonDecode(provincia)));
       }
     }
-    return municipiosList;
+    return municipiosList.isEmpty ? null : municipiosList;
   }
 
   //!Language ----------------------------------------------------

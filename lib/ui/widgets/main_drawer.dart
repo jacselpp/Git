@@ -291,9 +291,7 @@ class MainDrawer extends StatelessWidget {
     return ListTile(
       title: Text(
         value,
-        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-              color: primaryColor,
-            ),
+        style: Theme.of(context).textTheme.bodyText1,
       ),
       leading: icon,
       onTap: onTap,

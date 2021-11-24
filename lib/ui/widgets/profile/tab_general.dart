@@ -66,12 +66,13 @@ class _TabGeneralState extends State<TabGeneral> {
           ? Column(
               children: [
                 const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Card(
-                    child: Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: AvatarTab(),
-                    ),
+                  padding: EdgeInsets.only(
+                    left: 20.0,
+                    right: 20.0,
+                    top: 20.0,
+                  ),
+                  child: CustomContainer(
+                    child: AvatarTab(),
                   ),
                 ),
                 _buildBody(context),
@@ -82,12 +83,13 @@ class _TabGeneralState extends State<TabGeneral> {
               children: [
                 const Expanded(
                   child: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Card(
-                      child: Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: AvatarTab(),
-                      ),
+                    padding: EdgeInsets.only(
+                      left: 20.0,
+                      right: 20.0,
+                      top: 20.0,
+                    ),
+                    child: CustomContainer(
+                      child: AvatarTab(),
                     ),
                   ),
                 ),
@@ -150,8 +152,8 @@ class _TabGeneralState extends State<TabGeneral> {
     return Form(
       key: _formKey,
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Card(
+        padding: const EdgeInsets.all(20.0),
+        child: CustomContainer(
           child: Padding(
             padding: const EdgeInsets.all(15.0),
             child: Column(
@@ -229,6 +231,7 @@ class _TabGeneralState extends State<TabGeneral> {
                   children: [
                     Expanded(
                       child: SwitchListTile(
+                        controlAffinity: ListTileControlAffinity.leading,
                         contentPadding: const EdgeInsets.all(0),
                         title: Text(locale.read('subscribe')),
                         activeColor: primaryColor,
@@ -295,7 +298,7 @@ class _TabGeneralState extends State<TabGeneral> {
   Padding _publicInfo(AppLocalizations locale, String field) {
     return Padding(
       padding: const EdgeInsets.all(4.0),
-      child: Column(
+      child: Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           Text(

@@ -30,7 +30,7 @@ class CustomTextButton extends StatelessWidget {
         child: Text(
           label.toUpperCase(),
           style: TextStyle(
-            color: textColor ?? Colors.white,
+            color: textColor ?? Theme.of(context).cardColor,
             fontSize: 14.0,
             fontWeight: FontWeight.bold,
           ),

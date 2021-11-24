@@ -48,22 +48,39 @@ class _AddTestimonialsState extends State<AddTestimonials> {
     return Form(
       key: _formKey,
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Text(
-            locale.read('add_new_testimony'),
-            textAlign: TextAlign.start,
-            style: Theme.of(context).textTheme.headline5,
+            locale.read('rating'),
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          const SizedBox(
+            height: 20.0,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: _buildRating(),
+          ),
+          const SizedBox(
+            height: 20.0,
           ),
           const Divider(),
           const SizedBox(
-            height: 10.0,
+            height: 20.0,
+          ),
+          Text(
+            locale.read('add_new_testimony'),
+            textAlign: TextAlign.start,
+            style: Theme.of(context).textTheme.headline6,
+          ),
+          const SizedBox(
+            height: 20.0,
           ),
           TextFormField(
             maxLines: 5,
             keyboardType: TextInputType.multiline,
             decoration: InputDecoration(
-              labelText: locale.read('testimonial'),
+              labelText: locale.read('write_an_testimonial'),
               border: const OutlineInputBorder(),
               helperText: (_length > 0) ? '$_length > 20' : '',
               alignLabelWithHint: true,
@@ -76,27 +93,18 @@ class _AddTestimonialsState extends State<AddTestimonials> {
             },
           ),
           const SizedBox(
-            height: 10.0,
-          ),
-          Text(
-            locale.read('rating'),
-            style: Theme.of(context).textTheme.headline5,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: _buildRating(),
-          ),
-          const SizedBox(
-            height: 10.0,
+            height: 20.0,
           ),
           const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              CustomTextButton(
-                color: primaryColor,
-                label: locale.read('send_testimonial'),
-                onPressed: _handleTestimonial,
+              Expanded(
+                child: CustomTextButton(
+                  color: primaryColor,
+                  label: locale.read('send_testimonial'),
+                  onPressed: _handleTestimonial,
+                ),
               ),
             ],
           ),
@@ -115,7 +123,8 @@ class _AddTestimonialsState extends State<AddTestimonials> {
             icon: const Icon(
               Icons.star,
               size: 24.0,
-              color: Color(0xFFD4AF37),
+              // color: Color(0xFFD4AF37),
+              color: primaryColor,
             ),
           ),
         );
@@ -125,7 +134,8 @@ class _AddTestimonialsState extends State<AddTestimonials> {
             onPressed: () => _setRating(i),
             icon: const Icon(
               Icons.star_border,
-              size: 16.0,
+              size: 24.0,
+              color: primaryColor75,
             ),
           ),
         );

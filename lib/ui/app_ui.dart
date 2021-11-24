@@ -12,6 +12,7 @@ export './layouts/home_layout.dart';
 export './layouts/alternative_home_layout.dart';
 
 //Widgets
+export './widgets/custom_container.dart';
 export './widgets/text_button.dart';
 export './widgets/text_form_field.dart';
 export './widgets/dialogs.dart';
