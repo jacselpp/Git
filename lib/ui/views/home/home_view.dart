@@ -107,64 +107,51 @@ class _HomeViewState extends State<HomeView> {
   Widget _buildItem(Promotions data, BuildContext context) {
     final locale = AppLocalizations.of(context)!;
     return Padding(
-      padding: const EdgeInsets.symmetric(
-        vertical: 20.0,
-        horizontal: 20.0,
-      ),
-      child: Container(
-        decoration: const BoxDecoration(
-          borderRadius: BorderRadius.all(
-            Radius.circular(10.0),
-          ),
-        ),
-        child: Card(
-          elevation: 10.0,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.center,
+      padding: const EdgeInsets.all(20.0),
+      child: CustomContainer(
+        paddingV: 20.0,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            _buildPackageImage(data.dest),
+            const Separation(),
+            AutoSizeText(
+              data.titulo!,
+              style: Theme.of(context).textTheme.headline5!,
+              maxLines: 1,
+              textAlign: TextAlign.center,
+              minFontSize: 12,
+              maxFontSize: Theme.of(context).textTheme.headline5!.fontSize!,
+              overflow: TextOverflow.visible,
+            ),
+            _buildCaracteristicas(data.caracteristicas!, context),
+            Expanded(child: Container()),
+            Text(
+              data.amount!.toString(),
+              style: Theme.of(context).textTheme.headline5,
+            ),
+            const SizedBox(
+              height: 20.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _buildPackageImage(data.dest),
-                const Separation(),
-                AutoSizeText(
-                  data.titulo!,
-                  style: Theme.of(context).textTheme.headline5!,
-                  maxLines: 1,
-                  textAlign: TextAlign.center,
-                  minFontSize: 12,
-                  maxFontSize: Theme.of(context).textTheme.headline5!.fontSize!,
-                  overflow: TextOverflow.visible,
+                CustomTextButton(
+                  color: primaryColor,
+                  label: locale.read('recharge'),
+                  onPressed: () {
+                    _handleRecarga(
+                      context,
+                      data,
+                    );
+                  },
                 ),
-                _buildCaracteristicas(data.caracteristicas!, context),
-                Expanded(child: Container()),
-                Text(
-                  data.amount!.toString(),
-                  style: Theme.of(context).textTheme.headline5,
-                ),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    CustomTextButton(
-                      color: primaryColor,
-                      label: locale.read('recharge'),
-                      onPressed: () {
-                        _handleRecarga(
-                          context,
-                          data,
-                        );
-                      },
-                    ),
-                  ],
-                ),
-                const Separation(),
               ],
             ),
-          ),
+            const Separation(),
+          ],
         ),
       ),
     );

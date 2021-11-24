@@ -88,7 +88,9 @@ class MainAppBar {
             _buildMenuItem(
               context,
               "profile",
-              const Icon(Icons.supervised_user_circle),
+              const Icon(
+                Icons.person_outline,
+              ),
             ),
             // _buildMenuItem(
             //   context,
@@ -132,7 +134,10 @@ class MainAppBar {
             padding: const EdgeInsets.fromLTRB(2, 2, 8, 2),
             child: icon,
           ),
-          Text(locale.read(s))
+          Text(
+            locale.read(s),
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
         ],
       ),
     );

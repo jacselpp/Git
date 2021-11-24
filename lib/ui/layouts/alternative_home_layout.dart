@@ -13,22 +13,8 @@ class AlternativeHomeLayout extends StatelessWidget {
     return HomeLayout(
       child: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Container(
-          width: ScreenHelper.screenWidth(context),
-          decoration: BoxDecoration(
-            color: Theme.of(context).cardColor,
-            border: Border.all(
-              color: const Color(0xFF858585),
-            ),
-            borderRadius: BorderRadius.circular(5.0),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20.0,
-              vertical: 30.0,
-            ),
-            child: child,
-          ),
+        child: CustomContainer(
+          child: child,
         ),
       ),
     );
