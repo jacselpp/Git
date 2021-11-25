@@ -32,10 +32,11 @@ class _ProfileViewState extends State<ProfileView> {
           context,
           tabBar: TabBar(
             labelColor: Theme.of(context).textTheme.subtitle1!.color,
+            labelPadding: const EdgeInsets.all(2.0),
+            padding: const EdgeInsets.all(0),
+            labelStyle: const TextStyle(fontSize: 14.0),
             tabs: [
-              Tab(
-                text: locale.read('tab_general').toUpperCase(),
-              ),
+              Tab(text: locale.read('tab_general').toUpperCase()),
               Tab(text: locale.read('tab_testimony').toUpperCase()),
               Tab(text: locale.read('tab_security').toUpperCase()),
             ],

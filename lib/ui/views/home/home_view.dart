@@ -90,7 +90,7 @@ class _HomeViewState extends State<HomeView> {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 1,
             crossAxisSpacing: 0,
-            mainAxisExtent: 500.0,
+            mainAxisExtent: ScreenHelper.screenHeight(context) * .9,
             crossAxisCount: ScreenHelper.isPortrait(context) ? 1 : 2,
           ),
           primary: false,

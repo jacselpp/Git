@@ -267,9 +267,9 @@ class _TabGeneralState extends State<TabGeneral> {
                             context.watch<SubscriptionsProvider>().subscribed,
                       ),
                     ),
-                    Expanded(
-                      child: Container(),
-                    ),
+                    // Expanded(
+                    //   child: Container(),
+                    // ),
                   ],
                 ),
                 const Divider(),

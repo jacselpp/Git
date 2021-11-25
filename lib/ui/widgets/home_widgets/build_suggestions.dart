@@ -39,7 +39,7 @@ class BuildSuggestions extends StatelessWidget {
               color: Theme.of(context).cardColor,
               alignment: Alignment.topLeft,
               child: Image.asset(
-                'assets/images/101.png',
+                'assets/images/103.png',
                 fit: BoxFit.cover,
               ),
             ),
