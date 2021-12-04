@@ -90,7 +90,7 @@ class AppTheme {
     ),
     cardColor: const Color(0XFF282c34),
     cardTheme: const CardTheme(
-      shadowColor: Colors.white,
+      shadowColor: bordersDark,
     ),
     iconTheme: const IconThemeData(color: Colors.white),
   );

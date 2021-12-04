@@ -1,4 +1,5 @@
 import 'package:detooo_recargas/app/app_localizations.dart';
+import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:detooo_recargas/ui/widgets/main_appbar.dart';
 import 'package:detooo_recargas/ui/widgets/profile/tab_general.dart';
 import 'package:detooo_recargas/ui/widgets/profile/tab_security.dart';
@@ -35,6 +36,7 @@ class _ProfileViewState extends State<ProfileView> {
             labelPadding: const EdgeInsets.all(2.0),
             padding: const EdgeInsets.all(0),
             labelStyle: const TextStyle(fontSize: 14.0),
+            indicatorColor: primaryColor,
             tabs: [
               Tab(text: locale.read('tab_general').toUpperCase()),
               Tab(text: locale.read('tab_testimony').toUpperCase()),

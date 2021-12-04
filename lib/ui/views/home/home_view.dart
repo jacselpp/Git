@@ -90,7 +90,7 @@ class _HomeViewState extends State<HomeView> {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 1,
             crossAxisSpacing: 0,
-            mainAxisExtent: ScreenHelper.screenHeight(context) * .9,
+            mainAxisExtent: ScreenHelper.screenHeight(context) * .8,
             crossAxisCount: ScreenHelper.isPortrait(context) ? 1 : 2,
           ),
           primary: false,
@@ -111,26 +111,34 @@ class _HomeViewState extends State<HomeView> {
       child: CustomContainer(
         paddingV: 20.0,
         child: Column(
-          mainAxisSize: MainAxisSize.min,
-          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _buildPackageImage(data.dest),
             const Separation(),
-            AutoSizeText(
-              data.titulo!,
-              style: Theme.of(context).textTheme.headline5!,
-              maxLines: 1,
-              textAlign: TextAlign.center,
-              minFontSize: 12,
-              maxFontSize: Theme.of(context).textTheme.headline5!.fontSize!,
-              overflow: TextOverflow.visible,
-            ),
-            _buildCaracteristicas(data.caracteristicas!, context),
-            Expanded(child: Container()),
-            Text(
-              data.amount!.toString(),
-              style: Theme.of(context).textTheme.headline5,
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  AutoSizeText(
+                    data.titulo!,
+                    style: Theme.of(context).textTheme.headline5!,
+                    maxLines: 2,
+                    textAlign: TextAlign.center,
+                    minFontSize: 12,
+                    maxFontSize:
+                        Theme.of(context).textTheme.headline5!.fontSize!,
+                    overflow: TextOverflow.visible,
+                  ),
+                  _buildCaracteristicas(data.caracteristicas!, context),
+                  Text(
+                    data.amount!.toString(),
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(
               height: 20.0,

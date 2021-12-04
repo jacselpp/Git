@@ -57,8 +57,14 @@ class MainAppBar {
               ThemeSwitcher.of(context)!.changeTheme(theme: themeName);
             },
             icon: ThemeProvider.of(context)!.brightness == Brightness.light
-                ? const Icon(Icons.dark_mode_outlined)
-                : const Icon(Icons.flare),
+                ? SvgPicture.asset(
+                    'assets/images/15.svg',
+                    height: 20,
+                  )
+                : SvgPicture.asset(
+                    'assets/images/35.svg',
+                    height: 20,
+                  ),
           ),
         ),
         IconButton(
@@ -77,11 +83,21 @@ class MainAppBar {
           onSelected: (choice) => _choiceAction(choice.toString(), context),
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child: CircleAvatar(
-              maxRadius: 15.0,
-              backgroundColor: Colors.transparent,
-              backgroundImage:
-                  NetworkImage(_profile?.avatar ?? '', scale: 20.0),
+            child: Stack(
+              fit: StackFit.passthrough,
+              children: [
+                SvgPicture.asset(
+                  'assets/images/10.svg',
+                  height: 24.0,
+                  width: 24.0,
+                ),
+                CircleAvatar(
+                  maxRadius: 15.0,
+                  backgroundColor: Colors.transparent,
+                  backgroundImage:
+                      NetworkImage(_profile?.avatar ?? "", scale: 20.0),
+                ),
+              ],
             ),
           ),
           itemBuilder: (context) => [
