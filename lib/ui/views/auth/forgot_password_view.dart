@@ -31,7 +31,7 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                locale.read('recover_password'),
+                locale.read('forgot_password'),
                 style: Theme.of(context).textTheme.headline5,
               ),
               const Divider(),

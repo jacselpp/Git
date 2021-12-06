@@ -1,6 +1,6 @@
-import 'package:detooo_recargas/app/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
+import 'package:detooo_recargas/app/app_localizations.dart';
 
 class AuthLayout extends StatelessWidget {
   final Widget child;
@@ -13,14 +13,22 @@ class AuthLayout extends StatelessWidget {
     return Material(
       child: SafeArea(
         child: Scaffold(
-          appBar: AppBar(
-            backgroundColor: Colors.transparent,
-            shadowColor: Colors.transparent,
-          ),
+          // appBar: AppBar(
+          //   backgroundColor: Colors.transparent,
+          //   shadowColor: Colors.transparent,
+          // ),
           body: CustomScrollView(
             shrinkWrap: true,
             slivers: <Widget>[
-              // if (isPortrait) _buildHeader(context, isPortrait),
+              // if (kIsWeb || !ScreenHelper().isPortrait(context))
+              const SliverAppBar(
+                floating: true,
+                pinned: true,
+                toolbarHeight: 50.0,
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
+                shadowColor: Colors.transparent,
+              ),
               _buildBody(context, locale),
             ],
           ),
@@ -64,14 +72,14 @@ class AuthLayout extends StatelessWidget {
   //     );
 
   Widget _buildBody(BuildContext context, locale) => SliverToBoxAdapter(
-        child: Padding(
-          padding: const EdgeInsets.all(20.0),
-          child: SizedBox(
-            height: ScreenHelper.screenHeight(context) - 60,
-            width: ScreenHelper.screenWidth(context),
-            child: Center(
-              child: SingleChildScrollView(
-                primary: false,
+        child: SizedBox(
+          height: ScreenHelper.screenHeight(context) - 60,
+          // width: ScreenHelper.screenWidth(context),
+          child: Center(
+            child: SingleChildScrollView(
+              primary: false,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
                 child: child,
               ),
             ),
