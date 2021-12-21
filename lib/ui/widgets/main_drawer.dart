@@ -252,7 +252,6 @@ class MainDrawer extends StatelessWidget {
             child: Center(
               child: SizedBox(
                 height: 120.0,
-                width: 120.0,
                 child: SvgPicture.asset(
                   'assets/images/03.svg',
                   fit: BoxFit.fitHeight,
