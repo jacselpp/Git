@@ -116,7 +116,11 @@ class MainAppBar {
             _buildMenuItem(
               context,
               "logout",
-              const Icon(Icons.logout),
+              SizedBox(
+                width: 20,
+                height: 20,
+                child: SvgPicture.asset('assets/images/37.svg'),
+              ),
             ),
           ],
         ),
@@ -140,7 +144,7 @@ class MainAppBar {
     }
   }
 
-  PopupMenuItem _buildMenuItem(BuildContext context, String s, Icon icon) {
+  PopupMenuItem _buildMenuItem(BuildContext context, String s, Widget icon) {
     final locale = AppLocalizations.of(context)!;
     return PopupMenuItem(
       value: s,

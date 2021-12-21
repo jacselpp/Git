@@ -38,7 +38,7 @@ class _LoginViewState extends State<LoginView> {
   Widget build(BuildContext context) {
     final locale = AppLocalizations.of(context)!;
     return AuthLayout(
-      child: Card(
+      child: CustomContainer(
         child: Padding(
           padding: const EdgeInsets.all(30.0),
           child: _buildLoginForm(locale),

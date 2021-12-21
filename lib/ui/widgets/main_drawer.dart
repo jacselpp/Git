@@ -234,37 +234,34 @@ class MainDrawer extends StatelessWidget {
   }
 
   Widget _buildHeader(BuildContext context) {
-    return SizedBox(
-      height: 100.0,
-      child: Stack(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  Theme.of(context).cardColor,
-                  Theme.of(context).scaffoldBackgroundColor,
-                ],
-              ),
+    return Stack(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Theme.of(context).cardColor,
+                Theme.of(context).scaffoldBackgroundColor,
+              ],
             ),
-            child: SizedBox(
-              width: ScreenHelper.screenWidth(context),
-              child: Center(
-                child: SizedBox(
-                  // width: 50.0,
-                  height: 75.0,
-                  child: SvgPicture.asset(
-                    'assets/images/03.svg',
-                    fit: BoxFit.fitHeight,
-                  ),
+          ),
+          child: SizedBox(
+            width: ScreenHelper.screenWidth(context),
+            child: Center(
+              child: SizedBox(
+                height: 120.0,
+                width: 120.0,
+                child: SvgPicture.asset(
+                  'assets/images/03.svg',
+                  fit: BoxFit.fitHeight,
                 ),
               ),
             ),
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 
@@ -274,13 +271,16 @@ class MainDrawer extends StatelessWidget {
     BuildContext context,
     Null Function() onTap,
   ) {
-    return ListTile(
-      title: Text(
-        value,
-        style: Theme.of(context).textTheme.bodyText1,
+    return Padding(
+      padding: const EdgeInsets.only(left: 5.0),
+      child: ListTile(
+        title: Text(
+          value,
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
+        leading: icon,
+        onTap: onTap,
       ),
-      leading: icon,
-      onTap: onTap,
     );
   }
 
