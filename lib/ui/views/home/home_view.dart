@@ -90,7 +90,7 @@ class _HomeViewState extends State<HomeView> {
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
             childAspectRatio: 1,
             crossAxisSpacing: 0,
-            mainAxisExtent: ScreenHelper.screenHeight(context) * .8,
+            mainAxisExtent: 450.0,
             crossAxisCount: ScreenHelper.isPortrait(context) ? 1 : 2,
           ),
           primary: false,
@@ -109,33 +109,34 @@ class _HomeViewState extends State<HomeView> {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: CustomContainer(
-        paddingV: 20.0,
+        paddingV: 10.0,
         child: Column(
-          // mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          // mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _buildPackageImage(data.dest),
             const Separation(),
             Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                // mainAxisAlignment: MainAxisAlignment.spaceAround,
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   AutoSizeText(
                     data.titulo!,
                     style: Theme.of(context).textTheme.headline5!,
-                    maxLines: 2,
+                    maxLines: 1,
                     textAlign: TextAlign.center,
                     minFontSize: 12,
                     maxFontSize:
                         Theme.of(context).textTheme.headline5!.fontSize!,
                     overflow: TextOverflow.visible,
                   ),
+                  const Separation(),
                   _buildCaracteristicas(data.caracteristicas!, context),
+                  const Separation(),
                   Text(
-                    data.amount!.toString(),
-                    style: Theme.of(context).textTheme.headline5,
+                    '${data.amount!.toString()} USD',
+                    style: Theme.of(context).textTheme.headline4,
                   ),
                 ],
               ),
@@ -259,8 +260,8 @@ class _HomeViewState extends State<HomeView> {
     return Padding(
       padding: const EdgeInsets.all(1.0),
       child: SizedBox(
-        width: 200.0,
-        height: 200.0,
+        width: 125.0,
+        height: 125.0,
         child: SvgPicture.asset(s),
       ),
     );

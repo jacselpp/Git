@@ -22,245 +22,234 @@ class MainDrawer extends StatelessWidget {
     final locale = AppLocalizations.of(context)!;
     return Drawer(
       child: Material(
-        color: Theme.of(context).scaffoldBackgroundColor,
-        child: ListView(
-          shrinkWrap: true,
-          primary: true,
-          children: [
-            _buildHeader(context),
-            const SizedBox(
-              height: 10.0,
-            ),
-            const Divider(
-              thickness: 2.0,
-            ),
-            const SizedBox(
-              height: 10.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                locale.read('recharges'),
-                style: Theme.of(context).textTheme.headline6!.copyWith(
-                      color: primaryColor,
+        child: Container(
+          color: Theme.of(context).scaffoldBackgroundColor,
+          child: ListView(
+            shrinkWrap: true,
+            primary: true,
+            children: [
+              _buildHeader(context),
+              const SizedBox(
+                height: 10.0,
+              ),
+              const Divider(
+                thickness: 2.0,
+              ),
+              const SizedBox(
+                height: 10.0,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  locale.read('recharges'),
+                  style: Theme.of(context).textTheme.headline6!.copyWith(
+                        color: primaryColor,
+                      ),
+                ),
+              ),
+              _buildItem(
+                Icon(
+                  Icons.phone_android,
+                  color: Theme.of(context).appBarTheme.iconTheme!.color,
+                ),
+                // Icons.phone_android,
+                locale.read('cubacel'),
+                context,
+                () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const RecargasCubacelView(),
                     ),
+                  );
+                },
               ),
-            ),
-            _buildItem(
-              Icon(
-                Icons.phone_android,
-                color: Theme.of(context).appBarTheme.iconTheme!.color,
+              _buildItem(
+                // Icons.wifi,
+                Icon(
+                  Icons.wifi,
+                  color: Theme.of(context).appBarTheme.iconTheme!.color,
+                ),
+                locale.read('nauta'),
+                context,
+                () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const RecargasNautaView(),
+                    ),
+                  );
+                },
               ),
-              // Icons.phone_android,
-              locale.read('cubacel'),
-              context,
-              () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const RecargasCubacelView(),
-                  ),
-                );
-              },
-            ),
-            _buildItem(
-              // Icons.wifi,
-              Icon(
-                Icons.wifi,
-                color: Theme.of(context).appBarTheme.iconTheme!.color,
+              _buildItem(
+                // Icons.history,
+                Icon(
+                  Icons.history,
+                  color: Theme.of(context).appBarTheme.iconTheme!.color,
+                ),
+                locale.read('history'),
+                context,
+                () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const HistoryView()));
+                },
               ),
-              locale.read('nauta'),
-              context,
-              () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const RecargasNautaView(),
-                  ),
-                );
-              },
-            ),
-            _buildItem(
-              // Icons.history,
-              Icon(
-                Icons.history,
-                color: Theme.of(context).appBarTheme.iconTheme!.color,
-              ),
-              locale.read('history'),
-              context,
-              () {
-                Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => const HistoryView()));
-              },
-            ),
-            _buildItem(
-              SvgPicture.asset(
-                'assets/images/36.svg',
-                width: 24.0,
-                height: 24.0,
-              ),
-              locale.read('tab_testimony'),
-              context,
-              () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => HomeLayout(
-                      floatingActionButton: _addTestimonialsButton(context),
-                      child: const TestimonialsWidget(
-                        vertical: true,
+              _buildItem(
+                SvgPicture.asset(
+                  'assets/images/36.svg',
+                  width: 24.0,
+                  height: 24.0,
+                ),
+                locale.read('tab_testimony'),
+                context,
+                () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => HomeLayout(
+                        floatingActionButton: _addTestimonialsButton(context),
+                        child: const TestimonialsWidget(
+                          vertical: true,
+                        ),
                       ),
                     ),
-                  ),
-                );
-              },
-            ),
-            const Divider(
-              thickness: 2.0,
-            ),
-            _buildItem(
-              Icon(
-                Icons.help_outline,
-                color: Theme.of(context).appBarTheme.iconTheme!.color,
+                  );
+                },
               ),
-              // Icons.help_outline,
-              locale.read('about_us'),
-              context,
-              () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const AboutUsView(),
-                  ),
-                );
-              },
-            ),
-            _buildItem(
-              Icon(
-                Icons.call,
-                color: Theme.of(context).appBarTheme.iconTheme!.color,
+              const Divider(
+                thickness: 2.0,
               ),
-              // Icons.call,
-              locale.read('contact_us'),
-              context,
-              () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const ContactView(),
-                  ),
-                );
-              },
-            ),
-            _buildItem(
-              Icon(
-                Icons.error_outline,
-                color: Theme.of(context).appBarTheme.iconTheme!.color,
+              _buildItem(
+                Icon(
+                  Icons.help_outline,
+                  color: Theme.of(context).appBarTheme.iconTheme!.color,
+                ),
+                // Icons.help_outline,
+                locale.read('about_us'),
+                context,
+                () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const AboutUsView(),
+                    ),
+                  );
+                },
               ),
-              locale.read('terms'),
-              context,
-              () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const TermsView(),
-                  ),
-                );
-              },
-            ),
-            _buildItem(
-              Icon(
-                Icons.security,
-                color: Theme.of(context).appBarTheme.iconTheme!.color,
+              _buildItem(
+                Icon(
+                  Icons.call,
+                  color: Theme.of(context).appBarTheme.iconTheme!.color,
+                ),
+                // Icons.call,
+                locale.read('contact_us'),
+                context,
+                () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const ContactView(),
+                    ),
+                  );
+                },
               ),
-              // Icons.lock_outline,
-              locale.read('policy'),
-              context,
-              () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const PrivacyView(),
-                  ),
-                );
-              },
-            ),
-            _buildItem(
-              Icon(
-                Icons.attach_money,
-                color: Theme.of(context).appBarTheme.iconTheme!.color,
+              _buildItem(
+                Icon(
+                  Icons.error_outline,
+                  color: Theme.of(context).appBarTheme.iconTheme!.color,
+                ),
+                locale.read('terms'),
+                context,
+                () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const TermsView(),
+                    ),
+                  );
+                },
               ),
-              locale.read('refund'),
-              context,
-              () {
-                Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const RefundView(),
-                  ),
-                );
-              },
-            ),
-            const Divider(
-              thickness: 2.0,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 20.0,
+              _buildItem(
+                Icon(
+                  Icons.security,
+                  color: Theme.of(context).appBarTheme.iconTheme!.color,
+                ),
+                // Icons.lock_outline,
+                locale.read('policy'),
+                context,
+                () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const PrivacyView(),
+                    ),
+                  );
+                },
               ),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  _buildItemApp('04.svg', 'https://anuncios.detooo.com'),
-                  _buildItemApp('05.svg', 'https://shop.detooo.com'),
-                  // _buildItemApp('06.svg', 'https://www.exeditec.com'),
-                ],
+              _buildItem(
+                Icon(
+                  Icons.attach_money,
+                  color: Theme.of(context).appBarTheme.iconTheme!.color,
+                ),
+                locale.read('refund'),
+                context,
+                () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const RefundView(),
+                    ),
+                  );
+                },
               ),
-            ),
-            const Divider(
-              thickness: 2.0,
-            ),
-            _buildItem(
-              const Icon(
-                Icons.power_settings_new,
-                color: primaryColor,
+              const Divider(
+                thickness: 2.0,
               ),
-              locale.read('dialog_accept'),
-              context,
-              () {
-                showDialog(
-                  context: context,
-                  builder: (_) => dialogExit(context),
-                );
-              },
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 20.0,
+                ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _buildItemApp('04.svg', 'https://anuncios.detooo.com'),
+                    _buildItemApp('05.svg', 'https://shop.detooo.com'),
+                    // _buildItemApp('06.svg', 'https://www.exeditec.com'),
+                  ],
+                ),
+              ),
+              const Divider(
+                thickness: 2.0,
+              ),
+              _buildItem(
+                const Icon(
+                  Icons.power_settings_new,
+                  color: primaryColor,
+                ),
+                locale.read('dialog_accept'),
+                context,
+                () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => dialogExit(context),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 
   Widget _buildHeader(BuildContext context) {
-    return Stack(
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Theme.of(context).cardColor,
-                Theme.of(context).scaffoldBackgroundColor,
-              ],
-            ),
-          ),
+    return Padding(
+      padding: const EdgeInsets.all(20.0),
+      child: SizedBox(
+        width: ScreenHelper.screenWidth(context),
+        child: Center(
           child: SizedBox(
-            width: ScreenHelper.screenWidth(context),
-            child: Center(
-              child: SizedBox(
-                height: 120.0,
-                child: SvgPicture.asset(
-                  'assets/images/03.svg',
-                  fit: BoxFit.fitHeight,
-                ),
-              ),
+            height: 120.0,
+            child: SvgPicture.asset(
+              'assets/images/03.svg',
+              fit: BoxFit.fitHeight,
             ),
           ),
         ),
-      ],
+      ),
     );
   }
 

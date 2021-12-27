@@ -6,27 +6,12 @@ class BuildHelp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            Expanded(
-              child: Builder(
-                builder: (ctx) {
-                  return Image.asset(
-                    'assets/images/102.png',
-                    width: ScreenHelper.screenWidth(ctx),
-                  );
-                },
-              ),
-            ),
-            // if (!ScreenHelper.isPortrait(context))
-            //   Expanded(
-            //     child: _buildHelp(context),
-            //   ),
-          ],
-        ),
-      ],
+    return SizedBox(
+      width: ScreenHelper.screenWidth(context),
+      child: Image.asset(
+        'assets/images/102.png',
+        fit: BoxFit.fitWidth,
+      ),
     );
   }
 }
