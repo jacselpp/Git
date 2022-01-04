@@ -32,9 +32,7 @@ class MainDrawer extends StatelessWidget {
               const SizedBox(
                 height: 10.0,
               ),
-              const Divider(
-                thickness: 2.0,
-              ),
+              const Divider(),
               const SizedBox(
                 height: 10.0,
               ),
@@ -95,8 +93,8 @@ class MainDrawer extends StatelessWidget {
               _buildItem(
                 SvgPicture.asset(
                   'assets/images/36.svg',
-                  width: 24.0,
-                  height: 24.0,
+                  width: 20.0,
+                  height: 20.0,
                 ),
                 locale.read('tab_testimony'),
                 context,
@@ -113,9 +111,7 @@ class MainDrawer extends StatelessWidget {
                   );
                 },
               ),
-              const Divider(
-                thickness: 2.0,
-              ),
+              const Divider(),
               _buildItem(
                 Icon(
                   Icons.help_outline,
@@ -194,9 +190,7 @@ class MainDrawer extends StatelessWidget {
                   );
                 },
               ),
-              const Divider(
-                thickness: 2.0,
-              ),
+              const Divider(),
               Padding(
                 padding: const EdgeInsets.only(
                   bottom: 20.0,
@@ -239,16 +233,11 @@ class MainDrawer extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(20.0),
       child: SizedBox(
-        width: ScreenHelper.screenWidth(context),
-        child: Center(
-          child: SizedBox(
-            height: 120.0,
-            child: SvgPicture.asset(
-              'assets/images/03.svg',
-              fit: BoxFit.fitHeight,
-            ),
+        height: 120.0,
+        width:120.0,
+        child: SvgPicture.asset(
+            'assets/images/01.svg',
           ),
-        ),
       ),
     );
   }

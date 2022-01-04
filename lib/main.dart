@@ -23,6 +23,12 @@ void _enablePlatformOverrideForDesktop() {
   }
 }
 
+Future<void> _setOrientation() async {
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]);
+}
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 

@@ -123,20 +123,26 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   AutoSizeText(
                     data.titulo!,
-                    style: Theme.of(context).textTheme.headline5!,
+                    style: Theme.of(context).textTheme.headline6!,
                     maxLines: 1,
                     textAlign: TextAlign.center,
                     minFontSize: 12,
                     maxFontSize:
-                        Theme.of(context).textTheme.headline5!.fontSize!,
+                        Theme.of(context).textTheme.headline6!.fontSize!,
                     overflow: TextOverflow.visible,
                   ),
                   const Separation(),
                   _buildCaracteristicas(data.caracteristicas!, context),
                   const Separation(),
-                  Text(
+                  AutoSizeText(
                     '${data.amount!.toString()} USD',
-                    style: Theme.of(context).textTheme.headline4,
+                    style: Theme.of(context).textTheme.headline6!,
+                    maxLines: 1,
+                    textAlign: TextAlign.center,
+                    minFontSize: 12,
+                    maxFontSize:
+                        Theme.of(context).textTheme.headline6!.fontSize!,
+                    overflow: TextOverflow.visible,
                   ),
                 ],
               ),
