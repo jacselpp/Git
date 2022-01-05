@@ -26,7 +26,8 @@ class MainAppBar {
               onPressed: () {
                 Navigator.of(context).pushNamed(Routes.HOME);
               },
-              icon: const Icon(Icons.arrow_back))
+              icon: const Icon(Icons.arrow_back),
+            )
           : null,
       toolbarHeight: 50.0,
       title: Row(
@@ -36,8 +37,10 @@ class MainAppBar {
             child: Builder(builder: (context) {
               return SizedBox(
                 height: Scaffold.of(context).appBarMaxHeight! - 4,
-                width: ScreenHelper.screenWidthPercentage(context,
-                    percentage: 0.35),
+                width: ScreenHelper.screenWidthPercentage(
+                  context,
+                  percentage: 0.35,
+                ),
                 child: SvgPicture.asset('assets/images/02.svg'),
               );
             }),
@@ -108,11 +111,6 @@ class MainAppBar {
                 Icons.person_outline,
               ),
             ),
-            // _buildMenuItem(
-            //   context,
-            //   "security",
-            //   const Icon(Icons.security),
-            // ),
             _buildMenuItem(
               context,
               "logout",

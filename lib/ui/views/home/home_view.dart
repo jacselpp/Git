@@ -123,12 +123,14 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   AutoSizeText(
                     data.titulo!,
-                    style: Theme.of(context).textTheme.headline6!,
+                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                     maxLines: 1,
                     textAlign: TextAlign.center,
                     minFontSize: 12,
                     maxFontSize:
-                        Theme.of(context).textTheme.headline6!.fontSize!,
+                        Theme.of(context).textTheme.headline5!.fontSize!,
                     overflow: TextOverflow.visible,
                   ),
                   const Separation(),
@@ -136,12 +138,14 @@ class _HomeViewState extends State<HomeView> {
                   const Separation(),
                   AutoSizeText(
                     '${data.amount!.toString()} USD',
-                    style: Theme.of(context).textTheme.headline6!,
+                    style: Theme.of(context).textTheme.headline5!.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
                     maxLines: 1,
                     textAlign: TextAlign.center,
                     minFontSize: 12,
                     maxFontSize:
-                        Theme.of(context).textTheme.headline6!.fontSize!,
+                        Theme.of(context).textTheme.headline5!.fontSize!,
                     overflow: TextOverflow.visible,
                   ),
                 ],

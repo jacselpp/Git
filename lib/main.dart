@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:async';
 import 'package:detooo_recargas/utils/log_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:logger/logger.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/foundation.dart';
@@ -33,6 +34,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   runZonedGuarded(() async {
+    await _setOrientation();
     _enablePlatformOverrideForDesktop();
     setupLocator();
 
