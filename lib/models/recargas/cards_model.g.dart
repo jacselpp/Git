@@ -86,7 +86,7 @@ Map<String, dynamic> _$AddressToJson(Address instance) => <String, dynamic>{
       'state': instance.state,
     };
 
-CardS _$CardFromJson(Map<String, dynamic> json) => CardS(
+CardS _$CardSFromJson(Map<String, dynamic> json) => CardS(
       brand: json['brand'] as String?,
       checks: json['checks'] == null
           ? null
@@ -108,7 +108,7 @@ CardS _$CardFromJson(Map<String, dynamic> json) => CardS(
       wallet: json['wallet'] as String?,
     );
 
-Map<String, dynamic> _$CardToJson(CardS instance) => <String, dynamic>{
+Map<String, dynamic> _$CardSToJson(CardS instance) => <String, dynamic>{
       'brand': instance.brand,
       'checks': instance.checks,
       'country': instance.country,

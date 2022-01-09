@@ -124,8 +124,8 @@ class CardS {
   ThreeDSecureUsage? threeDSecureUsage;
   String? wallet;
 
-  factory CardS.fromJson(Map<String, dynamic> json) => _$CardFromJson(json);
-  Map<String, dynamic> toJson() => _$CardToJson(this);
+  factory CardS.fromJson(Map<String, dynamic> json) => _$CardSFromJson(json);
+  Map<String, dynamic> toJson() => _$CardSToJson(this);
 }
 
 @JsonSerializable()
