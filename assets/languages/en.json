@@ -6,7 +6,9 @@
     "success_change_password": "Password changed successfully.",
     "success_password_reset": "Password reset successfully.",
     "done_login": "Successfully accessed.",
-
+    "no_cards": "No cards",
+    "cards": "Cards",
+    
     "home": "Home",
     "recharges": "Recharges",
     "cubacel": "Cubacel",

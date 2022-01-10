@@ -4,6 +4,16 @@ import 'package:flutter/material.dart';
 
 class UserCardsProvider extends ChangeNotifier {
   UserCards? _userCards;
+  bool _loading = false;
+
+  bool get loading => _loading;
+
+  UserCards? get cards {
+    if (_userCards == null) {
+      fetchCards();
+    }
+    return _userCards;
+  }
 
   Future<UserCards?> get userCards async {
     if (_userCards == null) {
@@ -13,6 +23,7 @@ class UserCardsProvider extends ChangeNotifier {
   }
 
   void fetchCards() async {
+    _setLoading(true);
     await ApiPayments.common().getStripeUsersCard().then((value) {
       if (_userCards == null) setuserCards(value);
     });
@@ -20,6 +31,12 @@ class UserCardsProvider extends ChangeNotifier {
 
   void setuserCards(UserCards value) {
     _userCards = value;
+    _setLoading(false);
+    notifyListeners();
+  }
+
+  void _setLoading(bool value) {
+    _loading = value;
     notifyListeners();
   }
 }

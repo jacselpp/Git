@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:detooo_recargas/app/app_localizations.dart';
-import 'package:detooo_recargas/ui/layouts/home_layout.dart';
 import 'package:detooo_recargas/models/recargas/promotions_model.dart';
 import 'package:detooo_recargas/services/providers/recargas_provider.dart';
 import 'package:detooo_recargas/ui/views/recargas/recargas_cubacel_view.dart';
@@ -30,6 +29,22 @@ class _HomeViewState extends State<HomeView> {
     return WillPopScope(
       onWillPop: () => _onBackPressed(locale),
       child: HomeLayout(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            showModalBottomSheet(
+              context: context,
+              isScrollControlled: true,
+              backgroundColor: Colors.transparent,
+              shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(20.0),
+                ),
+              ),
+              builder: (context) => const CardDraggableScrollableSheet(),
+            );
+          },
+          child: const Icon(Icons.ac_unit),
+        ),
         mainDrawer: true,
         child: Column(
           mainAxisSize: MainAxisSize.min,
