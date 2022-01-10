@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:detooo_recargas/services/stripe/stripe.dart';
 import 'package:detooo_recargas/services/network/api_payments.dart';
 
 class StripeKeyProvider extends ChangeNotifier {
@@ -15,7 +14,6 @@ class StripeKeyProvider extends ChangeNotifier {
 
   void setStripeKey(String stripeKey) {
     _stripeKey = stripeKey;
-    if (!kIsWeb) StripeClass.initStripe(stripeKey);
     notifyListeners();
   }
 }

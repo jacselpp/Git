@@ -1,6 +1,8 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:detooo_recargas/models/recargas/cards_model.dart';
 import 'package:detooo_recargas/services/providers/user_cards_provider.dart';
+import 'package:detooo_recargas/ui/widgets/credit_card_button.dart';
+import 'package:detooo_recargas/ui/widgets/custom_credit_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercontactpicker/fluttercontactpicker.dart';
@@ -28,6 +30,7 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
   bool _accept = false;
   PhoneContact? _phoneContact;
   UserCards? _userCards;
+  CardS? _selectedUserCards;
 
   void _handleAccept() {
     setState(() {
@@ -56,6 +59,7 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
       _phoneController.value = TextEditingValue(text: _handlePhone());
     }
 
+    _selectedUserCards = context.watch<UserCardsProvider>().selectedCard;
     _setUserCards(context);
 
     return Form(
@@ -102,6 +106,21 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
           ),
           const SizedBox(
             height: 20.0,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: _selectedUserCards != null
+                    ? Hero(
+                        tag: _selectedUserCards?.fingerprint ?? '',
+                        child: CustomCreditCard(
+                          card: _selectedUserCards!,
+                        ),
+                      )
+                    : Container(),
+              ),
+              CustomCreditCardButon(),
+            ],
           ),
           const Divider(),
           const SizedBox(

@@ -29,22 +29,6 @@ class _HomeViewState extends State<HomeView> {
     return WillPopScope(
       onWillPop: () => _onBackPressed(locale),
       child: HomeLayout(
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            showModalBottomSheet(
-              context: context,
-              isScrollControlled: true,
-              backgroundColor: Colors.transparent,
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(20.0),
-                ),
-              ),
-              builder: (context) => const CardDraggableScrollableSheet(),
-            );
-          },
-          child: const Icon(Icons.ac_unit),
-        ),
         mainDrawer: true,
         child: Column(
           mainAxisSize: MainAxisSize.min,

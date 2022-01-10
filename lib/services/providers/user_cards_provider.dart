@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 class UserCardsProvider extends ChangeNotifier {
   UserCards? _userCards;
   bool _loading = false;
+  CardS? _selectedCard;
 
   bool get loading => _loading;
 
@@ -37,6 +38,18 @@ class UserCardsProvider extends ChangeNotifier {
 
   void _setLoading(bool value) {
     _loading = value;
+    notifyListeners();
+  }
+
+  CardS? get selectedCard => _selectedCard;
+
+  void setSelectedCard(CardS card) {
+    _selectedCard = card;
+    notifyListeners();
+  }
+
+  void clearSelectedCard() {
+    _selectedCard = null;
     notifyListeners();
   }
 }
