@@ -34,7 +34,6 @@ class _HomeViewState extends State<HomeView> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            StripeCard(),
             const BuildSuggestions(),
             const Separation(),
             _buildBody(context),

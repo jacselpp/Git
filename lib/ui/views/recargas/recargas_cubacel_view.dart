@@ -1,11 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:detooo_recargas/models/recargas/cards_model.dart';
+import 'package:detooo_recargas/services/network/dio_instances.dart';
 import 'package:detooo_recargas/services/providers/user_cards_provider.dart';
 import 'package:detooo_recargas/ui/widgets/credit_card_button.dart';
 import 'package:detooo_recargas/ui/widgets/custom_credit_card.dart';
 import 'package:detooo_recargas/ui/widgets/stripe_card.dart';
+import 'package:detooo_recargas/utils/log_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:fluttercontactpicker/fluttercontactpicker.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -29,9 +32,11 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
   String? _dropDownValue;
   Promotions _selectedPromotion = Promotions();
   bool _accept = false;
+  bool _saveUserCard = false;
   PhoneContact? _phoneContact;
   UserCards? _userCards;
   CardS? _selectedUserCards;
+  CardFieldInputDetails? _card;
 
   void _handleAccept() {
     setState(() {
@@ -118,7 +123,13 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
                           card: _selectedUserCards!,
                         ),
                       )
-                    : StripeCard(),
+                    : CardField(
+                        onCardChanged: (card) {
+                          setState(() {
+                            _card = card;
+                          });
+                        },
+                      ),
               ),
               CustomCreditCardButon(),
             ],
@@ -129,6 +140,7 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
           ),
           CustomTextFormField(
             controller: _phoneController,
+            keyboardType: TextInputType.number,
             icon: const Text('+53'),
             label: locale.read('movil'),
             validator: (value) => validatePhoneCubacel(
@@ -192,6 +204,28 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
               Expanded(
                 child: Switch(
                   activeColor: primaryColor,
+                  value: _saveUserCard,
+                  onChanged: (e) => setState(() {
+                    _saveUserCard = e;
+                  }),
+                ),
+              ),
+              Expanded(
+                flex: 4,
+                child: Text(
+                  locale.read('save_card'),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 20.0,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Switch(
+                  activeColor: primaryColor,
                   value: _accept,
                   onChanged: (e) => _handleAccept(),
                 ),
@@ -210,11 +244,9 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
           Row(
             children: [
               Expanded(
-                child: CustomTextButton(
-                  color: primaryColor,
-                  label: locale.read('recharge'),
-                  onPressed: _handleSubmit,
-                ),
+                child: LoadingButton(
+                    onPressed: () => _handlePayPress(context),
+                    text: locale.read('recharge')),
               ),
             ],
           ),
@@ -297,5 +329,55 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
   void _setUserCards(BuildContext context) async {
     _userCards ??= await Future.delayed(const Duration(milliseconds: 100),
         () => context.read<UserCardsProvider>().userCards);
+  }
+
+  Future<void> _handlePayPress(BuildContext context) async {
+    if (_card == null) {
+      return;
+    }
+
+    Stripe.publishableKey = 'pk_test_DCloT2jnnr74pM7iV1GNPLDA';
+    Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
+    Stripe.urlScheme = 'flutterstripe';
+    await Stripe.instance.applySettings();
+
+    final paymentIntent = await Stripe.instance
+        .createPaymentMethod(const PaymentMethodParams.card());
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(paymentIntent.id),
+      ),
+    );
+
+    makeApiRequest(
+      context,
+      paymentId: paymentIntent.id,
+    );
+
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+        content: Text('Success!: The payment was confirmed successfully!')));
+  }
+
+  Future<void> makeApiRequest(BuildContext context,
+      {required String paymentId}) async {
+    try {
+      final response = await dioCommon().post(
+        'https://api.v2.recargas.detooo.com/recargas/cubacel',
+        data: {
+          "movil": _phoneController.text,
+          "package": _selectedPromotion.id,
+          "paymentMethodId": paymentId,
+          "saveCard": _saveUserCard,
+          "off_session": false
+        },
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(e.toString()),
+        ),
+      );
+      LogUtils().logger.wtf(e.toString());
+    }
   }
 }
