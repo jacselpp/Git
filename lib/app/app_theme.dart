@@ -40,16 +40,16 @@ class AppTheme {
           ),
     ),
     iconTheme: const IconThemeData(color: Colors.black),
-    inputDecorationTheme: const InputDecorationTheme(
-      labelStyle: TextStyle(
-        fontSize: 14.0,
-        color: primaryColor,
-      ),
-      hintStyle: TextStyle(
-        fontSize: 14.0,
-        color: primaryColor,
-      ),
-    ),
+    // inputDecorationTheme: const InputDecorationTheme(
+    //   labelStyle: TextStyle(
+    //     fontSize: 14.0,
+    //     color: primaryColor,
+    //   ),
+    //   hintStyle: TextStyle(
+    //     fontSize: 14.0,
+    //     color: primaryColor,
+    //   ),
+    // ),
   );
 
   ThemeData darkTheme = ThemeData.dark().copyWith(

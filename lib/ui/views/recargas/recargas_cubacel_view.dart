@@ -3,6 +3,7 @@ import 'package:detooo_recargas/models/recargas/cards_model.dart';
 import 'package:detooo_recargas/services/providers/user_cards_provider.dart';
 import 'package:detooo_recargas/ui/widgets/credit_card_button.dart';
 import 'package:detooo_recargas/ui/widgets/custom_credit_card.dart';
+import 'package:detooo_recargas/ui/widgets/stripe_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttercontactpicker/fluttercontactpicker.dart';
@@ -117,7 +118,7 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
                           card: _selectedUserCards!,
                         ),
                       )
-                    : Container(),
+                    : StripeCard(),
               ),
               CustomCreditCardButon(),
             ],
