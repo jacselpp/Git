@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:detooo_recargas/models/detooo/sections_model.dart';
 import 'package:detooo_recargas/models/recargas/promotions_model.dart';
 import 'package:detooo_recargas/models/recargas/testimonials_model.dart';
 import 'package:flutter/material.dart';
@@ -210,13 +211,35 @@ class SharedPreference {
 
   static List<Profile>? get users {
     List<String>? usersString = _preference.getStringList('USERS');
-    List<Profile>? testimonialsList = [];
+    List<Profile>? usersList = [];
 
     if (usersString != null) {
       for (var user in usersString) {
-        testimonialsList.add(Profile.fromJson(jsonDecode(user)));
+        usersList.add(Profile.fromJson(jsonDecode(user)));
       }
     }
-    return testimonialsList;
+    return usersList;
+  }
+
+  //! list Terms
+  static void setTerms(List<SectionsModel> sections) {
+    List<String> termsListString = [];
+    for (var user in sections) {
+      termsListString.add(jsonEncode(user.toJson()));
+    }
+    _preference.setStringList('USERS', termsListString);
+  }
+
+  static List<SectionsModel>? get getTerms {
+    List<String>? sectionsString = _preference.getStringList('USERS');
+    List<SectionsModel>? sectionList = [];
+
+    if (sectionsString != null) {
+      for (var section in sectionsString) {
+        sectionList.add(SectionsModel.fromJson(jsonDecode(section)));
+      }
+    }
+
+    return sectionList;
   }
 }

@@ -4,7 +4,6 @@ import 'package:detooo_recargas/services/network/dio_instances.dart';
 import 'package:detooo_recargas/services/providers/user_cards_provider.dart';
 import 'package:detooo_recargas/ui/widgets/credit_card_button.dart';
 import 'package:detooo_recargas/ui/widgets/custom_credit_card.dart';
-import 'package:detooo_recargas/ui/widgets/stripe_card.dart';
 import 'package:detooo_recargas/utils/log_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

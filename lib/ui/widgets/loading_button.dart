@@ -46,7 +46,7 @@ class _LoadingButtonState extends State<LoadingButton> {
 
     try {
       await widget.onPressed!();
-    } catch (e, s) {
+    } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text('Error $e')));
       rethrow;

@@ -39,10 +39,7 @@ class _LoginViewState extends State<LoginView> {
     final locale = AppLocalizations.of(context)!;
     return AuthLayout(
       child: CustomContainer(
-        child: Padding(
-          padding: const EdgeInsets.all(30.0),
-          child: _buildLoginForm(locale),
-        ),
+        child: _buildLoginForm(locale),
       ),
     );
   }
@@ -90,8 +87,11 @@ class _LoginViewState extends State<LoginView> {
                   children: [
                     SizedBox(
                       height: 50.0,
-                      child: SvgPicture.asset(
-                        'assets/images/01.svg',
+                      child: Hero(
+                        tag: 'assets/images/01.svg',
+                        child: SvgPicture.asset(
+                          'assets/images/01.svg',
+                        ),
                       ),
                     ),
                   ],

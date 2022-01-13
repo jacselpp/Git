@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:detooo_recargas/services/providers/municipios_provider.dart';
 import 'package:detooo_recargas/services/providers/provincias_provider.dart';
 import 'package:detooo_recargas/services/providers/subscriptions_provider.dart';
+import 'package:detooo_recargas/services/providers/terms_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -47,6 +48,8 @@ class _SplashViewState extends State<SplashView> {
     String? _key = SharedPreference.readUserKey;
     String? uid = SharedPreference.userId;
 
+    context.read<TermsProvider>().fetchSections;
+
     if (_key != null) {
       context.read<ProfileProvider>().fetchProfile();
       context.read<SubscriptionsProvider>().fetchSubscribed();
@@ -67,8 +70,11 @@ class _SplashViewState extends State<SplashView> {
     return Center(
       child: SizedBox(
         height: 100.0,
-        child: SvgPicture.asset(
-          'assets/images/01.svg',
+        child: Hero(
+          tag: 'assets/images/01.svg',
+          child: SvgPicture.asset(
+            'assets/images/01.svg',
+          ),
         ),
       ),
     );
