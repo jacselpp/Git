@@ -128,8 +128,7 @@ class _HomeViewState extends State<HomeView> {
                     maxLines: 1,
                     textAlign: TextAlign.center,
                     minFontSize: 12,
-                    maxFontSize:
-                        Theme.of(context).textTheme.headline5!.fontSize!,
+                    maxFontSize: 20,
                     overflow: TextOverflow.visible,
                   ),
                   const Separation(),
@@ -143,8 +142,7 @@ class _HomeViewState extends State<HomeView> {
                     maxLines: 1,
                     textAlign: TextAlign.center,
                     minFontSize: 12,
-                    maxFontSize:
-                        Theme.of(context).textTheme.headline5!.fontSize!,
+                    maxFontSize: 20,
                     overflow: TextOverflow.visible,
                   ),
                 ],

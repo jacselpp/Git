@@ -36,15 +36,6 @@ class MainDrawer extends StatelessWidget {
               const SizedBox(
                 height: 10.0,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  locale.read('recharges'),
-                  style: Theme.of(context).textTheme.headline6!.copyWith(
-                        color: primaryColor,
-                      ),
-                ),
-              ),
               _buildItem(
                 Icon(
                   Icons.phone_android,
@@ -234,10 +225,10 @@ class MainDrawer extends StatelessWidget {
       padding: const EdgeInsets.all(20.0),
       child: SizedBox(
         height: 120.0,
-        width:120.0,
+        width: 120.0,
         child: SvgPicture.asset(
-            'assets/images/01.svg',
-          ),
+          'assets/images/03.svg',
+        ),
       ),
     );
   }
