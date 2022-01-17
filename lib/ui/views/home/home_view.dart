@@ -47,7 +47,7 @@ class _HomeViewState extends State<HomeView> {
   Widget _buildBody(BuildContext context) {
     return FutureBuilder(
       future: Future.delayed(const Duration(milliseconds: 500),
-          () => context.read<PackagesProvider>().packages),
+          () => context.read<PackagesProvider>().promotions),
       builder:
           (BuildContext context, AsyncSnapshot<List<Promotions>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {

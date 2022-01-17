@@ -1,5 +1,6 @@
 import 'package:detooo_recargas/app/app_connectivity.dart';
 import 'package:detooo_recargas/services/providers/history_provider.dart';
+import 'package:detooo_recargas/services/providers/recargas_provider.dart';
 import 'package:detooo_recargas/services/providers/stripe_key_provider.dart';
 import 'package:detooo_recargas/services/providers/testimonials_provider.dart';
 import 'package:detooo_recargas/ui/views/auth/activate_view.dart';
@@ -56,6 +57,7 @@ class UserRepository {
         SharedPreference.saveUserKey(value.accessToken!);
 
         context.read<ProfileProvider>().fetchProfile();
+        context.read<PackagesProvider>().fetchPackages();
         context.read<HistoryProvider>().clearHistory();
         context.read<TestimonialsProvider>().fetchTestimonials();
         context.read<TestimonialsProvider>().fetchTestimonials();

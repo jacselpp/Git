@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:detooo_recargas/services/providers/municipios_provider.dart';
 import 'package:detooo_recargas/services/providers/provincias_provider.dart';
+import 'package:detooo_recargas/services/providers/recargas_provider.dart';
 import 'package:detooo_recargas/services/providers/subscriptions_provider.dart';
 import 'package:detooo_recargas/services/providers/terms_provider.dart';
 import 'package:flutter/material.dart';
@@ -53,6 +54,7 @@ class _SplashViewState extends State<SplashView> {
     if (_key != null) {
       context.read<ProfileProvider>().fetchProfile();
       context.read<SubscriptionsProvider>().fetchSubscribed();
+      context.read<PackagesProvider>().fetchPackages();
     }
 
     context.read<ProvinciasProvider>().fetchAllProvincias();

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:detooo_recargas/models/detooo/sections_model.dart';
+import 'package:detooo_recargas/models/recargas/package_model.dart';
 import 'package:detooo_recargas/models/recargas/promotions_model.dart';
 import 'package:detooo_recargas/models/recargas/testimonials_model.dart';
 import 'package:flutter/material.dart';
@@ -156,7 +157,7 @@ class SharedPreference {
   static void get removeUserId => _preference.remove('USERID');
 
   //! list promotions
-  static void setPackages(List<Promotions> promotions) {
+  static void setPromotions(List<Promotions> promotions) {
     List<String> municipiosListString = [];
     for (var promotion in promotions) {
       municipiosListString.add(jsonEncode(promotion.toJson()));
@@ -177,6 +178,29 @@ class SharedPreference {
   }
 
   static void get removePromotions => _preference.remove('PROMOTIONS');
+
+  //! list packages
+  static void setPackages(List<Item> packages) {
+    List<String> packageString = [];
+    for (var package in packages) {
+      packageString.add(jsonEncode(package.toJson()));
+    }
+    _preference.setStringList('PACKAGE', packageString);
+  }
+
+  static List<Item>? get package {
+    List<String>? packageString = _preference.getStringList('PACKAGE');
+    List<Item>? packageList = [];
+
+    if (packageString != null) {
+      for (var promotion in packageString) {
+        packageList.add(Item.fromJson(jsonDecode(promotion)));
+      }
+    }
+    return packageList;
+  }
+
+  static void get removePackages => _preference.remove('PACKAGE');
 
   //! list testimonials
   static void setTestimonials(List<Testimonials> testimonials) {

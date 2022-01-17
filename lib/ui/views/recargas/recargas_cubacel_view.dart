@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:detooo_recargas/models/recargas/cards_model.dart';
+import 'package:detooo_recargas/models/recargas/package_model.dart';
 import 'package:detooo_recargas/services/network/dio_instances.dart';
 import 'package:detooo_recargas/services/providers/user_cards_provider.dart';
 import 'package:detooo_recargas/ui/widgets/credit_card_button.dart';
 import 'package:detooo_recargas/ui/widgets/custom_credit_card.dart';
+import 'package:detooo_recargas/utils/constant.dart';
 import 'package:detooo_recargas/utils/log_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +16,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:detooo_recargas/utils/validators.dart';
 import 'package:detooo_recargas/app/app_localizations.dart';
-import 'package:detooo_recargas/models/recargas/promotions_model.dart';
 import 'package:detooo_recargas/services/providers/recargas_provider.dart';
 
 class RecargasCubacelView extends StatefulWidget {
@@ -29,7 +30,7 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
   final TextEditingController _phoneController = TextEditingController();
 
   String? _dropDownValue;
-  Promotions _selectedPromotion = Promotions();
+  Item _selectedPackage = Item();
   bool _accept = false;
   bool _saveUserCard = false;
   PhoneContact? _phoneContact;
@@ -45,10 +46,9 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
 
   @override
   Widget build(BuildContext context) {
-    if (context.watch<PackagesProvider>().pack.isNotEmpty) {
-      List<String> l = _handleResults(context.watch<PackagesProvider>().pack);
-      if (_selectedPromotion.amount == null) {
-        _handlePromotion(context.watch<PackagesProvider>().pack, l[0]);
+    if (context.watch<PackagesProvider>().prom.isNotEmpty) {
+      if (_selectedPackage.price == null) {
+        _handlePromotion(context.watch<PackagesProvider>().pack, '');
       }
     } else {
       return const CircularProgressIndicator();
@@ -106,7 +106,7 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
             ],
           ),
           _buildCaracteristicas(
-            _selectedPromotion.caracteristicas,
+            _selectedPackage.description?.description,
             context,
           ),
           const SizedBox(
@@ -254,15 +254,15 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
     );
   }
 
-  List<String> _handleResults(List<Promotions> pack) {
+  List<String> _handleResults(List<Item> pack) {
     List<String> packages = [];
     for (var promotion in pack) {
-      if (promotion.dest == 'cubacel') {
-        packages.add(promotion.amount!.toString());
+      if (promotion.type == 'cubacel') {
+        packages.add(promotion.price!.toString());
       }
     }
     _dropDownValue ??= packages[0];
-    if (_selectedPromotion.amount == null) {
+    if (_selectedPackage.price == null) {
       _handlePromotion(
         pack,
         packages[0],
@@ -271,43 +271,33 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
     return packages;
   }
 
-  void _handlePromotion(List<Promotions> pack, String value) {
-    for (var promotion in pack) {
-      if (promotion.amount.toString() == value) {
-        _selectedPromotion = promotion;
+  void _handlePromotion(List<Item> pack, String value) {
+    for (var package in pack) {
+      if (package.price.toString() == value) {
+        _selectedPackage = package;
         setState(() {});
       }
     }
   }
 
   Widget _buildCaracteristicas(
-    List<String>? caracteristicas,
+    String? caracteristicas,
     BuildContext context,
   ) {
-    String caracteristicasString = '          ';
+    String caracteristicasString = '                         ';
     if (caracteristicas != null) {
-      for (var caracteristica in caracteristicas) {
-        caracteristicasString = '$caracteristicasString $caracteristica +';
-      }
+      caracteristicasString = caracteristicas;
     }
     return Text(
       caracteristicasString
-          .replaceRange(caracteristicasString.length - 1,
+          .replaceRange(caracteristicasString.length - 4,
               caracteristicasString.length, '')
+          .replaceRange(0, 3, '')
           .trim(),
       style: Theme.of(context).textTheme.bodyText2,
       textAlign: TextAlign.justify,
       overflow: TextOverflow.ellipsis,
     );
-  }
-
-  void _handleSubmit() {
-    final locale = AppLocalizations.of(context)!;
-    if (!_formKey.currentState!.validate()) return;
-    if (!_accept) {
-      showMessage(context, locale.read('should_accept'), TypeMessage.ERROR);
-      return;
-    }
   }
 
   String _handlePhone() {
@@ -332,6 +322,13 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
 
   Future<void> _handlePayPress(BuildContext context) async {
     if (_card == null) {
+      return;
+    }
+
+    final locale = AppLocalizations.of(context)!;
+    if (!_formKey.currentState!.validate()) return;
+    if (!_accept) {
+      showMessage(context, locale.read('should_accept'), TypeMessage.ERROR);
       return;
     }
 
@@ -360,11 +357,12 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
   Future<void> makeApiRequest(BuildContext context,
       {required String paymentId}) async {
     try {
+      // ignore: unused_local_variable
       final response = await dioCommon().post(
-        'https://api.v2.recargas.detooo.com/recargas/cubacel',
+        '${API_RECARGAS}recargas/cubacel',
         data: {
           "movil": _phoneController.text,
-          "package": _selectedPromotion.id,
+          "package": _selectedPackage.id,
           "paymentMethodId": paymentId,
           "saveCard": _saveUserCard,
           "off_session": false
