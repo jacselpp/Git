@@ -332,26 +332,13 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
       return;
     }
 
-    Stripe.publishableKey = 'pk_test_DCloT2jnnr74pM7iV1GNPLDA';
-    Stripe.merchantIdentifier = 'merchant.flutter.stripe.test';
-    Stripe.urlScheme = 'flutterstripe';
-    await Stripe.instance.applySettings();
-
     final paymentIntent = await Stripe.instance
         .createPaymentMethod(const PaymentMethodParams.card());
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(paymentIntent.id),
-      ),
-    );
 
-    makeApiRequest(
+    await makeApiRequest(
       context,
       paymentId: paymentIntent.id,
     );
-
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-        content: Text('Success!: The payment was confirmed successfully!')));
   }
 
   Future<void> makeApiRequest(BuildContext context,
@@ -368,6 +355,9 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
           "off_session": false
         },
       );
+
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text('Success!: The payment was confirmed successfully!')));
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(

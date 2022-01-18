@@ -37,40 +37,6 @@ class AuthLayout extends StatelessWidget {
     );
   }
 
-  // Widget _buildHeader(
-  //   BuildContext context,
-  //   bool isPortrait,
-  // ) =>
-  //     SliverAppBar(
-  //       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-  //       expandedHeight: isPortrait
-  //           ? ScreenHelper.screenHeightPercentage(
-  //               context,
-  //               percentage: .35,
-  //             )
-  //           : 0.0,
-  //       floating: false,
-  //       pinned: false,
-  //       flexibleSpace: FlexibleSpaceBar(
-  //         background: Stack(
-  //           children: [
-  //             Positioned(
-  //               child: Align(
-  //                 alignment: Alignment.bottomCenter,
-  //                 child: Padding(
-  //                   padding: const EdgeInsets.all(20.0),
-  //                   child: SvgPicture.asset(
-  //                     'assets/images/Identidad_Recargas_v.svg',
-  //                     color: primaryColor,
-  //                   ),
-  //                 ),
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     );
-
   Widget _buildBody(BuildContext context, locale) => SliverToBoxAdapter(
         child: SizedBox(
           height: ScreenHelper.screenHeight(context) - 60,

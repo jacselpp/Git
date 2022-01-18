@@ -266,4 +266,8 @@ class SharedPreference {
 
     return sectionList;
   }
+
+  static String? get stripeKey => _preference.getString('STRIPEKEY');
+  static void setStripeKey(String stripeKey) =>
+      _preference.setString('STRIPEKEY', stripeKey);
 }
