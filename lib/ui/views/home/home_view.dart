@@ -43,43 +43,13 @@ class _HomeViewState extends State<HomeView> {
           children: [
             const BuildSuggestions(),
             const Separation(),
-            if (_prov.loading) _buildLoading(context),
+            if (_prov.loading && _prov.prom.isEmpty) _buildLoading(context),
             if (_prov.prom.isNotEmpty) _buildList(context, _prov.prom),
             const Separation(),
             const BuildHelp(),
           ],
         ),
       ),
-    );
-  }
-
-  Widget _buildBody(BuildContext context) {
-    return FutureBuilder(
-      future: Future.delayed(const Duration(milliseconds: 500),
-          () => context.read<PackagesProvider>().promotions),
-      builder:
-          (BuildContext context, AsyncSnapshot<List<Promotions>> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return _buildLoading(context);
-        }
-        if (snapshot.connectionState == ConnectionState.active) {
-          return SizedBox(
-            height: (ScreenHelper.screenHeight(context) * .90),
-            width: ScreenHelper.screenWidth(context),
-            child: const Center(
-              child: CircularProgressIndicator(
-                strokeWidth: 4.0,
-              ),
-            ),
-          );
-        }
-        if (snapshot.connectionState == ConnectionState.done &&
-            snapshot.hasData) {
-          return _buildList(context, snapshot.data);
-        }
-
-        return Container();
-      },
     );
   }
 

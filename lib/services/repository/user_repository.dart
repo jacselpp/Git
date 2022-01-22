@@ -28,7 +28,7 @@ class UserRepository {
       _locale!.read('loading'),
       TypeMessage.LOADING,
     );
-    if (await _networkStatus()) {
+    if (!await _networkStatus()) {
       showMessage(
           context, _locale!.read('no_network_error'), TypeMessage.ERROR);
     } else {

@@ -32,22 +32,22 @@ class _HistoryViewState extends State<HistoryView> {
 
   @override
   Widget build(BuildContext context) {
+    HistoryProvider _prov = Provider.of<HistoryProvider>(context);
     final locale = AppLocalizations.of(context)!;
     _context ??= context;
+
     return HomeLayout(
       scrollController: _scrollController,
       child: Padding(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10.0),
-                    topRight: Radius.circular(10.0)),
-                child: CustomContainer(
-                  borderRadius: 0.0,
+        child: CustomContainer(
+          paddingH: 0.0,
+          paddingV: 0.0,
+          child: Column(
+            children: [
+              if (_prov.orders.isNotEmpty)
+                Padding(
+                  padding: const EdgeInsets.all(20.0),
                   child: Center(
                     child: Text(
                       locale.read('history'),
@@ -55,11 +55,7 @@ class _HistoryViewState extends State<HistoryView> {
                     ),
                   ),
                 ),
-              ),
-            ),
-            Container(
-              color: Theme.of(context).cardColor,
-              child: FutureBuilder(
+              FutureBuilder(
                 future: context.watch<HistoryProvider>().fetchOrdersPage(),
                 initialData: const <Orders>[],
                 builder: (BuildContext context,
@@ -93,8 +89,8 @@ class _HistoryViewState extends State<HistoryView> {
                   }
                 },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -127,34 +123,41 @@ class _HistoryViewState extends State<HistoryView> {
           ),
         );
       },
-      child: CustomContainer(
-        borderRadius: 0.0,
-        child: Row(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(right: 24.0),
-              child: _handleIcon(item.status),
-            ),
-            Expanded(
-              child: Column(
-                children: [
-                  Text(
-                    '${item.description?.serverResponse?.transactionId}',
-                    style: Theme.of(context).textTheme.subtitle1,
+      child: Column(
+        children: [
+          Divider(
+            color: Theme.of(context).cardTheme.shadowColor!,
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 24.0),
+                  child: _handleIcon(item.status),
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Text(
+                        '${item.description?.serverResponse?.transactionId}',
+                        style: Theme.of(context).textTheme.subtitle1,
+                      ),
+                      Text(
+                        '${item.amount} ${item.currency} - ${_date.toLocal()}',
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                    ],
                   ),
-                  Text(
-                    '${item.amount} ${item.currency} - ${_date.toLocal()}',
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                ],
-              ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.launch_sharp),
+                ),
+              ],
             ),
-            IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.launch_sharp),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
 
