@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +20,7 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   DateTime timeBackPressed = DateTime.now();
+
   @override
   void initState() {
     super.initState();
@@ -25,7 +28,12 @@ class _HomeViewState extends State<HomeView> {
 
   @override
   Widget build(BuildContext context) {
+    PackagesProvider _prov =
+        Provider.of<PackagesProvider>(context, listen: true);
     final locale = AppLocalizations.of(context)!;
+    if (_prov.prom.isEmpty) {
+      _buildFetch(_prov);
+    }
     return WillPopScope(
       onWillPop: () => _onBackPressed(locale),
       child: HomeLayout(
@@ -35,7 +43,8 @@ class _HomeViewState extends State<HomeView> {
           children: [
             const BuildSuggestions(),
             const Separation(),
-            _buildBody(context),
+            if (_prov.loading) _buildLoading(context),
+            if (_prov.prom.isNotEmpty) _buildList(context, _prov.prom),
             const Separation(),
             const BuildHelp(),
           ],
@@ -51,15 +60,7 @@ class _HomeViewState extends State<HomeView> {
       builder:
           (BuildContext context, AsyncSnapshot<List<Promotions>> snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return SizedBox(
-            height: (ScreenHelper.screenHeight(context) * .90),
-            width: ScreenHelper.screenWidth(context),
-            child: const Center(
-              child: CircularProgressIndicator(
-                strokeWidth: 4.0,
-              ),
-            ),
-          );
+          return _buildLoading(context);
         }
         if (snapshot.connectionState == ConnectionState.active) {
           return SizedBox(
@@ -79,6 +80,18 @@ class _HomeViewState extends State<HomeView> {
 
         return Container();
       },
+    );
+  }
+
+  SizedBox _buildLoading(BuildContext context) {
+    return SizedBox(
+      height: (ScreenHelper.screenHeight(context) * .90),
+      width: ScreenHelper.screenWidth(context),
+      child: const Center(
+        child: CircularProgressIndicator(
+          strokeWidth: 4.0,
+        ),
+      ),
     );
   }
 
@@ -289,5 +302,10 @@ class _HomeViewState extends State<HomeView> {
     } else {
       return true;
     }
+  }
+
+  void _buildFetch(PackagesProvider prov) async {
+    await Future.delayed(const Duration(milliseconds: 100));
+    prov.fetchPromotions();
   }
 }

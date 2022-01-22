@@ -1,4 +1,5 @@
 import 'package:detooo_recargas/app/app_localizations.dart';
+import 'package:detooo_recargas/ui/views/home/history_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,50 +36,63 @@ class _HistoryViewState extends State<HistoryView> {
     _context ??= context;
     return HomeLayout(
       scrollController: _scrollController,
-      child: Container(
-        color: Theme.of(context).cardColor,
+      child: Padding(
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           children: [
             Padding(
               padding: const EdgeInsets.only(top: 20.0),
-              child: Text(
-                locale.read('history'),
-                style: Theme.of(context).textTheme.headline5,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10.0),
+                    topRight: Radius.circular(10.0)),
+                child: CustomContainer(
+                  borderRadius: 0.0,
+                  child: Center(
+                    child: Text(
+                      locale.read('history'),
+                      style: Theme.of(context).textTheme.headline5,
+                    ),
+                  ),
+                ),
               ),
             ),
-            FutureBuilder(
-              future: context.watch<HistoryProvider>().fetchOrdersPage(),
-              initialData: const <Orders>[],
-              builder:
-                  (BuildContext context, AsyncSnapshot<List<Orders>> snapshot) {
-                if (snapshot.connectionState == ConnectionState.done &&
-                    snapshot.hasData &&
-                    snapshot.data!.isNotEmpty) {
-                  return _buildItems(snapshot.data);
-                }
+            Container(
+              color: Theme.of(context).cardColor,
+              child: FutureBuilder(
+                future: context.watch<HistoryProvider>().fetchOrdersPage(),
+                initialData: const <Orders>[],
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<Orders>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData &&
+                      snapshot.data!.isNotEmpty) {
+                    return _buildItems(snapshot.data);
+                  }
 
-                if (snapshot.connectionState == ConnectionState.done &&
-                    snapshot.hasData &&
-                    snapshot.data!.isEmpty) {
-                  return _buildEmpty(context);
-                }
+                  if (snapshot.connectionState == ConnectionState.done &&
+                      snapshot.hasData &&
+                      snapshot.data!.isEmpty) {
+                    return _buildEmpty(context);
+                  }
 
-                if (snapshot.connectionState == ConnectionState.waiting &&
-                    context.read<HistoryProvider>().orders.isNotEmpty) {
-                  return Column(
-                    children: [
-                      _buildItems(snapshot.data),
-                      _buildLoading(),
-                    ],
-                  );
-                } else {
-                  return SizedBox(
-                    width: ScreenHelper.screenWidth(context),
-                    height: ScreenHelper.screenHeight(context) - 50.0,
-                    child: _buildLoading(),
-                  );
-                }
-              },
+                  if (snapshot.connectionState == ConnectionState.waiting &&
+                      context.read<HistoryProvider>().orders.isNotEmpty) {
+                    return Column(
+                      children: [
+                        _buildItems(snapshot.data),
+                        _buildLoading(),
+                      ],
+                    );
+                  } else {
+                    return SizedBox(
+                      width: ScreenHelper.screenWidth(context),
+                      height: ScreenHelper.screenHeight(context) - 50.0,
+                      child: _buildLoading(),
+                    );
+                  }
+                },
+              ),
             ),
           ],
         ),
@@ -105,70 +119,109 @@ class _HistoryViewState extends State<HistoryView> {
 
     final DateTime _date = DateTime.parse(item.createdAt ?? "");
 
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: SizedBox(
-        width: ScreenHelper.screenWidth(context),
-        // color: Colors.lime,
-        child: Card(
-          color: Theme.of(context).scaffoldBackgroundColor,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            item.items![0].item!.description!.title!,
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.headline6,
-                          ),
-                          Text(
-                            '${item.items![0].item!.description!.subtitle}:\n${item.dest}',
-                            maxLines: 2,
-                            overflow: TextOverflow.ellipsis,
-                            style: Theme.of(context).textTheme.subtitle1,
-                          ),
-                        ],
-                      ),
-                    ),
-                    Column(
-                      children: [
-                        _handleIcon(item.status),
-                        Text('${item.amount} ${item.currency}'),
-                      ],
-                    ),
-                  ],
-                ),
-                const Divider(),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(
-                      '${locale.read('transaction_id')}: ${item.description?.serverResponse?.transactionId}'),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                        '${locale.read('date')}: ${_date.year}-${_date.month}-${_date.day}'),
-                    Text(
-                        '${locale.read('time')}: ${_date.hour}:${_date.minute}'),
-                  ],
-                )
-              ],
-            ),
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (_) => HistoryDetails(item: item),
           ),
+        );
+      },
+      child: CustomContainer(
+        borderRadius: 0.0,
+        child: Row(
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(right: 24.0),
+              child: _handleIcon(item.status),
+            ),
+            Expanded(
+              child: Column(
+                children: [
+                  Text(
+                    '${item.description?.serverResponse?.transactionId}',
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                  Text(
+                    '${item.amount} ${item.currency} - ${_date.toLocal()}',
+                    style: Theme.of(context).textTheme.bodyText1,
+                  ),
+                ],
+              ),
+            ),
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.launch_sharp),
+            ),
+          ],
         ),
       ),
     );
+
+    // return Padding(
+    //   padding: const EdgeInsets.all(8.0),
+    //   child: SizedBox(
+    //     width: ScreenHelper.screenWidth(context),
+    //     // color: Colors.lime,
+    //     child: Card(
+    //       color: Theme.of(context).scaffoldBackgroundColor,
+    //       child: Padding(
+    //         padding: const EdgeInsets.all(8.0),
+    //         child: Column(
+    //           crossAxisAlignment: CrossAxisAlignment.start,
+    //           children: [
+    //             Row(
+    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //               children: [
+    //                 Expanded(
+    //                   child: Column(
+    //                     crossAxisAlignment: CrossAxisAlignment.start,
+    //                     children: [
+    //                       Text(
+    //                         item.items![0].item!.description!.title!,
+    //                         maxLines: 1,
+    //                         overflow: TextOverflow.ellipsis,
+    //                         style: Theme.of(context).textTheme.headline6,
+    //                       ),
+    //                       Text(
+    //                         '${item.items![0].item!.description!.subtitle}:\n${item.dest}',
+    //                         maxLines: 2,
+    //                         overflow: TextOverflow.ellipsis,
+    //                         style: Theme.of(context).textTheme.subtitle1,
+    //                       ),
+    //                     ],
+    //                   ),
+    //                 ),
+    //                 Column(
+    //                   children: [
+    //                     _handleIcon(item.status),
+    //                     Text('${item.amount} ${item.currency}'),
+    //                   ],
+    //                 ),
+    //               ],
+    //             ),
+    //             const Divider(),
+    //             Padding(
+    //               padding: const EdgeInsets.symmetric(vertical: 8.0),
+    //               child: Text(
+    //                   '${locale.read('transaction_id')}: ${item.description?.serverResponse?.transactionId}'),
+    //             ),
+    //             Row(
+    //               mainAxisSize: MainAxisSize.max,
+    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //               children: [
+    //                 Text(
+    //                     '${locale.read('date')}: ${_date.year}-${_date.month}-${_date.day}'),
+    //                 Text(
+    //                     '${locale.read('time')}: ${_date.hour}:${_date.minute}'),
+    //               ],
+    //             )
+    //           ],
+    //         ),
+    //       ),
+    //     ),
+    //   ),
+    // );
   }
 
   void _scrollListener() {
@@ -192,8 +245,9 @@ class _HistoryViewState extends State<HistoryView> {
     switch (status) {
       case 'success':
         icon = const Icon(
-          Icons.check_circle,
+          Icons.check,
           color: Colors.green,
+          size: 36.0,
         );
         break;
       default:

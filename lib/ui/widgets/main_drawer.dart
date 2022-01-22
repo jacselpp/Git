@@ -77,8 +77,11 @@ class MainDrawer extends StatelessWidget {
                 locale.read('history'),
                 context,
                 () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                      builder: (context) => const HistoryView()));
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const HistoryView(),
+                    ),
+                  );
                 },
               ),
               _buildItem(

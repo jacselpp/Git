@@ -4,13 +4,14 @@ import '../app_ui.dart';
 
 class CustomContainer extends StatelessWidget {
   final Widget child;
-  final double paddingH, paddingV;
+  final double paddingH, paddingV, borderRadius;
 
   const CustomContainer({
     Key? key,
     required this.child,
     this.paddingH = 20.0,
     this.paddingV = 30.0,
+    this.borderRadius = 5.0,
   }) : super(key: key);
 
   @override
@@ -22,7 +23,7 @@ class CustomContainer extends StatelessWidget {
         border: Border.all(
           color: Theme.of(context).cardTheme.shadowColor!,
         ),
-        borderRadius: BorderRadius.circular(5.0),
+        borderRadius: BorderRadius.circular(borderRadius),
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(

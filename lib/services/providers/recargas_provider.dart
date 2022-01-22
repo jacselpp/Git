@@ -6,14 +6,23 @@ import 'package:detooo_recargas/services/network/api_recargas.dart';
 import 'package:detooo_recargas/models/recargas/promotions_model.dart';
 
 class PackagesProvider extends ChangeNotifier {
-  List<Promotions>? _promotions;
+  List<Promotions> _promotions = [];
   List<Item>? _packages;
 
+  bool _loading = false;
+
+  bool get loading => _loading;
+
+  void setLoading(bool value) {
+    _loading = value;
+    notifyListeners();
+  }
+
   Future<List<Promotions>> get promotions async {
-    if (_promotions == null) {
+    if (_promotions.isEmpty) {
       await fetchPromotions();
     }
-    return _promotions!;
+    return _promotions;
   }
 
   Future<List<Item>> get packages async {
@@ -24,10 +33,7 @@ class PackagesProvider extends ChangeNotifier {
   }
 
   List<Promotions> get prom {
-    if (_promotions == null) {
-      fetchPromotions();
-    }
-    return _promotions!;
+    return _promotions;
   }
 
   List<Item> get pack {
@@ -37,32 +43,36 @@ class PackagesProvider extends ChangeNotifier {
     return _packages!;
   }
 
-  fetchPromotions() async {
+  Future<void> fetchPromotions() async {
+    setLoading(true);
     List<Promotions>? promotions = SharedPreference.promotions;
     if (promotions == null) {
-      APIRecargas.common().readPromotions().then((value) {
+      await APIRecargas.common().readPromotions().then((value) {
         setPromotions(value);
       }).catchError((e) {});
     } else {
       setPromotions(promotions);
-      APIRecargas.common().readPromotions().then((value) {
+      await APIRecargas.common().readPromotions().then((value) {
         setPromotions(value);
       }).catchError((e) {});
     }
+    setLoading(false);
   }
 
   fetchPackages() async {
     List<Item>? package = SharedPreference.package;
+    setLoading(true);
     if (package == null) {
-      APIRecargas.common().readOffers().then((value) {
+      await APIRecargas.common().readOffers().then((value) {
         setPackages(value.items!);
       }).catchError((e) {});
     } else {
       setPackages(package);
-      APIRecargas.common().readOffers().then((value) {
+      await APIRecargas.common().readOffers().then((value) {
         setPackages(value.items!);
       }).catchError((e) {});
     }
+    setLoading(false);
   }
 
   void setPromotions(List<Promotions> packages) {

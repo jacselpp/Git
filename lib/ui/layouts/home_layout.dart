@@ -29,13 +29,10 @@ class _HomeLayoutState extends State<HomeLayout> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // floatingActionButton: widget.floatingActionButton,
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.read<StripeKeyProvider>().fetchStripeKey;
-        },
+      floatingActionButton: widget.floatingActionButton,
+      appBar: MainAppBar().appBar(
+        context,
       ),
-      appBar: MainAppBar().appBar(context, showBcak: !widget.mainDrawer),
       drawer: widget.mainDrawer ? const MainDrawer() : null,
       body: SingleChildScrollView(
         controller: widget.scrollController,
