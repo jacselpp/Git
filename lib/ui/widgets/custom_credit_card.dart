@@ -76,7 +76,9 @@ class CustomCreditCard extends StatelessWidget {
                             style:
                                 Theme.of(context).textTheme.subtitle1!.copyWith(
                                       color: Colors.white,
+                                      fontSize: 10.0,
                                     ),
+                            textAlign: TextAlign.center,
                           ),
                         ],
                       ),

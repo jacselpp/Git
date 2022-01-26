@@ -16,18 +16,14 @@ class UserCardsProvider extends ChangeNotifier {
     return _userCards;
   }
 
-  Future<UserCards?> get userCards async {
-    if (_userCards == null) {
-      fetchCards();
-    }
-    return _userCards;
-  }
+  UserCards? get userCards  => _userCards;
 
   void fetchCards() async {
     _setLoading(true);
     await ApiPayments.common().getStripeUsersCard().then((value) {
       if (_userCards == null) setuserCards(value);
     });
+    _setLoading(false);
   }
 
   void setuserCards(UserCards value) {

@@ -66,7 +66,8 @@ class _RecargasCubacelViewState extends State<RecargasNautaView> {
     }
 
     _selectedUserCards = context.watch<UserCardsProvider>().selectedCard;
-    _setUserCards(context);
+    _userCards = context.watch<UserCardsProvider>().userCards;
+
 
     return Form(
       key: _formKey,
@@ -300,8 +301,8 @@ class _RecargasCubacelViewState extends State<RecargasNautaView> {
   }
 
   void _setUserCards(BuildContext context) async {
-    _userCards ??= await Future.delayed(const Duration(milliseconds: 100),
-        () => context.read<UserCardsProvider>().userCards);
+    await Future.delayed(const Duration(milliseconds: 100),
+        () => context.read<UserCardsProvider>().fetchCards());
   }
 
   Future<void> _handlePayPress(BuildContext context) async {
@@ -339,7 +340,7 @@ class _RecargasCubacelViewState extends State<RecargasNautaView> {
         data: {
           "nauta": _nautaAccountController.text,
           "package": _selectedPackage.id,
-          "paymentMethodId": paymentId ?? _selectedUserCards!.toJson(),
+          "paymentMethodId": paymentId ?? _selectedUserCards!.id,
           "saveCard": _selectedUserCards == null ? _saveUserCard : false,
           "off_session": _selectedUserCards != null
         },

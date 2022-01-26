@@ -131,6 +131,7 @@ class _TestimonialsWidgetState extends State<TestimonialsWidget> {
       primary: false,
       itemBuilder: (BuildContext context, int index) {
         if (data[index].isVisible!) {
+          print(data[index].isVisible!);
           return _buildListItem(data[index], context);
         } else {
           return Container();
