@@ -8,7 +8,7 @@ class CustomCreditCard extends StatelessWidget {
     Key? key,
     required this.card,
   }) : super(key: key);
-  final CardS card;
+  final Data card;
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +38,7 @@ class CustomCreditCard extends StatelessWidget {
                           ),
                           Center(
                             child: AutoSizeText(
-                              '${card.brand}'.toUpperCase(),
+                              '${card.card?.brand}'.toUpperCase(),
                               style: Theme.of(context)
                                   .textTheme
                                   .headline5!
@@ -72,7 +72,7 @@ class CustomCreditCard extends StatelessWidget {
                             size: 36.0,
                           ),
                           Text(
-                            'EXP: ${card.expMonth! <= 9 ? '0${card.expMonth}' : card.expMonth}/${card.expYear.toString().substring(2, 4)}',
+                            'EXP: ${card.card!.expMonth! <= 9 ? '0${card.card?.expMonth}' : card.card?.expMonth}/${card.card?.expYear.toString().substring(2, 4)}',
                             style:
                                 Theme.of(context).textTheme.subtitle1!.copyWith(
                                       color: Colors.white,
@@ -84,7 +84,7 @@ class CustomCreditCard extends StatelessWidget {
                     Expanded(
                       flex: 3,
                       child: AutoSizeText(
-                        '**** **** **** ${card.last4}',
+                        '**** **** **** ${card.card?.last4}',
                         style: Theme.of(context).textTheme.headline5!.copyWith(
                               fontWeight: FontWeight.bold,
                               color: Colors.white,

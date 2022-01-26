@@ -35,7 +35,7 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
   bool _saveUserCard = false;
   PhoneContact? _phoneContact;
   UserCards? _userCards;
-  CardS? _selectedUserCards;
+  Data? _selectedUserCards;
   CardFieldInputDetails? _card;
 
   void _handleAccept() {
@@ -117,7 +117,7 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
               Expanded(
                 child: _selectedUserCards != null
                     ? Hero(
-                        tag: _selectedUserCards?.fingerprint ?? '',
+                        tag: _selectedUserCards?.card?.fingerprint ?? '',
                         child: CustomCreditCard(
                           card: _selectedUserCards!,
                         ),
@@ -321,28 +321,33 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
   }
 
   Future<void> _handlePayPress(BuildContext context) async {
-    if (_card == null) {
-      return;
-    }
-
     final locale = AppLocalizations.of(context)!;
-    if (!_formKey.currentState!.validate()) return;
+
+    if (!_formKey.currentState!.validate() &&
+        _card == null &&
+        _selectedUserCards == null) return;
+
     if (!_accept) {
       showMessage(context, locale.read('should_accept'), TypeMessage.ERROR);
       return;
     }
 
-    final paymentIntent = await Stripe.instance
-        .createPaymentMethod(const PaymentMethodParams.card());
+    PaymentMethod? paymentIntent;
 
-    await makeApiRequest(
-      context,
-      paymentId: paymentIntent.id,
-    );
+    if (_card != null) {
+      paymentIntent = await Stripe.instance
+          .createPaymentMethod(const PaymentMethodParams.card());
+    }
+
+    if (paymentIntent?.id != null || _selectedUserCards != null) {
+      await makeApiRequest(
+        context,
+        paymentId: paymentIntent?.id,
+      );
+    }
   }
 
-  Future<void> makeApiRequest(BuildContext context,
-      {required String paymentId}) async {
+  Future<void> makeApiRequest(BuildContext context, {String? paymentId}) async {
     try {
       // ignore: unused_local_variable
       final response = await dioCommon().post(
@@ -350,9 +355,9 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
         data: {
           "movil": _phoneController.text,
           "package": _selectedPackage.id,
-          "paymentMethodId": paymentId,
-          "saveCard": _saveUserCard,
-          "off_session": false
+          "paymentMethodId": paymentId ?? _selectedUserCards!.toJson(),
+          "saveCard": _selectedUserCards == null ? _saveUserCard : false,
+          "off_session": _selectedUserCards != null
         },
       );
 

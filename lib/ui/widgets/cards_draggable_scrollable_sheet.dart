@@ -19,7 +19,7 @@ class CardDraggableScrollableSheet extends StatefulWidget {
 class _CardDraggableScrollableSheetState
     extends State<CardDraggableScrollableSheet> {
   UserCards? _cards;
-  List<CardS> userCards = [];
+  List<Data> userCards = [];
 
   @override
   Widget build(BuildContext context) {
@@ -28,9 +28,9 @@ class _CardDraggableScrollableSheetState
     if (_cards?.data != null) {
       for (var item in _cards!.data!) {
         if (!userCards.any(
-          (element) => element.fingerprint == item.card?.fingerprint,
+          (element) => element.card?.fingerprint == item.card?.fingerprint,
         )) {
-          userCards.add(item.card!);
+          userCards.add(item);
         }
       }
     }
@@ -108,14 +108,14 @@ class _CardDraggableScrollableSheetState
     return _buildCreditCard(context, card);
   }
 
-  Widget _buildCreditCard(BuildContext context, CardS card) {
+  Widget _buildCreditCard(BuildContext context, Data card) {
     return InkWell(
       onTap: () {
         context.read<UserCardsProvider>().setSelectedCard(card);
         Navigator.of(context).pop();
       },
       child: Hero(
-        tag: card.fingerprint!,
+        tag: card.card!.fingerprint!,
         child: CustomCreditCard(card: card),
       ),
     );
