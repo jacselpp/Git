@@ -5,7 +5,9 @@ import 'package:flutter_credit_card/credit_card_widget.dart';
 
 class CustomCreditCard extends StatelessWidget {
   final Data card;
-  const CustomCreditCard({Key? key, required this.card}) : super(key: key);
+  final double? fontSize;
+  const CustomCreditCard({Key? key, required this.card, this.fontSize})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -13,6 +15,12 @@ class CustomCreditCard extends StatelessWidget {
       height: 170.0,
       obscureCardNumber: true,
       cardNumber: '**** **** **** ${card.card?.last4}',
+      textStyle: TextStyle(
+        color: Colors.white,
+        fontFamily: 'halter',
+        fontSize: fontSize ?? 16,
+        package: 'flutter_credit_card',
+      ),
       labelCardHolder: '',
       cardType: _cardType(),
       expiryDate: _expiryDate(),

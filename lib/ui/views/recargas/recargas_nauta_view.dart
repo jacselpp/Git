@@ -64,7 +64,9 @@ class _RecargasCubacelViewState extends State<RecargasNautaView> {
           TextEditingValue(text: _emailContact?.email?.email ?? '');
     }
 
-    _selectedUserCards = context.watch<UserCardsProvider>().selectedCard;
+    setState(() {
+      _selectedUserCards = context.watch<UserCardsProvider>().selectedCard;
+    });
 
     return Form(
       key: _formKey,
@@ -118,16 +120,15 @@ class _RecargasCubacelViewState extends State<RecargasNautaView> {
                     ? Hero(
                         tag: _selectedUserCards?.card?.fingerprint ?? '',
                         child: CustomCreditCard(
+                          fontSize: 12.0,
                           card: _selectedUserCards!,
                         ),
                       )
-                    : CardField(
-                        onCardChanged: (card) {
-                          setState(() {
-                            _card = card;
-                          });
-                        },
-                      ),
+                    : CardField(onCardChanged: (card) {
+                        setState(() {
+                          _card = card;
+                        });
+                      }),
               ),
               CustomCreditCardButon(),
             ],

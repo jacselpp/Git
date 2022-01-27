@@ -63,8 +63,9 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
       _phoneController.value = TextEditingValue(text: _handlePhone());
     }
 
+    setState(() {
       _selectedUserCards = context.watch<UserCardsProvider>().selectedCard;
-
+    });
 
     // _setUserCards(context);
 
@@ -120,6 +121,7 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
                     ? Hero(
                         tag: _selectedUserCards?.card?.fingerprint ?? '',
                         child: CustomCreditCard(
+                          fontSize: 10.0,
                           card: _selectedUserCards!,
                         ),
                       )
