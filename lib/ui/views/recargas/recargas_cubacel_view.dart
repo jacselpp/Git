@@ -34,7 +34,6 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
   bool _accept = false;
   bool _saveUserCard = false;
   PhoneContact? _phoneContact;
-  UserCards? _userCards;
   Data? _selectedUserCards;
   CardFieldInputDetails? _card;
 
@@ -65,8 +64,6 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
     }
 
       _selectedUserCards = context.watch<UserCardsProvider>().selectedCard;
-
-    _userCards = context.watch<UserCardsProvider>().userCards;
 
 
     // _setUserCards(context);
@@ -317,11 +314,6 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
       }
     }
     return phone ?? '';
-  }
-
- void _setUserCards(BuildContext context) async {
-    await Future.delayed(const Duration(milliseconds: 100),
-        () => context.read<UserCardsProvider>().fetchCards());
   }
 
   Future<void> _handlePayPress(BuildContext context) async {

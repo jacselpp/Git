@@ -26,7 +26,7 @@ class PackagesProvider extends ChangeNotifier {
   }
 
   Future<List<Item>> get packages async {
-    if (_promotions == null) {
+    if (_promotions.isEmpty) {
       await fetchPromotions();
     }
     return _packages!;
@@ -37,7 +37,7 @@ class PackagesProvider extends ChangeNotifier {
   }
 
   List<Item> get pack {
-    if (_promotions == null) {
+    if (_promotions.isEmpty) {
       fetchPackages();
     }
     return _packages!;

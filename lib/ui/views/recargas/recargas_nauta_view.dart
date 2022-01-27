@@ -33,7 +33,6 @@ class _RecargasCubacelViewState extends State<RecargasNautaView> {
   Item _selectedPackage = Item();
   bool _accept = false;
   bool _saveUserCard = false;
-  UserCards? _userCards;
   Data? _selectedUserCards;
   CardFieldInputDetails? _card;
   EmailContact? _emailContact;
@@ -66,8 +65,6 @@ class _RecargasCubacelViewState extends State<RecargasNautaView> {
     }
 
     _selectedUserCards = context.watch<UserCardsProvider>().selectedCard;
-    _userCards = context.watch<UserCardsProvider>().userCards;
-
 
     return Form(
       key: _formKey,
@@ -298,11 +295,6 @@ class _RecargasCubacelViewState extends State<RecargasNautaView> {
       textAlign: TextAlign.justify,
       overflow: TextOverflow.ellipsis,
     );
-  }
-
-  void _setUserCards(BuildContext context) async {
-    await Future.delayed(const Duration(milliseconds: 100),
-        () => context.read<UserCardsProvider>().fetchCards());
   }
 
   Future<void> _handlePayPress(BuildContext context) async {

@@ -109,9 +109,7 @@ class _HistoryViewState extends State<HistoryView> {
   }
 
   Widget _buildItem(List<Orders?> list, int index) {
-    final locale = AppLocalizations.of(context)!;
-
-    Orders item = list[index]!;
+Orders item = list[index]!;
 
     final DateTime _date = DateTime.parse(item.createdAt ?? "");
 
