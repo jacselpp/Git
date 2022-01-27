@@ -9,6 +9,10 @@
     "no_cards": "No cards",
     "save_card": "Save card for future payments",
     "cards": "Cards",
+    "success": "Success!",
+    "successfully_recharged": "You have successfully recharged",
+    "nauta_success": "your Nauta account:",
+    "cubacel_success": "your Cubacel phone:",
     
     "home": "Home",
     "recharges": "Recharges",
@@ -31,6 +35,9 @@
 
     "dialog_exit_title":"Exit?",
     "dialog_exit_message":"Sure you want to close the application?",
+    "dialog_delete_card_title":"¿Delete?",
+    "dialog_delete_card_message":"Surely you should delete this saved card",
+    "dialog_delete":"Delete",
     "dialog_cancel":"Cancel",
     "dialog_accept":"Exit",
 

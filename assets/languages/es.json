@@ -9,6 +9,11 @@
     "no_cards": "Sin tarjetas",
     "save_card": "Guardar tarjetas para pagos futuros",
     "cards": "Tarjetas",
+    "success": "Éxito!",
+    "successfully_recharged": "Usted ha recargado exitosamente",
+    "nauta_success": "su cuenta Nauta:",
+    "cubacel_success": "su teléfono Cubacel:",
+
 
     "home": "Inicio",
     "recharges": "Recargas",
@@ -31,8 +36,11 @@
 
     "dialog_exit_title":"¿Salir?",
     "dialog_exit_message":"¿Seguro que quieres cerrar la aplicación?",
+    "dialog_delete_card_title":"¿Eliminar?",
+    "dialog_delete_card_message":"Seguro que deces eliminar esta tarjeta guardada",
     "dialog_cancel":"Cancelar",
     "dialog_accept":"Salir",
+    "dialog_delete":"Eliminar",
 
     "password": "Contraseña",
     "old_password": "Contraseña Actual",

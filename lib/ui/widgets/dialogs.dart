@@ -140,6 +140,25 @@ AlertDialog dialogLogout(BuildContext context, {VoidCallback? onAccept}) {
     ],
   );
 }
+AlertDialog dialogAcceptDeleteCard(BuildContext context,
+    {VoidCallback? onAccept}) {
+  final locale = AppLocalizations.of(context)!;
+
+  return AlertDialog(
+    title: Text(locale.read('dialog_delete_card_title').toUpperCase()),
+    content: Text(locale.read('dialog_delete_card_message')),
+    actions: [
+      TextButton(
+        child: Text(locale.read('dialog_cancel')),
+        onPressed: () => Navigator.of(context).pop(false),
+      ),
+      TextButton(
+        child: Text(locale.read('dialog_delete')),
+        onPressed: () => Navigator.of(context).pop(true),
+      ),
+    ],
+  );
+}
 
 AlertDialog dialogProfileImage(
   BuildContext context, {

@@ -3,10 +3,12 @@ import 'package:detooo_recargas/models/recargas/cards_model.dart';
 import 'package:detooo_recargas/models/recargas/package_model.dart';
 import 'package:detooo_recargas/services/network/dio_instances.dart';
 import 'package:detooo_recargas/services/providers/user_cards_provider.dart';
+import 'package:detooo_recargas/ui/views/recargas/recargas_success.dart';
 import 'package:detooo_recargas/ui/widgets/credit_card_button.dart';
 import 'package:detooo_recargas/ui/widgets/custom_credit_card.dart';
 import 'package:detooo_recargas/utils/constant.dart';
 import 'package:detooo_recargas/utils/log_utils.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
@@ -125,13 +127,15 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
                           card: _selectedUserCards!,
                         ),
                       )
-                    : CardField(
-                        onCardChanged: (card) {
-                          setState(() {
-                            _card = card;
-                          });
-                        },
-                      ),
+                    : !kIsWeb
+                        ? CardField(
+                            onCardChanged: (card) {
+                              setState(() {
+                                _card = card;
+                              });
+                            },
+                          )
+                        : Container(),
               ),
               CustomCreditCardButon(),
             ],
@@ -359,13 +363,16 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
         },
       );
 
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text('Success!: The payment was confirmed successfully!')));
-    } catch (e) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(e.toString()),
+      Navigator.of(context).push(
+        MaterialPageRoute(
+          builder: (_) => RecargaSuccesfully(
+              target: _phoneController.text, dest: 'cubacel_success'),
         ),
+      );
+    } catch (e) {
+      e as DioError;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(e.response?.data['message'] ?? '')),
       );
       LogUtils().logger.wtf(e.toString());
     }

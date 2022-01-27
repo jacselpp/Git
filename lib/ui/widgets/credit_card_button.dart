@@ -38,6 +38,22 @@ class CustomCreditCardButon extends StatelessWidget {
               Icons.close_rounded,
             ),
           ),
+        if (context.read<UserCardsProvider>().selectedCard != null)
+          IconButton(
+            color: Colors.red,
+            onPressed: () async {
+              bool accept = await showDialog(
+                context: context,
+                builder: (context) => dialogAcceptDeleteCard(context),
+              );
+              if (accept) {
+                context.read<UserCardsProvider>().clearSelectedCard();
+              }
+            },
+            icon: const Icon(
+              Icons.delete_forever,
+            ),
+          ),
       ],
     );
   }

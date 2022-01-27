@@ -105,18 +105,40 @@ class _CardDraggableScrollableSheetState
 
   Widget _itemBuilder(BuildContext context, int index) {
     final card = userCards[index];
-    return _buildCreditCard(context, card);
+    return Row(
+      children: [
+        _buildCreditCard(context, card),
+        IconButton(
+          color: Colors.red,
+          onPressed: () async {
+            bool accept = await showDialog(
+              context: context,
+              builder: (context) => dialogAcceptDeleteCard(context),
+            );
+            if (accept) {
+              context.read<UserCardsProvider>().clearSelectedCard();
+            }
+          },
+          icon: const Icon(
+            Icons.delete_forever,
+          ),
+        ),
+      ],
+    );
   }
 
   Widget _buildCreditCard(BuildContext context, Data card) {
-    return InkWell(
-      onTap: () {
-        context.read<UserCardsProvider>().setSelectedCard(card);
-        Navigator.of(context).pop();
-      },
-      child: Hero(
-        tag: card.card!.fingerprint!,
-        child: CustomCreditCard(card: card),
+    return SizedBox(
+      width: ScreenHelper.screenWidth(context) - 50,
+      child: InkWell(
+        onTap: () {
+          context.read<UserCardsProvider>().setSelectedCard(card);
+          Navigator.of(context).pop();
+        },
+        child: Hero(
+          tag: card.card!.fingerprint!,
+          child: CustomCreditCard(card: card),
+        ),
       ),
     );
   }
