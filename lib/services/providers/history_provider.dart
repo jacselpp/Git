@@ -39,6 +39,17 @@ class HistoryProvider extends ChangeNotifier {
     });
   }
 
+  Future<Orders> fetchLastOrder() async {
+    Orders last = Orders();
+    await ApiOrders.common().userOrders(1).then((value) async {
+      await ApiOrders.common().userOrders(value.totalPages!).then((value) {
+        last = value.items!.last;
+      });
+    });
+
+    return last;
+  }
+
   void setOrdersPaginated(Paginated<Orders> value) {
     _ordersPaginated = value;
 

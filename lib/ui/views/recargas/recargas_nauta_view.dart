@@ -351,10 +351,7 @@ class _RecargasCubacelViewState extends State<RecargasNautaView> {
 
       Navigator.of(context).push(
         MaterialPageRoute(
-          builder: (_) => RecargaSuccesfully(
-            target: _nautaAccountController.text,
-            package: _selectedPackage,
-          ),
+          builder: (_) => const RecargaSuccesfully(),
         ),
       );
     } catch (e) {
