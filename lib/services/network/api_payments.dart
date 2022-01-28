@@ -17,4 +17,7 @@ abstract class ApiPayments {
 
   @GET("payments/stripe/user_cards")
   Future<UserCards> getStripeUsersCard();
+
+  @GET("payments/stripe/del_user_cards/{pm}")
+  Future<void> deleteCard({@Path('pm') String? paymentMethod});
 }

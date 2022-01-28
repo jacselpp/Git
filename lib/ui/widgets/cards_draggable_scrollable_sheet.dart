@@ -23,10 +23,10 @@ class _CardDraggableScrollableSheetState
 
   @override
   Widget build(BuildContext context) {
-    _cards ??= context.watch<UserCardsProvider>().cards;
+    _cards = context.watch<UserCardsProvider>().cards;
 
-    if (_cards?.data != null) {
-      for (var item in _cards!.data!) {
+    if (context.watch<UserCardsProvider>().cards != null) {
+      for (var item in context.watch<UserCardsProvider>().cards!.data!) {
         if (!userCards.any(
           (element) => element.card?.fingerprint == item.card?.fingerprint,
         )) {
@@ -116,7 +116,7 @@ class _CardDraggableScrollableSheetState
               builder: (context) => dialogAcceptDeleteCard(context),
             );
             if (accept) {
-              context.read<UserCardsProvider>().clearSelectedCard();
+              _handleDelete(context, card);
             }
           },
           icon: const Icon(
@@ -141,5 +141,18 @@ class _CardDraggableScrollableSheetState
         ),
       ),
     );
+  }
+
+  void _handleDelete(BuildContext context, Data card) {
+    List<String> listPaymentMethods = [];
+    for (var item in context.read<UserCardsProvider>().cards!.data!) {
+      if (card.card?.fingerprint == item.card?.fingerprint) {
+        listPaymentMethods.add(item.id!);
+      }
+    }
+    for (var item in listPaymentMethods) {
+      context.read<UserCardsProvider>().deletCard(item);
+    }
+      context.read<UserCardsProvider>().fetchCards();
   }
 }

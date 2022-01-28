@@ -6,6 +6,7 @@ class HomeLayout extends StatefulWidget {
   final Widget child;
   final TabBar? tabBar;
   final bool mainDrawer;
+  final bool showBack;
   final ScrollController? scrollController;
 
   final Widget? floatingActionButton;
@@ -17,6 +18,7 @@ class HomeLayout extends StatefulWidget {
     this.scrollController,
     this.mainDrawer = false,
     this.floatingActionButton,
+    this.showBack = false,
   }) : super(key: key);
 
   @override
@@ -28,9 +30,7 @@ class _HomeLayoutState extends State<HomeLayout> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: widget.floatingActionButton,
-      appBar: MainAppBar().appBar(
-        context,
-      ),
+      appBar: MainAppBar().appBar(context, showBcak: widget.showBack),
       drawer: widget.mainDrawer ? const MainDrawer() : null,
       body: SingleChildScrollView(
         controller: widget.scrollController,

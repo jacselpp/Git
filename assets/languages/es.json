@@ -33,6 +33,7 @@
     "register_subtitle": "Regístrese en la plataforma",
     "create_account": "Crear Cuenta",
     "forgot_password": "Olvidé mi contraseña",
+    "purchase_success": "Gracias por su compra!",
 
     "dialog_exit_title":"¿Salir?",
     "dialog_exit_message":"¿Seguro que quieres cerrar la aplicación?",

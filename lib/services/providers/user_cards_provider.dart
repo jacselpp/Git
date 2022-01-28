@@ -16,13 +16,20 @@ class UserCardsProvider extends ChangeNotifier {
     return _userCards;
   }
 
-  UserCards? get userCards  => _userCards;
+  UserCards? get userCards => _userCards;
 
   void fetchCards() async {
     _setLoading(true);
     await ApiPayments.common().getStripeUsersCard().then((value) {
-      if (_userCards == null) setuserCards(value);
+      setuserCards(value);
     });
+    _setLoading(false);
+  }
+
+  Future<void> deletCard(String? paymentMethod) async {
+    _setLoading(true);
+    await ApiPayments.common()
+        .deleteCard(paymentMethod: paymentMethod ?? selectedCard!.id);
     _setLoading(false);
   }
 

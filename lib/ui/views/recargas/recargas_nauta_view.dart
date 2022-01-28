@@ -344,10 +344,17 @@ class _RecargasCubacelViewState extends State<RecargasNautaView> {
           "off_session": _selectedUserCards != null
         },
       );
+
+      if (_selectedUserCards == null && _saveUserCard) {
+        context.read<UserCardsProvider>().fetchCards();
+      }
+
       Navigator.of(context).push(
         MaterialPageRoute(
           builder: (_) => RecargaSuccesfully(
-              target: _nautaAccountController.text, dest: 'nauta_success'),
+            target: _nautaAccountController.text,
+            package: _selectedPackage,
+          ),
         ),
       );
     } catch (e) {
