@@ -50,6 +50,21 @@ class RecargaSuccesfully extends StatelessWidget {
                 future: context.read<HistoryProvider>().fetchLastOrder(),
                 builder: _buildFuture,
               ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: CustomTextButton(
+                          color: primaryColor,
+                          label: 'Cerrar',
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          }),
+                    ),
+                  ],
+                ),
+              )
             ],
           ),
         ),
@@ -188,9 +203,6 @@ class RecargaSuccesfully extends StatelessWidget {
                       ),
                     ],
                   ),
-                ),
-                const SizedBox(
-                  height: 20.0,
                 ),
               ],
             ),
