@@ -46,6 +46,12 @@ class _RecargasCubacelViewState extends State<RecargasNautaView> {
   }
 
   @override
+  void dispose() {
+    _nautaAccountController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (context.watch<PackagesProvider>().prom.isNotEmpty) {
       if (_selectedPackage.price == null) {
@@ -348,6 +354,8 @@ class _RecargasCubacelViewState extends State<RecargasNautaView> {
       if (_selectedUserCards == null && _saveUserCard) {
         context.read<UserCardsProvider>().fetchCards();
       }
+      
+      context.read<UserCardsProvider>().clearSelectedCard();
 
       Navigator.of(context).push(
         MaterialPageRoute(

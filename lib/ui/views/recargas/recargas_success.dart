@@ -59,7 +59,10 @@ class RecargaSuccesfully extends StatelessWidget {
                           color: primaryColor,
                           label: 'Cerrar',
                           onPressed: () {
-                            Navigator.of(context).pop();
+                            Navigator.of(context).pushNamedAndRemoveUntil(
+                              '/home',
+                              (w) => false,
+                            );
                           }),
                     ),
                   ],

@@ -19,6 +19,8 @@ class UserCardsProvider extends ChangeNotifier {
   UserCards? get userCards => _userCards;
 
   void fetchCards() async {
+    _userCards = null;
+    notifyListeners();
     _setLoading(true);
     await ApiPayments.common().getStripeUsersCard().then((value) {
       setuserCards(value);

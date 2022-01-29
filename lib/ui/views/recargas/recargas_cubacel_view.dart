@@ -46,6 +46,12 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
   }
 
   @override
+  void dispose() {
+    _phoneController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (context.watch<PackagesProvider>().prom.isNotEmpty) {
       if (_selectedPackage.price == null) {
@@ -315,7 +321,11 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
         phone = phone.splitMapJoin(
           '+53',
           onMatch: (m) => '',
-          onNonMatch: (n) => n,
+          onNonMatch: (n) => n.splitMapJoin(
+            '-',
+            onMatch: (m) => '',
+            onNonMatch: (no) => no,
+          ),
         );
       }
     }
@@ -366,6 +376,7 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
       if (_selectedUserCards == null && _saveUserCard) {
         context.read<UserCardsProvider>().fetchCards();
       }
+      context.read<UserCardsProvider>().clearSelectedCard();
 
       Navigator.of(context).push(
         MaterialPageRoute(
