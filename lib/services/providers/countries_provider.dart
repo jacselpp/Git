@@ -1,3 +1,4 @@
+import 'package:detooo_recargas/utils/handle_errors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:detooo_recargas/models/auth/countries_model.dart';
@@ -33,7 +34,7 @@ class CountriesProvider extends ChangeNotifier {
     if (countriesFromBd == null || countriesFromBd.isEmpty) {
       APICountries.common().countriesRead().then((value) {
         setAllCountries(value);
-      });
+      }).catchError((e) => HandleError.logError(null, e));
     } else {
       setAllCountries(countriesFromBd);
     }

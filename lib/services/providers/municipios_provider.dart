@@ -1,6 +1,7 @@
 import 'package:detooo_recargas/models/auth/municipios_model.dart';
 import 'package:detooo_recargas/services/network/api_users.dart';
 import 'package:detooo_recargas/services/shared_preference.dart';
+import 'package:detooo_recargas/utils/handle_errors.dart';
 import 'package:flutter/material.dart';
 
 class MunicipiosProvider extends ChangeNotifier {
@@ -85,7 +86,7 @@ class MunicipiosProvider extends ChangeNotifier {
       await APIUsers.common().fetchMunicipios().then((value) {
         setAllMunicipios(value);
         SharedPreference.setMunicipios(value);
-      });
+      }).catchError((e) => HandleError.logError(null, e));
     } else {
       setAllMunicipios(municipiosDb);
     }

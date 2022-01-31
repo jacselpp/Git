@@ -1,4 +1,5 @@
 import 'package:detooo_recargas/services/network/api_users.dart';
+import 'package:detooo_recargas/utils/handle_errors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:detooo_recargas/models/auth/provincias_model.dart';
@@ -36,7 +37,7 @@ class ProvinciasProvider extends ChangeNotifier {
     if (provinciasFromBd!.isEmpty) {
       APIUsers.common().fetchProvincias().then((value) {
         setAllProvincias(value);
-      });
+      }).catchError((e) => HandleError.logError(null, e));
     } else {
       setAllProvincias(provinciasFromBd);
     }

@@ -1,3 +1,4 @@
+import 'package:detooo_recargas/utils/handle_errors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:detooo_recargas/services/network/api_orders.dart';
@@ -45,7 +46,7 @@ class HistoryProvider extends ChangeNotifier {
       await ApiOrders.common().userOrders(value.totalPages!).then((value) {
         last = value.items!.last;
       });
-    });
+    }).catchError((e) => HandleError.logError(null, e));
 
     return last;
   }

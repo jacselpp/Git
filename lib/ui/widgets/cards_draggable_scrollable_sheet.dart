@@ -20,6 +20,12 @@ class _CardDraggableScrollableSheetState
     extends State<CardDraggableScrollableSheet> {
   UserCards? _cards;
   List<Data> userCards = [];
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    _initCards();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -153,6 +159,12 @@ class _CardDraggableScrollableSheetState
     for (var item in listPaymentMethods) {
       context.read<UserCardsProvider>().deletCard(item);
     }
+    context.read<UserCardsProvider>().fetchCards();
+  }
+
+  void _initCards() {
+    WidgetsBinding.instance!.addPostFrameCallback((_) {
       context.read<UserCardsProvider>().fetchCards();
+    });
   }
 }

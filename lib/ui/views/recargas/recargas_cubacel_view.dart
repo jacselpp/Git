@@ -320,7 +320,11 @@ class _RecargasCubacelViewState extends State<RecargasCubacelView> {
       if (phone.startsWith('+53')) {
         phone = phone.splitMapJoin(
           '+53',
-          onMatch: (m) => '',
+          onMatch: (m) => m.input.splitMapJoin(
+            '-',
+            onMatch: (m) => '',
+            onNonMatch: (no) => no,
+          ),
           onNonMatch: (n) => n.splitMapJoin(
             '-',
             onMatch: (m) => '',

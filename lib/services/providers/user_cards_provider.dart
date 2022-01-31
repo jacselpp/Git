@@ -1,5 +1,6 @@
 import 'package:detooo_recargas/models/recargas/cards_model.dart';
 import 'package:detooo_recargas/services/network/api_payments.dart';
+import 'package:detooo_recargas/utils/handle_errors.dart';
 import 'package:flutter/material.dart';
 
 class UserCardsProvider extends ChangeNotifier {
@@ -10,9 +11,6 @@ class UserCardsProvider extends ChangeNotifier {
   bool get loading => _loading;
 
   UserCards? get cards {
-    if (_userCards == null) {
-      fetchCards();
-    }
     return _userCards;
   }
 
@@ -24,7 +22,7 @@ class UserCardsProvider extends ChangeNotifier {
     _setLoading(true);
     await ApiPayments.common().getStripeUsersCard().then((value) {
       setuserCards(value);
-    });
+    }).catchError((e) => HandleError.logError(null, e));
     _setLoading(false);
   }
 

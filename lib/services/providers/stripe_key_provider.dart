@@ -1,4 +1,5 @@
 import 'package:detooo_recargas/services/shared_preference.dart';
+import 'package:detooo_recargas/utils/handle_errors.dart';
 import 'package:detooo_recargas/utils/log_utils.dart';
 import 'package:flutter/foundation.dart';
 import 'package:detooo_recargas/services/network/api_payments.dart';
@@ -20,7 +21,7 @@ class StripeKeyProvider extends ChangeNotifier {
       }
 
       setStripeKey(value);
-    });
+    }).catchError((e) => HandleError.logError(null, e));
 
     if (stripeKey != null) {
       await _initStripe();

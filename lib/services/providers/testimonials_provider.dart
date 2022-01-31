@@ -1,3 +1,4 @@
+import 'package:detooo_recargas/utils/handle_errors.dart';
 import 'package:flutter/material.dart';
 
 import 'package:detooo_recargas/models/recargas/testimonials_model.dart';
@@ -39,6 +40,6 @@ class TestimonialsProvider extends ChangeNotifier {
     }
     await APIRecargas.common().fetchTestimonials().then((value) {
       setTestimonials(value);
-    });
+    }).catchError((e) => HandleError.logError(null, e));
   }
 }
