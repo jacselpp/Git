@@ -1,4 +1,3 @@
-import 'package:detooo_recargas/models/recargas/cards_model.dart';
 import 'package:detooo_recargas/services/providers/user_cards_provider.dart';
 import 'package:detooo_recargas/ui/app_ui.dart';
 import 'package:flutter/material.dart';
@@ -64,16 +63,16 @@ class CustomCreditCardButon extends StatelessWidget {
     );
   }
 
-  void _handleDelete(BuildContext context, Data card) {
-    List<String> listPaymentMethods = [];
-    for (var item in context.read<UserCardsProvider>().cards!.data!) {
-      if (card.card?.fingerprint == item.card?.fingerprint) {
-        listPaymentMethods.add(item.id!);
-      }
-    }
-    for (var item in listPaymentMethods) {
-      context.read<UserCardsProvider>().deletCard(item);
-    }
-    context.read<UserCardsProvider>().fetchCards();
-  }
+  // void _handleDelete(BuildContext context, Data card) {
+  //   List<String> listPaymentMethods = [];
+  //   for (var item in context.read<UserCardsProvider>().cards!.data!) {
+  //     if (card.card?.fingerprint == item.card?.fingerprint) {
+  //       listPaymentMethods.add(item.id!);
+  //     }
+  //   }
+  //   for (var item in listPaymentMethods) {
+  //     context.read<UserCardsProvider>().deletCard(item);
+  //   }
+  //   context.read<UserCardsProvider>().fetchCards();
+  // }
 }

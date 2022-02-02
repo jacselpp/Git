@@ -22,7 +22,6 @@ class _CardDraggableScrollableSheetState
   List<Data> userCards = [];
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     _initCards();
   }
