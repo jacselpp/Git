@@ -110,8 +110,10 @@ class _LoginViewState extends State<LoginView> {
             controller: _usernameController,
             label: locale.read('phone_email'),
             validator: (value) {
-              String? isEmail = validateEmail(context: context, value: value);
-              String? isPhone = validatePhone(context: context, value: value);
+              String? isEmail =
+                  validateEmail(context: context, value: value?.trim());
+              String? isPhone =
+                  validatePhone(context: context, value: value?.trim());
 
               if (isEmail == null || isPhone == null) {
                 return null;
