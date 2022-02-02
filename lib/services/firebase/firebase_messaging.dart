@@ -1,6 +1,7 @@
 // ignore_for_file: avoid_print
 
 import 'dart:async';
+import 'package:detooo_recargas/services/shared_preference.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
@@ -29,6 +30,9 @@ class PushNotificationService {
     await requestPermission();
 
     token = await FirebaseMessaging.instance.getToken();
+    if (token!.isNotEmpty && token != null) {
+      await SharedPreference.saveAppToken(token!);
+    }
 
     // Handlers
     FirebaseMessaging.onBackgroundMessage(_backgroundHandler);
