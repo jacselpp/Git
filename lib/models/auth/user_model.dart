@@ -29,6 +29,7 @@ class User {
     this.confirmPassword,
   });
   String? password;
+  String? source = "movil";
   String? confirmPassword;
   Country? country;
   List<String>? municipios = ['5f10b9aed6c90e1c8c0920a8'];

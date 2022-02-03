@@ -40,10 +40,13 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       acceptTerms: json['acceptTerms'] as bool? ?? true,
       password: json['password'] as String?,
       confirmPassword: json['confirmPassword'] as String?,
-    )..originType = json['origin_type'] as String;
+    )
+      ..source = json['source'] as String?
+      ..originType = json['origin_type'] as String;
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'password': instance.password,
+      'source': instance.source,
       'confirmPassword': instance.confirmPassword,
       'country': instance.country,
       'municipios': instance.municipios,
