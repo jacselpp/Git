@@ -40,7 +40,10 @@ class PrivacyView extends StatelessWidget {
           ..add(
             Text(
               item[0],
-              style: Theme.of(context).textTheme.headline5,
+              style: const TextStyle(
+                fontSize: 15.0,
+                fontWeight: FontWeight.bold,
+              ),
               textAlign: TextAlign.center,
             ),
           )

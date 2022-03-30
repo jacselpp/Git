@@ -53,8 +53,8 @@ android {
         applicationId "com.detooo.recargas"
         minSdkVersion 21
         targetSdkVersion 31
-        versionCode 5
-        versionName "0.0.5"
+        versionCode 8
+        versionName "0.0.8"
     }
 
       signingConfigs {

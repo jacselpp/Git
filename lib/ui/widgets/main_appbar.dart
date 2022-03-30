@@ -51,15 +51,19 @@ class MainAppBar {
         ThemeSwitcher(
           builder: (context) => IconButton(
             onPressed: () {
-              ThemeData themeName =
+              /* ThemeData themeName =
                   ThemeProvider.of(context)!.brightness != Brightness.light
                       ? AppTheme().lightTheme
                       : AppTheme().darkTheme;
               SharedPreference.setDarkMode(
                   ThemeProvider.of(context)!.brightness == Brightness.light);
-              ThemeSwitcher.of(context)!.changeTheme(theme: themeName);
+              ThemeSwitcher.of(context).changeTheme(theme: themeName); */
             },
-            icon: ThemeProvider.of(context)!.brightness == Brightness.light
+            icon: SvgPicture.asset(
+              'assets/images/15.svg',
+              height: 20,
+            ),
+            /* icon: ThemeProvider.of(context)!.brightness == Brightness.light
                 ? SvgPicture.asset(
                     'assets/images/15.svg',
                     height: 20,
@@ -67,7 +71,7 @@ class MainAppBar {
                 : SvgPicture.asset(
                     'assets/images/35.svg',
                     height: 20,
-                  ),
+                  ), */
           ),
         ),
         IconButton(

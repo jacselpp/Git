@@ -34,7 +34,10 @@ class AboutUsView extends StatelessWidget {
         Center(
           child: Text(
             locale.read('about_us'),
-            style: Theme.of(context).textTheme.headline5,
+            style: const TextStyle(
+              fontSize: 15.0,
+              fontWeight: FontWeight.bold,
+            ),
             textAlign: TextAlign.center,
           ),
         ),
